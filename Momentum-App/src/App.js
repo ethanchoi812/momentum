@@ -4,7 +4,7 @@ import Clock from './components/clock.js';
 import Greetings from './components/greetings.js';
 import Settings from './components/settings.js';
 import Weather from './components/weather.js';
-import Todo from './components/todo.js';
+import Todo from './components/todo/todo.js';
 
 
 class App extends Component {
