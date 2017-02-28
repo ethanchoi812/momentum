@@ -1,31 +1,7 @@
 import React, { Component } from 'react';
 import './todo.css';
 import TodoItem from './todo-item';
-
-const filters = {
-  ALL: 'all',
-  CURRENT: 'current',
-  DONE: 'done'
-};
-
-const focusLevels = {
-  NONE: 0,
-  LOW: 1,
-  MID: 2,
-  HIGH: 3,
-
-  bubbleDown(level) {
-    return level === 0
-      ? level
-      : (level + 4 - 1) % 4;
-  },
-
-  bubbleUp(level, until) {
-    return (level === 0 || level >= until)
-      ? level
-      : (level + 1) % 4;
-  }
-};
+import { filters, focusLevels } from './todo-utils';
 
 export default class Todo extends Component {
   constructor(props) {
@@ -76,30 +52,7 @@ export default class Todo extends Component {
     });
   }
 
-  toggleDone(i) {
-    if(!this.state.items[i].done &&
-        this.state.items[i].focusLevel !== focusLevels.NONE) {
-      this.updateFocus(i);
-    }
-
-    this.setState((prevState) => {
-      const items = prevState.items.slice();
-      items[i].done = !items[i].done;
-      items[i].finishDate = items[i].done
-        ? Date.now()
-        : null;
-
-      return { items };
-    });
-
-    this.removeDoneItems();
-  }
-
   removeItem(i) {
-    if(this.state.items[i].focusLevel !== focusLevels.NONE) {
-      this.updateFocus(i);
-    }
-
     this.setState((prevState) => {
       const items = prevState.items.slice();
       items.splice(i, 1);
@@ -135,7 +88,6 @@ export default class Todo extends Component {
       focusLevel: 0,
       done: false,
       isCountingDown: false,
-      isEditing: true,
 
       createDate: Date.now(),
       dueDate: Date.now() + 24 * 60 * 60 * 1000,
@@ -147,100 +99,53 @@ export default class Todo extends Component {
     }));
   }
 
-  startEditing(i) {
-    if(this.state.items[i].done) return;
+  modifyItem(idx, updates) {
+    if(updates.hasOwnProperty('remove')) {
+      if(this.state.items[idx].focusLevel !== focusLevels.NONE) {
+        this.updateFocus(idx);
+      }
+      this.removeItem(idx);
+      return;
+    }
+
+    if(updates.hasOwnProperty('focus')) {
+      this.updateFocus(idx);
+      return;
+    }
+
+    if(updates.done === true &&
+      this.state.items[idx].focusLevel !== focusLevels.NONE) {
+
+      this.updateFocus(idx);
+    }
 
     this.setState((prevState) => {
       const items = prevState.items.slice();
-      items[i].isEditing = true;
+      Object.assign(items[idx], updates);
 
       return { items };
     });
-  }
 
-  edit(i, title) {
-    this.setState((prevState) => {
-      const items = prevState.items.slice();
-      items[i].title = title;
-
-      return { items };
-    });
-  }
-
-  finishEditing(i) {
-    if(this.state.items[i].title) {
-      this.setState((prevState) => {
-        const items = prevState.items.slice();
-        items[i].isEditing = false;
-
-        return { items };
-      });
-    } else {
-      this.removeItem(i);
+    if(updates.hasOwnProperty('done')) {
+      this.removeDoneItems();
     }
   }
 
-  changeDate(i, dateString) {
-    const matches = dateString.match(/(\d{4})-(\d{2})-(\d{2})/);
-
-    this.setState((prevState) => {
-      const items = prevState.items.slice();
-      const dueDate = new Date(items[i].dueDate);
-
-      if(matches) {
-        dueDate.setYear(matches[1]);
-        dueDate.setMonth(matches[2] - 1);
-        dueDate.setDate(matches[3]);
-      } else {
-        dueDate.setYear(new Date().getFullYear());
-        dueDate.setMonth(new Date().getMonth());
-        dueDate.setDate(new Date().getDate());
-      }
-
-      items[i].dueDate = dueDate.getTime();
-
-      return { items };
-    });
+  saveDragged(idx, evt) {
+    this.dragging = idx;
   }
 
-  changeTime(i, timeString) {
-    const matches = timeString.match(/(\d{2}):(\d{2})/);
+  moveDragged(newIdx, evt) {
+    evt.preventDefault();
 
     this.setState((prevState) => {
       const items = prevState.items.slice();
-      const dueDate = new Date(items[i].dueDate);
+      const draggedItem = items[this.dragging];
 
-      if(matches) {
-        dueDate.setHours(matches[1]);
-        dueDate.setMinutes(matches[2]);
-      } else {
-        dueDate.setHours(new Date().getHours());
-        dueDate.setMinutes(new Date().getMinutes());
-      }
+      items.splice(this.dragging, 1);
+      items.splice(newIdx, 0, draggedItem);
 
-      items[i].dueDate = dueDate.getTime();
-
-      return { items };
-    });
-
-  }
-
-      
-  startCountdown(i) {
-    if(this.state.items[i].done) return;
-
-    this.setState((prevState) => {
-      const items = prevState.items.slice();
-      items[i].isCountingDown = true;
-
-      return { items };
-    });
-  }
-
-  stopCountdown(i) {
-    this.setState((prevState) => {
-      const items = prevState.items.slice();
-      items[i].isCountingDown = false;
+      this.dragging = newIdx;
 
       return { items };
     });
@@ -255,27 +160,15 @@ export default class Todo extends Component {
 
         if(!isDisplayed) return null;
 
+        const itemCopy = Object.assign({}, item);
+
         return (
           <TodoItem
             key={item.createDate}
-            title={item.title}
-            done={item.done}
-            isEditing={item.isEditing}
-            focusLevel={item.focusLevel}
-            finishDate={item.finishDate}
-            dueDate={item.dueDate}
-            isCountingDown={item.isCountingDown}
-
-            onStartCountdown={() => this.startCountdown(idx)}
-            onStopCountdown={() => this.stopCountdown(idx)}
-            onStartEditing={() => this.startEditing(idx)}
-            onEdit={(title) => this.edit(idx, title)}
-            onFinishEditing={() => this.finishEditing(idx)}
-            onUpdateFocus={() => this.updateFocus(idx)}
-            onRemove={() => this.removeItem(idx)}
-            onToggleDone={() => this.toggleDone(idx)}
-            onChangeDate={(dateString) => this.changeDate(idx, dateString)}
-            onChangeTime={(timeString) => this.changeTime(idx, timeString)}
+            item={itemCopy}
+            modifyItem={(updates) => this.modifyItem(idx, updates)}
+            saveDragged={(evt) => this.saveDragged(idx, evt)}
+            moveDragged={(evt) => this.moveDragged(idx, evt)}
           />
         );
       });
@@ -287,7 +180,7 @@ export default class Todo extends Component {
         <button onClick={() => this.changeFilter(filters.CURRENT)}>Current</button>
         <button onClick={() => this.changeFilter(filters.DONE)}>Done</button>
         <ul>{items}</ul>
-        <button onClick={this.addNewItem}>Add a new item</button>
+        {this.state.filter !== filters.DONE && <button onClick={this.addNewItem}>Add a new item</button>}
       </div>
     );
   }

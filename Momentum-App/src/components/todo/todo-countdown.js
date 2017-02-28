@@ -1,26 +1,5 @@
 import React from 'react';
-
-function msToHumanString(ms) {
-  const seconds = Math.floor((ms / 1000) % 60);
-  const minutes = Math.floor((ms / 1000 / 60) % 60);
-  const hours = Math.floor((ms / 1000 / 60 / 60) % 24);
-  const days = Math.floor(ms / 1000 / 60 / 60 / 24);
-
-  const numbers = [days, hours, minutes, seconds];
-  const units = ['day', 'hour', 'minute', 'second'];
-  const phrases = [];
-
-  numbers.forEach( (num, idx) => {
-    if(num > 0) {
-      let phrase = `${num} ${units[idx]}`;
-      if(num !== 1) phrase += 's';
-
-      phrases.push(phrase);
-    }
-  });
-
-  return phrases.join(', ');
-}
+import { msToHumanString } from './todo-utils';
 
 export default class TodoCountdown extends React.Component {
   constructor(props) {
