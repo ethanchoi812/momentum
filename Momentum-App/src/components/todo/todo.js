@@ -152,6 +152,20 @@ export default class Todo extends Component {
     });
   }
 
+  doneDrop(done, evt) {
+    evt.preventDefault();
+
+    // no-op if dragging todo item to the original tab
+    if(this.state.items[this.dragging].done && done) return;
+    if(!this.state.items[this.dragging].done && !done) return;
+
+    this.modifyItem(this.dragging, {
+      done: done,
+      finishDate: (done ? Date.now() : null),
+      isCountingDown: false
+    });
+  }
+
   render() {
     const items = this.state.items
       .map((item, idx) => {
@@ -193,7 +207,10 @@ export default class Todo extends Component {
     return (
       <div className="todo">
         <h3>TODO LIST</h3>
-        <TodoFilterControl onChangeFilter={this.changeFilter} />
+
+        <TodoFilterControl
+          onChangeFilter={this.changeFilter}
+          doneDrop={this.doneDrop} />
 
         { numDisplayedItems > 0 && <ul>{items}</ul> }
         { numDisplayedItems === 0 && <h4>No {currentList} items</h4> }
