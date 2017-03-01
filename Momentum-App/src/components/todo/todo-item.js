@@ -7,10 +7,6 @@ export default class TodoItem extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      isEditing: !this.props.item.title
-    };
-
     const keys = Object.getOwnPropertyNames(Object.getPrototypeOf(this));
     for(const key of keys) {
       if(typeof this[key] === 'function' && key.match(/^handle/i)) {
@@ -82,7 +78,7 @@ export default class TodoItem extends React.Component {
 
     if(this.props.item.done) return;
 
-    if(this.state.isEditing && !this.props.item.title) {
+    if(this.props.item.isEditing && !this.props.item.title) {
       this.props.modifyItem({
         remove: true
       });
@@ -90,9 +86,9 @@ export default class TodoItem extends React.Component {
       return;
     }
 
-    this.setState((prevState) => ({
-      isEditing: !prevState.isEditing
-    }));
+    this.props.modifyItem({
+      isEditing: !this.props.item.isEditing
+    });
   }
 
   handleRemove() {
@@ -130,7 +126,7 @@ export default class TodoItem extends React.Component {
       dueDate
     } = this.props.item;
 
-    const isEditing = this.state.isEditing;
+    const isEditing = this.props.item.isEditing;
 
     return (
       <li draggable={true}
