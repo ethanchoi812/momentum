@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './todo.css';
-import TodoItem from './todo-item';
+import TodoList from './todo-list';
 import TodoFilterControl from './todo-filter-control';
 import TodoLoader from './todo-loader';
 import TodoError from './todo-error';
@@ -15,7 +15,7 @@ export default class Todo extends Component {
       filter: filters.ALL,
       maxDoneItems: 20,
       loading: true,
-      error: 'just kidding'
+      error: null
     };
 
     const keys = Object.getOwnPropertyNames(Object.getPrototypeOf(this));
@@ -223,43 +223,6 @@ export default class Todo extends Component {
   render() {
     if(this.state.loading) return <TodoLoader />;
 
-    const items = this.state.items
-      .map((item, idx) => {
-        const isDisplayed = this.state.filter === filters.ALL ||
-          (this.state.filter === filters.CURRENT && !item.done) ||
-          (this.state.filter === filters.DONE && item.done);
-
-        if(!isDisplayed) return null;
-
-        const itemCopy = Object.assign({}, item);
-
-        return (
-          <TodoItem
-            key={item.createDate}
-            item={itemCopy}
-            modifyItem={(updates) => this.modifyItem(idx, updates)}
-            saveDragged={(evt) => this.saveDragged(idx, evt)}
-            moveDragged={(evt) => this.moveDragged(idx, evt)}
-          />
-        );
-      });
-
-    const numDisplayedItems = items.filter(item => !!item).length;
-
-    let currentList;
-    switch(this.state.filter) {
-      case filters.CURRENT:
-        currentList = 'current';
-        break;
-
-      case filters.DONE:
-        currentList = 'done';
-        break;
-
-      default:
-        currentList = 'todo';
-    }
-
     return (
       <div className="todo">
         <h3>TODO LIST</h3>
@@ -268,15 +231,13 @@ export default class Todo extends Component {
           onChangeFilter={this.changeFilter}
           doneDrop={this.doneDrop} />
 
-        { numDisplayedItems > 0 && <ul>{items}</ul> }
-        { numDisplayedItems === 0 && <h4>No {currentList} items</h4> }
-
-        { this.state.filter !== filters.DONE &&
-          <button onClick={this.addNewItem}>Add a new item</button> }
-
-        { numDisplayedItems > 0 &&
-          <h4>Total: {numDisplayedItems} {currentList} item{
-          numDisplayedItems !== 1 && 's'}</h4> }
+        <TodoList
+          items={this.state.items.slice()}
+          filter={this.state.filter}
+          addNewItem={this.addNewItem}
+          modifyItem={this.modifyItem}
+          saveDragged={this.saveDragged}
+          moveDragged={this.moveDragged} />
 
         <TodoError error={this.state.error} dismiss={this.dismissError} />
       </div>

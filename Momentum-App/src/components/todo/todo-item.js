@@ -129,7 +129,8 @@ export default class TodoItem extends React.Component {
     const isEditing = this.props.item.isEditing;
 
     return (
-      <li draggable={true}
+      <li className="todo-item"
+          draggable={true}
           onDragStart={this.props.saveDragged}
           onDragOver={this.props.moveDragged}
           onDrop={this.handleDrop}>
