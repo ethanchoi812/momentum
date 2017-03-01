@@ -1,7 +1,7 @@
 # Meeting notes
 ## 26/2/17
 
-## tasks and deligation
+## tasks and delegation
 
 ### Background Images - Sam
 - Download a few and store them in the extension zip
@@ -12,18 +12,20 @@
 ### clock - Kamyl
 - toggle between 12hr 24hr Analogue clocks
 
-### Laout - Ethan
+### Layout - Ethan
 - css framework styles
 - wireframe and layout
 - naming conventions
 
-### Greetings - Kamyl
+### Quotes - Ethan
 - array of quotes
+
+### Greetings - Kamyl
 - fades out after a period of time to become the focus section
 
 ### Weather - Kamyl
 
-### ToDo list - KSmai and Ethan
+### ToDo list - KSmai
 - select 3 things as the focus for that day
 - change the order of tasks
 - todo list and a completed list (possibly tab for each)
