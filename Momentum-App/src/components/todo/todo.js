@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './todo.css';
 import TodoItem from './todo-item';
 import TodoFilterControl from './todo-filter-control';
-import { filters, focusLevels } from './todo-utils';
+import { filters, focusLevels, saveTodo, loadTodo } from './todo-utils';
 
 export default class Todo extends Component {
   constructor(props) {
@@ -11,16 +11,40 @@ export default class Todo extends Component {
     this.state = {
       items: [],
       filter: filters.ALL,
-      maxDoneItems: 20
+      maxDoneItems: 20,
+      loading: true,
+      error: null
     };
 
     const keys = Object.getOwnPropertyNames(Object.getPrototypeOf(this));
     for(const key of keys) {
-      if(typeof this[key] === 'function' &&
+      if(typeof this[key] === 'function' && key !== 'componentDidMount' &&
+        key !== 'componentDidUpdate' &&
         key !== 'constructor' && key !== 'render') {
         this[key] = this[key].bind(this);
       }
     }
+  }
+
+  componentDidMount() {
+    loadTodo().then((todoList) => {
+      this.setState((prevState) => ({
+        items: todoList || prevState.items,
+        loading: false,
+        error: null
+      }));
+
+      console.log('loaded!');
+      console.table(todoList);
+    }, (err) => {
+      const errorMessage = (err && err.message) ||
+        (err && err.toString()) || 'Unknown Error';
+
+      this.setState({
+        loading: false,
+        error: `Fail to load todo list: ${errorMessage}`
+      });
+    });
   }
 
   removeDoneItems() {
@@ -166,7 +190,27 @@ export default class Todo extends Component {
     });
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if(prevState.items === this.state.items) return;
+
+    saveTodo(this.state.items).then(() => {
+      this.setState({
+        error: null
+      });
+
+      console.log('saved!');
+    }, (err) => {
+      const errorMessage = (err && err.message) ||
+        (err && err.toString()) || 'Unknown Error';
+
+      this.setState({
+        error: `Fail to store todo-list: ${errorMessage}`
+      });
+    });
+  }
+
   render() {
+    
     const items = this.state.items
       .map((item, idx) => {
         const isDisplayed = this.state.filter === filters.ALL ||
@@ -212,15 +256,21 @@ export default class Todo extends Component {
           onChangeFilter={this.changeFilter}
           doneDrop={this.doneDrop} />
 
-        { numDisplayedItems > 0 && <ul>{items}</ul> }
-        { numDisplayedItems === 0 && <h4>No {currentList} items</h4> }
+        { this.state.loading && <h4>Loading...</h4> }
 
-        { this.state.filter !== filters.DONE &&
-          <button onClick={this.addNewItem}>Add a new item</button> }
+        { !this.state.loading && <div>
+          { numDisplayedItems > 0 && <ul>{items}</ul> }
+          { numDisplayedItems === 0 && <h4>No {currentList} items</h4> }
 
-        { numDisplayedItems > 0 &&
-          <h4>Total: {numDisplayedItems} {currentList} item{
-          numDisplayedItems !== 1 && 's'}</h4> }
+          { this.state.filter !== filters.DONE &&
+            <button onClick={this.addNewItem}>Add a new item</button> }
+
+          { numDisplayedItems > 0 &&
+            <h4>Total: {numDisplayedItems} {currentList} item{
+            numDisplayedItems !== 1 && 's'}</h4> }
+        </div> }
+
+        { this.state.error && <h4>{this.state.error}</h4> }
       </div>
     );
   }

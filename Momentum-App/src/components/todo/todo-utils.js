@@ -62,3 +62,46 @@ export function msToHumanString(ms) {
 
   return phrases.join(', ');
 }
+
+export function checkForChrome() {
+  return new Promise(function(resolve, reject) {
+    if(!window.chrome) {
+      reject(new Error('Cannot access Chrome API'));
+      return;
+    }
+
+    resolve();
+  });
+}
+
+export function saveTodo(todoList) {
+  return checkForChrome().then(function() {
+    return new Promise(function(resolve, reject) {
+      window.chrome.storage.sync.set({ todo: todoList }, function() {
+        if(window.chrome.runtime.lastError) {
+          reject(new Error(window.chrome.runtime.lastError.message));
+        }
+
+        resolve(todoList);
+      });
+    });
+  }, function(e) {
+    throw e;
+  });
+}
+
+export function loadTodo() {
+  return checkForChrome().then(function() {
+    return new Promise(function(resolve, reject) {
+      window.chrome.storage.sync.get('todo', function(result) {
+        if(window.chrome.runtime.lastError) {
+          reject(new Error(window.chrome.runtime.lastError.message));
+        }
+
+        resolve(result.todo);
+      });
+    });
+  }, function(e) {
+    throw e;
+  });
+}
