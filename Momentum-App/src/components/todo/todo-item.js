@@ -1,6 +1,7 @@
 import React from 'react';
 import TodoCountdown from './todo-countdown';
-import { formatDateString, formatTimeString } from './todo-utils';
+import TodoFocus from './todo-focus';
+import TodoItemTitle from './todo-item-title';
 
 export default class TodoItem extends React.Component {
   constructor(props) {
@@ -117,7 +118,6 @@ export default class TodoItem extends React.Component {
 
   handleDrop(evt) {
     evt.preventDefault();
-    console.log('drop', evt.dataTransfer.getData('text'));
     evt.dataTransfer.clearData();
   }
 
@@ -130,16 +130,6 @@ export default class TodoItem extends React.Component {
       dueDate
     } = this.props.item;
 
-    const dueDateObj = new Date(dueDate);
-    const year = dueDateObj.getFullYear();
-    const month = dueDateObj.getMonth() + 1;
-    const date = dueDateObj.getDate();
-    const hour = dueDateObj.getHours();
-    const minute = dueDateObj.getMinutes();
-
-    const dateString = formatDateString(year, month, date);
-    const timeString = formatTimeString(hour, minute);
-
     const isEditing = this.state.isEditing;
 
     return (
@@ -147,25 +137,30 @@ export default class TodoItem extends React.Component {
           onDragStart={this.props.saveDragged}
           onDragOver={this.props.moveDragged}
           onDrop={this.handleDrop}>
-        <input onChange={this.handleToggleDone} checked={done} type="checkbox" />
 
-        {!isEditing && <span onClick={this.handleToggleEdit}>{title}</span>}
-        {isEditing && <input value={title} onChange={this.handleChangeTitle}
-            onBlur={this.handleToggleEdit}
-            onKeyPress={this.handleToggleEdit}
-            autoFocus={true} />}
-        <button onClick={this.handleUpdateFocus}>
-          { focusLevel === 0 && 'Set as focus' }
-          { focusLevel === 1 && 'Lowest focus level' }
-          { focusLevel === 2 && 'Mid focus level' }
-          { focusLevel === 3 && 'Highest focus level' }
-        </button>
-        { isCountingDown && <input type="date" value={dateString} onChange={this.handleChangeDate}/> }
-        { isCountingDown && <input type="time" value={timeString} onChange={this.handleChangeTime}/> }
+        <input
+          onChange={this.handleToggleDone}
+          checked={done}
+          type="checkbox" />
 
-        { !isCountingDown && <button onClick={this.handleStartCountdown}>Start Countdown</button> }
-        { isCountingDown && <TodoCountdown endTime={dueDate}/> }
-        { isCountingDown && <button onClick={this.handleStopCountdown}>Stop Countdown</button> }
+        <TodoItemTitle
+          title={title}
+          isEditing={isEditing}
+          onChangeTitle={this.handleChangeTitle}
+          onToggleEdit={this.handleToggleEdit} />
+
+        <TodoFocus
+          focusLevel={focusLevel}
+          onUpdateFocus={this.handleUpdateFocus} />
+
+        <TodoCountdown
+          onChangeDate={this.handleChangeDate}
+          onChangeTime={this.handleChangeTime}
+          onStartCountdown={this.handleStartCountdown}
+          onStopCountdown={this.handleStopCountdown}
+          isCountingDown={isCountingDown}
+          dueDate={dueDate} />
+
         <button onClick={this.handleRemove}>Remove</button>
       </li>
     );

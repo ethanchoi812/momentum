@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './todo.css';
 import TodoItem from './todo-item';
+import TodoFilterControl from './todo-filter-control';
 import { filters, focusLevels } from './todo-utils';
 
 export default class Todo extends Component {
@@ -173,14 +174,36 @@ export default class Todo extends Component {
         );
       });
 
+    const numDisplayedItems = items.filter(item => !!item).length;
+
+    let currentList;
+    switch(this.state.filter) {
+      case filters.CURRENT:
+        currentList = 'current';
+        break;
+
+      case filters.DONE:
+        currentList = 'done';
+        break;
+
+      default:
+        currentList = 'todo';
+    }
+
     return (
       <div className="todo">
-        TODO LIST
-        <button onClick={() => this.changeFilter(filters.ALL)}>All</button>
-        <button onClick={() => this.changeFilter(filters.CURRENT)}>Current</button>
-        <button onClick={() => this.changeFilter(filters.DONE)}>Done</button>
-        <ul>{items}</ul>
-        {this.state.filter !== filters.DONE && <button onClick={this.addNewItem}>Add a new item</button>}
+        <h3>TODO LIST</h3>
+        <TodoFilterControl onChangeFilter={this.changeFilter} />
+
+        { numDisplayedItems > 0 && <ul>{items}</ul> }
+        { numDisplayedItems === 0 && <h4>No {currentList} items</h4> }
+
+        { this.state.filter !== filters.DONE &&
+          <button onClick={this.addNewItem}>Add a new item</button> }
+
+        { numDisplayedItems > 0 &&
+          <h4>Total: {numDisplayedItems} {currentList} item{
+          numDisplayedItems !== 1 && 's'}</h4> }
       </div>
     );
   }
