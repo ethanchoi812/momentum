@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import WeatherBar from './WeatherBar'
-import './weather.css';
+import WeatherBar from './WeatherBar';
+import WeatherBarError from './WeatherBarError';
+
 
 
 
@@ -62,7 +63,7 @@ export default class WeatherContainer extends Component {
     let country = data.location.country;
     this.setState({
       temp_c: data.current.temp_c.toFixed(0) + "C",
-      temp_f: data.current.temp_f.toFixed(0) + "+F",
+      temp_f: data.current.temp_f.toFixed(0) + "F",
       sky: data.current.condition.text,
       location: data.location.name + ", " + data.location.country
       }, ()=>{this.setState((prevState) =>{
@@ -86,8 +87,12 @@ export default class WeatherContainer extends Component {
     }
   }
   render() {
+    if(this.state.msg){
+      return (<WeatherBarError msg={this.state.msg} />);
+    }else {
     return (
       <WeatherBar temp={this.state.temp_used} sky={this.state.sky} location={this.state.location} onClick={this.handleClickUnits} />
     );
+    }
   }
 }

@@ -1,0 +1,7 @@
+.weatherBar{
+    width: 300px;
+    height: 100px;
+    margin-left: auto;
+    background: rgba(0,0,0, .8);
+    color: #FFF;
+}
