@@ -3,7 +3,7 @@ import './App.css';
 import Clock from './components/clock.js';
 import Greetings from './components/greetings.js';
 import Settings from './components/settings.js';
-import Weather from './components/weather.js';
+import WeatherContainer from './components/weather/WeatherContainer';
 import Todo from './components/todo/todo.js';
 
 
@@ -20,7 +20,7 @@ class App extends Component {
     return (
       <div className="screen">
         <Clock />
-        <Weather />
+        <WeatherContainer />
         <Greetings />
         <Todo />
         <Settings />
