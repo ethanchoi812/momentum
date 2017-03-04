@@ -79,6 +79,7 @@ export default class WeatherContainer extends Component {
     })
     return Promise.reject(msg);
   }
+  //Function for switching between F and C
   handleClickUnits = ()=> {
     if(this.state.temp_used === this.state.temp_c){
       this.setState({temp_used: this.state.temp_f})
