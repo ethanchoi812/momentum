@@ -29,7 +29,7 @@ export default class WeatherContainer extends Component {
       navigator.geolocation.getCurrentPosition(
         function(position){
           let coords = position.coords.latitude.toFixed(2) + "," + position.coords.longitude.toFixed(2);
-          const key = "e984c7d121044a32a18221132170402";
+          const key = /*"e984c7d121044a32a18221132170402"*/"lalala";
           let url = "https://api.apixu.com/v1/current.json?key=" + key + "&q=" + coords;
           resolve(url);
         },
