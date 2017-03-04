@@ -1,13 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../../styles/clockBar.css'
 
-class ClockBar extends Component {
-    render() {
-        return (
-            <div className="clockBar" onClick={this.props.handleClick}>{this.props.time}</div>
-        );
-    }
-}
+const ClockBar = props => {
+    return (
+        <div className="clockBar" onClick={props.handleClick}>{props.time}</div>
+    );
+};
+
+ClockBar.propTypes = {
+    time: React.PropTypes.string.isRequired,
+    handleClick: React.PropTypes.func.isRequired
+};
 
 export default ClockBar;
-

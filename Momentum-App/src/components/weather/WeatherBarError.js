@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../../styles/weather.css'
 
-class WeatherBarError extends Component {
-    render() {
-        return (
-            <div className="weatherBar">
-                {this.props.msg}
+const WeatherBarError = props => {
+    return (
+        <div className="weatherBar">
+                {props.msg}
             </div>
-        );
-    }
-}
+    );
+};
+
+WeatherBarError.propTypes = {
+    msg: React.PropTypes.string.isRequired
+};
 
 export default WeatherBarError;

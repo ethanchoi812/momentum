@@ -9,9 +9,9 @@ export default class WeatherContainer extends Component {
   constructor(){
     super();
     this.state = {
-      temp_c: 0,
-      temp_f: 0,
-      temp_used: 0,
+      temp_c: "",
+      temp_f: "",
+      temp_used: "",
       sky: "",
       location: "",
       msg: ""
@@ -29,7 +29,7 @@ export default class WeatherContainer extends Component {
       navigator.geolocation.getCurrentPosition(
         function(position){
           let coords = position.coords.latitude.toFixed(2) + "," + position.coords.longitude.toFixed(2);
-          const key = /*"e984c7d121044a32a18221132170402"*/"lalala";
+          const key =/* "e984c7d121044a32a18221132170402"*/"lalala";
           let url = "https://api.apixu.com/v1/current.json?key=" + key + "&q=" + coords;
           resolve(url);
         },
@@ -62,8 +62,8 @@ export default class WeatherContainer extends Component {
     let countriesUsingF = ["United States of America", "Cayman Islands", "Bahamas", "Belize"];
     let country = data.location.country;
     this.setState({
-      temp_c: data.current.temp_c.toFixed(0) + "C",
-      temp_f: data.current.temp_f.toFixed(0) + "F",
+      temp_c: data.current.temp_c.toFixed(0) + "*C",
+      temp_f: data.current.temp_f.toFixed(0) + "*F",
       sky: data.current.condition.text,
       location: data.location.name + ", " + data.location.country
       }, ()=>{this.setState((prevState) =>{
