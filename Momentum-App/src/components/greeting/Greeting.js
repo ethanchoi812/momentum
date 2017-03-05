@@ -4,13 +4,10 @@ import '../../styles/greeting.css'
 const Greeting = props => {
     return (
         <div className="greetingBox">
-            YOYOYOYOYOYO! Bish!
+            Hello {props.username}
         </div>
     );
 };
 
-Greeting.propTypes = {
-    
-};
 
 export default Greeting;
