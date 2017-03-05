@@ -44,9 +44,10 @@
 }
 #settingsCog {
     position: absolute;
-    width: 10%;
-    height: 5vw;
-    bottom: -5vw;
+    width: 4vw;
+    height: 4vw;
+    bottom: 0.5vw;
+    left: 4vw;
 }
 #cog {
     width: 100%;
