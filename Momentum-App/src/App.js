@@ -5,6 +5,7 @@ import Greetings from './components/greetings.js';
 import Settings from './components/settings.js';
 import WeatherContainer from './components/weather/WeatherContainer';
 import Todo from './components/todo/todo.js';
+import Quotes from './components/quotes/quotes.js';
 
 
 class App extends Component {
@@ -24,6 +25,7 @@ class App extends Component {
         <Greetings />
         <Todo />
         <Settings />
+        <Quotes />
       </div>
     );
   }
