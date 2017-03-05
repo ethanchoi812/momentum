@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import Clock from './components/clock.js';
+import ClockContainer from './components/clock/ClockContainer';
 import Greetings from './components/greetings.js';
 import Settings from './components/settings/settings.js';
 import WeatherContainer from './components/weather/WeatherContainer';
 import Todo from './components/todo/todo.js';
+import Quotes from './components/quotes/quotes.js';
 
 
 class App extends Component {
@@ -19,11 +20,12 @@ class App extends Component {
   render() {
     return (
       <div className="screen">
-        <Clock />
+        <ClockContainer />
         <WeatherContainer />
         <Greetings />
         <Todo />
         <Settings />
+        <Quotes />
       </div>
     );
   }

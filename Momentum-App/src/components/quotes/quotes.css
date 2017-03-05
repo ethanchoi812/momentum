@@ -1,0 +1,14 @@
+.quoteDiv {
+	bottom:10%;
+	text-align: center;
+}
+
+.quoteSentence {
+	font-size: 18px;
+	color: #fff;
+}
+
+.quoteAuthor {
+	font-size: 12px;
+	color: #ccc;
+}
