@@ -31,6 +31,9 @@ export default class Settings extends Component {
         </div>
         <div className="setQuotes">
         </div>
+        <div id="settingsCog">
+            <img id="cog" src="http://icons.iconarchive.com/icons/dtafalonso/android-lollipop/512/Settings-icon.png" alt="settings" />
+        </div>
       </div>
     );
   }
