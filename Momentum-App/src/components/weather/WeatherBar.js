@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../../styles/weather.css';
 import '../../styles/weather-icons.min.css'
 
-class WeatherBar extends Component {
-    render() {
-        const icons = {
+const WeatherBar = props => {
+    const icons = {
                 "Sunny": 'wi wi-day-sunny',
                 "Clear": 'wi wi-night-clear',
                 "Partly cloudy": 'wi wi-cloud',
@@ -56,17 +55,23 @@ class WeatherBar extends Component {
                 "Moderate or heavy snow in area with thunder": 'wi wi-storm-showers',
                 "default": 'wi wi-na'
             };
-        return (
-            <div className="weatherBar">
-                <div className="conditionsBar">
-                    <span><i className={icons[this.props.sky]} /></span><span onClick={this.props.onClick}>{this.props.temp}</span>
-                </div>
-                <div className="locationBar">
-                    <span>{this.props.location}</span>
-                </div>
+    return (
+        <div className="weatherBar">
+            <div className="conditionsBar">
+                <span><i className={icons[props.sky]} /></span><span onClick={props.onClick}>{props.temp}</span>
             </div>
-        );
-    }
-}
+            <div className="locationBar">
+                <span>{props.location}</span>
+            </div>
+        </div>
+    );
+};
+
+WeatherBar.propTypes = {
+    temp: React.PropTypes.string.isRequired,
+    location: React.PropTypes.string.isRequired,
+    sky: React.PropTypes.string.isRequired,
+    onClick: React.PropTypes.func.isRequired
+};
 
 export default WeatherBar;
