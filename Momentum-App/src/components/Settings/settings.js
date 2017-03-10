@@ -12,6 +12,28 @@ export default class Settings extends Component {
     settingsClass.toggle('hideSettings');
   }
   
+  
+  
+  componentDidMount(){
+    var settings = JSON.parse(localStorage.getItem('settings')) || 
+      {'general': {
+        'Weather': true,
+        'Clock': true,
+        'Focus': true,
+        'ToDo': true
+        }
+      };
+    
+    document.querySelector('.setGeneral').addEventListener('click', function(e){
+      if(~e.target.className.indexOf('toggleBit')){
+        document.getElementById(e.target.id).classList.toggle('bitOff');
+        settings.general[e.target.id] = !settings.general[e.target.id];
+        console.log(settings.general[e.target.id]);
+        localStorage.getItem('settings', JSON.stringify(settings));
+      }
+    });
+  }
+  
   render() {
     return (
       <div>
@@ -25,9 +47,9 @@ export default class Settings extends Component {
             <div>Background</div>
             <div>Quotes</div>
           </div>
-          <div className="setGeneral">
+          <div className="setGeneral shown">
             <User />
-            <div className="onOff">
+            <div className="onOff" onClick={this.toggleField}>
               <div className="miniTitle"><strong>Widgets</strong></div>
               <div className="underline" />
               <Switch item={'Weather'} />
@@ -36,11 +58,11 @@ export default class Settings extends Component {
               <Switch item={"Todo"} />
             </div>
           </div>
-          <div className="setTodo">
+          <div className="setTodo hidden">
           </div>
-          <div className="setBackground">
+          <div className="setBackground hidden">
           </div>
-          <div className="setQuotes">
+          <div className="setQuotes hidden">
           </div>
         </div>
       </div>

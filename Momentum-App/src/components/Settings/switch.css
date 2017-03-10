@@ -1,9 +1,10 @@
 .switch {
     position: relative;
     width: 100%;
-    height: 5%;
+    height: 32px;
     top: 0;
-    padding-top: 5px;
+    display: flex;
+    align-items: center;
 }
 .lineUnder {
     position: absolute;
@@ -11,5 +12,23 @@
     height: 1px;
     bottom: 0;
     background: rgb(200, 200, 200);
-    background: rgba(200, 200, 200, 0.6);
+    background: rgba(200, 200, 200, 0.8);
 }
+.toggleBody{
+    position: absolute;
+    width: 48px;
+    height: 24px;
+    right: 12px;
+    background: rgba(200, 200, 200, 0.8);
+    border-radius: 12px;
+}
+.toggleBit{
+    position: absolute;
+    width: 32px;
+    height: 24px;
+    border-radius: 12px;
+    background: rgba(100, 100, 100, 0.8);
+    left: 0;
+    transition: left 0.2s;
+}
+.bitOff{left: 16px;}

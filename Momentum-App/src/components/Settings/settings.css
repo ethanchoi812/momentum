@@ -32,10 +32,11 @@
     position: absolute;
     width: 65%;
     right: 0;
-    height: 100%;
     top:0;
     overflow-y: scroll;
 }
+.hidden{height: 0;}
+.shown{height: 100%;}
 .onOff {
     position: relative;
     top: 20%;
