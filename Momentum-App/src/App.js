@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import ClockContainer from './components/clock/ClockContainer';
 import GreetingContainer from './components/greeting/GreetingContainer';
-import Settings from './components/settings.js';
+import Settings from './components/Settings/settings.js';
 import WeatherContainer from './components/weather/WeatherContainer';
 import Todo from './components/todo/todo.js';
 import Quotes from './components/quotes/quotes.js';
