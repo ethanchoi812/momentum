@@ -4,7 +4,7 @@ import TodoList from './todo-list';
 import TodoFilterControl from './todo-filter-control';
 import TodoLoader from './todo-loader';
 import TodoError from './todo-error';
-import { filters, focusLevels, saveTodo, loadTodo } from './todo-utils';
+import { filters, focusLevels } from './todo-utils';
 
 export default class Todo extends Component {
   constructor(props) {
@@ -29,21 +29,24 @@ export default class Todo extends Component {
   }
 
   componentDidMount() {
-    loadTodo().then((todoList) => {
-      this.setState((prevState) => ({
-        items: todoList || prevState.items,
-        loading: false,
-        error: null
-      }));
-    }, (err) => {
-      const errorMessage = (err && err.message) ||
-        (err && err.toString()) || 'Unknown Error';
-
+    const todo = window.localStorage.getItem('todo');
+    let todoList;
+    try {
+      todoList = todo
+        ? JSON.parse(todo)
+        : [];
+    } catch(err) {
       this.setState({
         loading: false,
-        error: `Fail to load todo list: ${errorMessage}`
+        error: `Fail to load todo list: ${err.message}`
       });
-    });
+      return;
+    }
+    this.setState((prevState) => ({
+      items: todoList || prevState.items,
+      loading: false,
+      error: null
+    }));
   }
 
   removeDoneItems() {
@@ -195,22 +198,13 @@ export default class Todo extends Component {
     if(prevState.items === this.state.items) return;
 
     const isEditing = this.state.items
-      .map(item => item.isEditing)
-      .includes(true);
+      .some(item => item.isEditing);
 
     if(isEditing) return;
 
-    saveTodo(this.state.items).then(() => {
-      this.setState({
-        error: null
-      });
-    }, (err) => {
-      const errorMessage = (err && err.message) ||
-        (err && err.toString()) || 'Unknown Error';
-
-      this.setState({
-        error: `Fail to store todo-list: ${errorMessage}`
-      });
+    window.localStorage.setItem('todo', JSON.stringify(this.state.items));
+    this.setState({
+      error: null
     });
   }
 
