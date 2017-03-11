@@ -1,0 +1,19 @@
+{
+  "manifest_version": 1,
+
+  "name": "Fake Momentum App",
+  "description": "This extension changes the default new tab to our app",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "chrome_url_overrides" : {
+    "newTab": "Page.html"
+  },
+  "permissions": [
+    "activeTab",
+    "https://ajax.googleapis.com/"
+  ]
+}

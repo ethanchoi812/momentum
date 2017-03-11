@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import ClockContainer from './components/clock/ClockContainer';
-import Greetings from './components/greetings.js';
-import Settings from './components/settings/settings.js';
+import GreetingContainer from './components/greeting/GreetingContainer';
+import Settings from './components/Settings/settings.js';
 import WeatherContainer from './components/weather/WeatherContainer';
 import Todo from './components/todo/todo.js';
 import Quotes from './components/quotes/quotes.js';
@@ -22,8 +22,8 @@ class App extends Component {
       <div className="screen">
         <ClockContainer />
         <WeatherContainer />
-        <Greetings />
         <Todo />
+        <GreetingContainer />
         <Settings />
         <Quotes />
       </div>
