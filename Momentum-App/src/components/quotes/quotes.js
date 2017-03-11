@@ -157,4 +157,4 @@ class QuoteWidget extends Component {
 	}
 }
 
-export default QuoteWidget;
+export default Quotes;
