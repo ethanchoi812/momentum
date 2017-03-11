@@ -45,16 +45,23 @@ class GetQuote extends Component {
 }
 
   handleSubmit(event) {
-  	
-    const newQuote = {
-    	line:this.state.line,
-    	author:this.state.author
-    }
 
-    console.log(newQuote);
-    this.props.onSubmitNewQuote(newQuote);
-    event.preventDefault();
- }   
+	if(this.state.line){
+
+		const newQuote = {
+	    	line:this.state.line,
+	    	author:this.state.author
+    	}
+
+	    this.state={
+	    	line:'',
+	    	author:''
+	    };
+
+		event.preventDefault(); 
+		this.props.onSubmitNewQuote(newQuote);
+		}
+	}   
   
 	render(){
 		
@@ -130,7 +137,7 @@ var initialQuoteArray = [
 		author: 'Unknown'}
 	];
 
-class QuoteWidget extends Component {
+class Quotes extends Component {
 	constructor(props) {
     super(props);
     this.handleSubmitQuote = this.handleSubmitQuote.bind(this);
@@ -139,12 +146,13 @@ class QuoteWidget extends Component {
 	
 	handleSubmitQuote(userQuote) {
 
-    const newArray = this.state.quoteArr.slice();    
-    newArray.push(userQuote);
-    console.log(userQuote);
-    this.setState({quoteArr:newArray});
-  }
+    const newArray = this.state.quoteArr.slice();
 
+    if(userQuote !== ""){    
+    newArray.push(userQuote);
+    this.setState({quoteArr:newArray});
+  	}
+	}
 	render(){	
 		const quoteArr = this.state.quoteArr;
 		return(
