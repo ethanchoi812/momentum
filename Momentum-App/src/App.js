@@ -9,14 +9,14 @@ import Quotes from './components/quotes/quotes.js';
 
 
 class App extends Component {
-  
+
   /*
   componentWillMount(){
     var num = 1;
     document.querySelector('screen').classList.add(`bgi${num}`);
   }
   */
-  
+
   render() {
     return (
       <div className="screen">
