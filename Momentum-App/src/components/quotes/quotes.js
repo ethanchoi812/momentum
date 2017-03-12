@@ -4,12 +4,12 @@ import './quotes.css'
 class DisplayQuotes extends Component {
 	render(){
 
-	var d = new Date();
-	var n = (d.getDate() - 1)%10;
+	const d = new Date();
+	const n = (d.getDate() - 1)%10;
 
 	return(
 	<div className="displayQuoteDiv">
-  		<p className="quoteSentence">{this.props.quoteArray[n].line}</p>
+  		<p className="quoteSentence">{this.props.quoteArray[n].text}</p>
   		<p className="quoteAuthor">{this.props.quoteArray[n].author}</p>
   	</div>
 
@@ -21,19 +21,20 @@ class GetQuote extends Component {
 	constructor(props) {
     super(props);
     this.state={
-    	line:'',
+    	text:'',
     	author:''
     };
 
-    this.handleLineChange = this.handleLineChange.bind(this);
+
+    this.handleTextChange = this.handleTextChange.bind(this);
     this.handleAuthorChange = this.handleAuthorChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleLineChange(event) {
+  handleTextChange(event) {
 
    this.setState({
-   	line:event.target.value,
+   	text:event.target.value,
   });
 }
 
@@ -45,35 +46,38 @@ class GetQuote extends Component {
 }
 
   handleSubmit(event) {
+  	event.preventDefault();
 
-	if(this.state.line){
+	if(this.state.text){
 
 		const newQuote = {
-	    	line:this.state.line,
+	    	text:this.state.text,
 	    	author:this.state.author
     	}
 
 	    this.state={
-	    	line:'',
-	    	author:''
+	    	text:"",
+	    	author:""
 	    };
 
-		event.preventDefault(); 
 		this.props.onSubmitNewQuote(newQuote);
 		}
-	}   
+
+	this.reset();
+
+	}
   
 	render(){
 		
 	return (
-      <form onSubmit={this.handleSubmit}>
+      <form className="addQuotes" onSubmit={this.handleSubmit}>
       <label>
       	Quote:
-        <input type="text" value={this.state.line} placeholder="Quote here" onChange={this.handleLineChange}/>
+        <input type="text" name="quoteText" value={this.state.text} placeholder="Quote here" onChange={this.handleTextChange}/>
         </label>
       <label>
         Author:
-        <input type="text" value={this.state.author} placeholder="Author name" onChange={this.handleAuthorChange}/>
+        <input type="text" name="quoteAuthor" value={this.state.author} placeholder="Author name" onChange={this.handleAuthorChange}/>
         </label>
           <input type="submit" value="Submit"/>
       </form>
@@ -84,12 +88,12 @@ class GetQuote extends Component {
 class QuoteRow extends Component {
 	render(){
 
-		var line = this.props.quote.line;
-		var author = this.props.quote.author;
+		const text = this.props.quote.text;
+		const author = this.props.quote.author;
 
 	return(
-			<li key={author} className="quoteListItem">
-	      		<span className="sentenceItem">{line}</span>
+			<li className="quoteListItem">
+	      		<span className="sentenceItem">{text}</span>
 	      		&nbsp;
 	      		<span className="authorItem">{author}</span>
 	      	</li>		
@@ -98,8 +102,9 @@ class QuoteRow extends Component {
 }
 
 class QuoteList extends Component {
+
 	render(){
-		var rows=[];
+		const rows=[];
 		this.props.quoteArray.forEach(function(quote){
 			rows.push(<QuoteRow quote={quote}/>);
 		});
@@ -114,45 +119,47 @@ class QuoteList extends Component {
 	}
 }
 
-var initialQuoteArray = [
-		{line: 'Without new experiences, something inside of us sleeps. The sleeper must awaken.',
-		author: 'Frank Herbert'},
-		{line: 'Life has no limitations, except the ones you make.',
-		author: 'Les Brown'},
-		{line: 'Go forth and make awesomeness.',
-		author: 'Unknown'},
-		{line: 'One day you will wake up and there won'+ String.fromCharCode(39) +'t be any more time to do the things you'+ String.fromCharCode(39) +'ve always wanted. Do it now.', 
-		author: 'Paulo Coelho'},
-		{line: 'Forget all the reasons why it won'+ String.fromCharCode(39) +'t work and believe the one reason why it will.', 
-		author: 'Unknown'},
-		{line: 'Nothing is so fatiguing as the eternal hanging on of an uncompleted task.',
-		author: 'William James'},
-		{line: 'Don'+ String.fromCharCode(39) +'t let yesterday use up too much of today.',
-		author:'Will Rogers'},
-		{line:'Don'+ String.fromCharCode(39) +'t let the noise of others'+ String.fromCharCode(39) +' opinions drown out your own inner voice. Have the courage to follow your own heart and intuition.',
-		author:'Steve Jobs'},
-		{line:'If it ain'+ String.fromCharCode(39) +'t fun, don'+ String.fromCharCode(39) +'t do it.',
-		author:'Jack Canfield'},
-		{line: 'We tend to judge others by their behavior, and ourselves by our intentions.',
-		author: 'Unknown'}
+const initialQuoteArray = [
+		{text: "Without new experiences, something inside of us sleeps. The sleeper must awaken.",
+		author: "Frank Herbert"},
+		{text: "Life has no limitations, except the ones you make.",
+		author: "Les Brown"},
+		{text: "Go forth and make awesomeness.",
+		author: "Unknown"},
+		{text: "One day you will wake up and there won't be any more time to do the things you've always wanted. Do it now.", 
+		author: "Paulo Coelho"},
+		{text: "Forget all the reasons why it won't work and believe the one reason why it will.", 
+		author: "Unknown"},
+		{text: "Nothing is so fatiguing as the eternal hanging on of an uncompleted task.",
+		author: "William James"},
+		{text: "Don't let yesterday use up too much of today.",
+		author:"Will Rogers"},
+		{text:"Don't let the noise of others' opinions drown out your own inner voice. Have the courage to follow your own heart and intuition.",
+		author:"Steve Jobs"},
+		{text:"If it ain't fun, don't do it.",
+		author:"Jack Canfield"},
+		{text: "We tend to judge others by their behavior, and ourselves by our intentions.",
+		author: "Unknown"}
 	];
+
+const mainQuoteArray = JSON.parse(localStorage.getItem('updateQuoteArray')) || initialQuoteArray;
 
 class Quotes extends Component {
 	constructor(props) {
     super(props);
     this.handleSubmitQuote = this.handleSubmitQuote.bind(this);
-    this.state = {quoteArr:initialQuoteArray};
+    this.state = {quoteArr:mainQuoteArray};
   } 
 	
 	handleSubmitQuote(userQuote) {
+		event.preventDefault();
 
-    const newArray = this.state.quoteArr.slice();
+    	const newArray = this.state.quoteArr.slice();
+    	newArray.unshift(userQuote);
+	    localStorage.setItem('updateQuoteArray', JSON.stringify(newArray));
+		this.setState({quoteArr:newArray});
+		}
 
-    if(userQuote !== ""){    
-    newArray.unshift(userQuote);
-    this.setState({quoteArr:newArray});
-  	}
-	}
 	render(){	
 		const quoteArr = this.state.quoteArr;
 		return(
