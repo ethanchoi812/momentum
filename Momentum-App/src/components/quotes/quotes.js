@@ -149,7 +149,7 @@ class Quotes extends Component {
     const newArray = this.state.quoteArr.slice();
 
     if(userQuote !== ""){    
-    newArray.push(userQuote);
+    newArray.unshift(userQuote);
     this.setState({quoteArr:newArray});
   	}
 	}

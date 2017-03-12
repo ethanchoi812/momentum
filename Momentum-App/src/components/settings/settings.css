@@ -2,12 +2,20 @@
     position: absolute;
     width: 40vw;
     height: 40vh;
+    max-height: 40vh;
+    max-width: 40vw;
     left: 2vw;
     bottom: 5vw;
     background-color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.8);
     border-radius: 8px;
     color: #ddd;
+    overflow: hidden;
+    transition: all 0.5s;
+}
+.hideSettings{
+    max-width: 0;
+    max-height: 0;
 }
 .settingGroups {
     position: absolute;
@@ -24,10 +32,11 @@
     position: absolute;
     width: 65%;
     right: 0;
-    height: 100%;
     top:0;
     overflow-y: scroll;
 }
+.hidden{height: 0;}
+.shown{height: 100%;}
 .onOff {
     position: relative;
     top: 20%;
@@ -42,7 +51,7 @@
     background: rgb(200, 200, 200);
     background: rgba(200, 200, 200, 0.6);
 }
-#settingsCog {
+#settingscog {
     position: absolute;
     width: 4vw;
     height: 4vw;
