@@ -63,10 +63,11 @@ export default class Settings extends Component {
             <div className="onOff" onClick={this.toggleField}>
               <div className="miniTitle"><strong>Widgets</strong></div>
               <div className="underline" />
-              <Switch item={'Weather'} />
-              <Switch item={"Clock"} />
-              <Switch item={"Focus"} />
-              <Switch item={"Todo"} />
+              <Switch item={'Weather'} switcher={this.props.weatherSwitcher} />
+              <Switch item={"Clock"} switcher={this.props.clockSwitcher} />
+              <Switch item={"Greeting"} switcher={this.props.greetingSwitcher} />
+              <Switch item={"Todo"} switcher={this.props.todoSwitcher} />
+              <Switch item={"Quote"} switcher={this.props.quoteSwitcher} />
             </div>
           </div>
           <div className="setTodo hidden">

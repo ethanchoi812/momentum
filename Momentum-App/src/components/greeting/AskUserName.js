@@ -4,7 +4,7 @@ const AskUsername = props => {
     return (
         <div className="greetingBox">
             <form onSubmit={props.onSubmit}>
-                <input type="text" value={props.formValue} onChange={props.onChange} />
+               What's your name? <input type="text" value={props.formValue} onChange={props.onChange} />
             </form>
         </div>
     );

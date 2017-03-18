@@ -11,18 +11,45 @@ class GreetingContainer extends Component {
         }
     }
 
+    componentWillMount = ()=>{
+        let component = this;
+        (async function(){
+            let username = await component.fetchUsername();
+            component.updateState(username);
+        })();
+    }
+
+    fetchUsername = ()=>{
+        return new Promise(function(resolve, reject){
+            let username;
+            window.chrome.storage.sync.get("username", function(data){
+                username = data.username;
+            resolve(username);
+            });
+        });
+    }
+
+    updateState = (name)=>{
+        this.setState({username: name})
+    }
+
     handleChange = (event)=>{
-        this.setState({formValue: event.target.value})
+        this.setState({formValue: event.target.value});
     }
 
     handleSubmit = (event)=>{
         this.setState({username: this.state.formValue});
+        window.chrome.storage.sync.set({'username': this.state.formValue})
         event.preventDefault();
+    }
+    resetUsername = ()=>{
+        console.log("you just clicked some shit!");
+        this.setState({username: "", formValue: ""});
     }
 
     render(){
-        return this.state.username ? (<Greeting username={this.state.username} />) :
-            (<AskUserName formValue={this.state.formValue} onChange={this.handleChange} onSubmit={this.handleSubmit}/>)      
+        return this.state.username ? (<Greeting username={this.state.username} onDoubleClick={this.resetUsername} />) :
+            (<AskUserName formValue={this.state.formValue} onChange={this.handleChange} onSubmit={this.handleSubmit} />)   
     }
 }
 
