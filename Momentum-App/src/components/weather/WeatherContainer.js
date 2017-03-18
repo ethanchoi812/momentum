@@ -89,10 +89,10 @@ export default class WeatherContainer extends Component {
   }
   render() {
     if(this.state.msg){
-      return (<WeatherBarError msg={this.state.msg} />);
+      return (<WeatherBarError msg={this.state.msg} hide={this.props.hide} />);
     }else {
     return (
-      <WeatherBar temp={this.state.temp_used} sky={this.state.sky} location={this.state.location} onClick={this.handleClickUnits} />
+      <WeatherBar temp={this.state.temp_used} sky={this.state.sky} location={this.state.location} onClick={this.handleClickUnits} hide={this.props.hide} />
     );
     }
   }

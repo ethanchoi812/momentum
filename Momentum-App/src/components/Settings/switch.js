@@ -8,7 +8,7 @@ export default class Switch extends Component {
       <div className="switch">
         <div>{this.props.item}</div>
         <div className="toggleBody">
-          <div className="toggleBit" id={this.props.item} />
+          <div className="toggleBit" id={this.props.item} onClick={this.props.switcher} />
         </div>
         <div className="lineUnder" />
       </div>
