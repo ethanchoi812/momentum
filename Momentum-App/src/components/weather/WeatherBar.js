@@ -56,7 +56,7 @@ const WeatherBar = props => {
                 "default": 'wi wi-na'
             };
     return (
-        <div className="weatherBar">
+        <div className={props.hide ? "hidden" : "weatherBar"}>
             <div className="conditionsBar">
                 <span><i className={icons[props.sky]} /></span><span onClick={props.onClick}>{props.temp}</span>
             </div>

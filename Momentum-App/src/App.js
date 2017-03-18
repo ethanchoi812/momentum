@@ -9,23 +9,77 @@ import Quotes from './components/quotes/quotes.js';
 
 
 class App extends Component {
-
-  /*
-  componentWillMount(){
-    var num = 1;
-    document.querySelector('screen').classList.add(`bgi${num}`);
+constructor(){
+  super();
+  this.state = {
+    renderClock: true,
+    renderWeather: true,
+    renderTodo: true,
+    renderGreeting: true,
+    renderQuote: true
   }
-  */
+}
+  componentWillMount = () => {
+    const component = this;
+    window.chrome.storage.sync.get(["clock", "weather", "todo", "greeting", "quote"], function(data){
+      console.log(data);
+      component.setState({
+        renderClock: data.clock === undefined ? true : data.clock,
+        renderWeather: data.weather === undefined ? true : data.weather,
+        renderTodo: data.todo=== undefined ? true : data.todo,
+        renderGreeting: data.greeting === undefined ? true : data.greeting,
+        renderQuote: data.quote === undefined ? true : data.quote
+      })
+    })
+  }
+
+  weatherSwitcher = () => {
+    window.chrome.storage.sync.set({"weather": !this.state.renderWeather})
+    this.setState({
+      renderWeather: !this.state.renderWeather
+    });
+  }
+
+  clockSwitcher = () => {
+    window.chrome.storage.sync.set({"clock": !this.state.renderClock})
+    this.setState({
+      renderClock: !this.state.renderClock
+    })
+  }
+
+  todoSwitcher = () => {
+    this.setState({
+      renderTodo: !this.state.renderTodo
+    })
+  }
+
+  greetingSwitcher = () => {
+    window.chrome.storage.sync.set({"greeting": !this.state.renderGreeting})
+    this.setState({
+      renderGreeting: !this.state.renderGreeting
+    })
+  }
+
+  quoteSwitcher = () => {
+    this.setState({
+      renderQuote: !this.state.renderQuote
+    })
+  }
+
 
   render() {
     return (
       <div className="screen">
-        <ClockContainer />
-        <WeatherContainer />
-        <Todo />
-        <GreetingContainer />
-        <Settings />
-        <Quotes />
+        {this.state.renderClock ? <ClockContainer /> : null}
+        {this.state.renderWeather ? <WeatherContainer /> : <WeatherContainer hide={true} />}
+        {this.state.renderTodo ? <Todo /> : null}
+        {this.state.renderGreeting ? <GreetingContainer /> : null}
+        <Settings weatherSwitcher={this.weatherSwitcher}
+                  clockSwitcher={this.clockSwitcher}
+                  todoSwitcher={this.todoSwitcher}
+                  greetingSwitcher={this.greetingSwitcher}
+                  quoteSwitcher={this.quoteSwitcher} />
+        {this.state.renderQuote ? <Quotes /> : null}
       </div>
     );
   }
