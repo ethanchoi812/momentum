@@ -48,12 +48,14 @@ constructor(){
   }
 
   todoSwitcher = () => {
+    window.chrome.storage.sync.set({"todo": !this.state.renderTodo})
     this.setState({
       renderTodo: !this.state.renderTodo
     })
   }
 
   greetingSwitcher = () => {
+    console.log(this);
     window.chrome.storage.sync.set({"greeting": !this.state.renderGreeting})
     this.setState({
       renderGreeting: !this.state.renderGreeting
@@ -61,6 +63,7 @@ constructor(){
   }
 
   quoteSwitcher = () => {
+    window.chrome.storage.sync.set({"quote": !this.state.renderQuote})
     this.setState({
       renderQuote: !this.state.renderQuote
     })
