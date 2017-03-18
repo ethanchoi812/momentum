@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './switch.css';
+//import './switch.css';
 
 export default class Switch extends Component {
   

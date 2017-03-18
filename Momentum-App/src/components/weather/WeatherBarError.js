@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/weather.css'
+//import '../../styles/weather.css'
 
 const WeatherBarError = props => {
     return (

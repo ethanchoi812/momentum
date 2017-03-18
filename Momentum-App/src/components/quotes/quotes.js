@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import DisplayQuotes from './quotes-display.js';
 import GetQuote from './quotes-getquote.js';
 import QuoteList from './quotes-list.js';
-import './quotes.css';
+//import './quotes.css';
 
 const initialQuoteArray = [
 		{text: "Without new experiences, something inside of us sleeps. The sleeper must awaken.",

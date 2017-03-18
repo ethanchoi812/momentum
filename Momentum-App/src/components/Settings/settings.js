@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './settings.css';
+//import './settings.css';
 import User from './user';
 import Switch from './switch';
 

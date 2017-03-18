@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './flicker.css';
+//import './flicker.css';
 
 export default class flickSwitch extends Component {
 

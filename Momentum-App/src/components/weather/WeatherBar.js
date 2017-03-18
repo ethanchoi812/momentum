@@ -1,6 +1,6 @@
 import React from 'react';
-import '../../styles/weather.css';
-import '../../styles/weather-icons.min.css'
+//import '../../styles/weather.css';
+//import '../../styles/weather-icons.min.css'
 
 const WeatherBar = props => {
     const icons = {
