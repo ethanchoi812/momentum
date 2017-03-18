@@ -1,0 +1,10 @@
+@mixin component($width, $top-btm, $val1, $left-right, $val2) {
+	position:absolute;
+	display:block;
+	text-align:center;
+	width:$width;
+	#{$top-btm}:$val1;
+	#{$left-right}:$val2;
+}
+
+$base-font: "Helvetica Neue", "Lucida Grande", sans-serif;
