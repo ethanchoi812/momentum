@@ -30,10 +30,14 @@ export default class TodoFilterControl extends React.Component {
             break;
         }
 
+        const isActive = filters[filter] === this.props.filter
+          ? 'todo-filter-active'
+          : 'todo-filter-inactive';
+
         return (
           <button
             key={filter}
-            className="todo-filter-button"
+            className={isActive + ' todo-btn todo-filter-button'}
             onClick={() => this.props.onChangeFilter(filters[filter])}
             {...dragProps}
           ><i className={"fa fa-2x fa-" + icon}></i></button>

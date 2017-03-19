@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "font-awesome": "^4.7.0",
+    "materialize-css": "^0.98.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2"
   },

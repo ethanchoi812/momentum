@@ -229,6 +229,7 @@ export default class Todo extends Component {
         <h3 className="todo-list-title">TODO LIST</h3>
 
         <TodoFilterControl
+          filter={this.state.filter}
           onChangeFilter={this.changeFilter}
           doneDrop={this.doneDrop} />
 

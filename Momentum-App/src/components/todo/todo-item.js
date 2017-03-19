@@ -128,6 +128,7 @@ export default class TodoItem extends React.Component {
 
     const isEditing = this.props.item.isEditing;
     const classes = `todo-item ${done ? 'item-done' : 'item-current'}`;
+    const checkboxID = `todo-checkbox-${this.props.idx}`;
 
     return (
       <li className={classes}
@@ -136,11 +137,14 @@ export default class TodoItem extends React.Component {
           onDragOver={this.props.moveDragged}
           onDrop={this.handleDrop}>
 
-        <input
-          onChange={this.handleToggleDone}
-          checked={done}
-          className="todo-item-elem"
-          type="checkbox" />
+        <label className="todo-custom-checkbox">
+          <input
+            onChange={this.handleToggleDone}
+            checked={done}
+            id={checkboxID}
+            className="todo-item-elem todo-checkbox"
+            type="checkbox" />
+        </label>
 
         <TodoItemTitle
           title={title}
@@ -161,7 +165,7 @@ export default class TodoItem extends React.Component {
           dueDate={dueDate} /> }
 
         <button
-          className="todo-item-elem"
+          className="todo-item-elem todo-btn"
           onClick={this.handleRemove}>
           <i className="fa fa-times"></i>
         </button>

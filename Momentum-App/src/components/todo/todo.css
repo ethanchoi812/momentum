@@ -1,17 +1,48 @@
 .todo {
-  background: white;
-  color: black;
+  background: rgba(0, 0, 0, .8);
+  color: #fff;
   width: 400px;
+  height: 400px;
   margin-left: auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  outline: 1px dotted red;
+  box-shadow:
+    0 3px 5px 5px rgba(0, 0, 0, .15),
+    0 6px 10px 5px rgba(0, 0, 0, .2);
 }
-.todo button {
+.todo-btn {
   cursor: pointer;
   white-space: nowrap;
+  background: none;
+  border: none;
+  outline: none;
+  color: #fff;
+  transition: all .15s ease-in-out;
+}
+.todo-btn:hover {
+  color: #333333;
+  background-color: #fff;
+}
+
+.todo-add-btn {
+  border-radius: 50%;
+  background-color: #007cf7;
+  box-shadow: 
+    0 1px 1.5px 0 rgba(0, 0, 0, .12),
+    0 1px 1px 0 rgba(0, 0, 0, .24);
+}
+.todo-add-btn:active {
+  background-color: rgba(158, 158, 158, .4);
+  box-shadow:
+    0 4px 5px rgba(0, 0, 0, .14),
+    0 1px 10px rgba(0, 0, 0, .12),
+    0 2px 4px -1px rgba(0, 0, 0, .2);
+}
+
+.todo-filter-active {
+  color: #333333;
+  background-color: #fff;
 }
 
 .todo-filter-control {
@@ -26,18 +57,30 @@
 .todo-list {
   width: 100%;
   display: flex;
+  flex: 1;
   flex-direction: column;
+  align-items: center;
+}
+.todo-list-add-area {
+  flex: 1 0 auto;
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
 
 .todo-list ul {
   width: 100%;
+  overflow: auto;
 }
 
 .todo-item {
   display: flex;
   width: 100%;
   align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, .1);
+}
+.todo-item:last-child {
+  border: none;
 }
 
 .todo-item-title {
@@ -55,9 +98,29 @@
 .todo-item-title input {
   display: block;
   width: 100%;
+  background: none;
+  border: none;
+  outline: none;
+  color: #fff;
+  transition: all .15s ease-in-out;
+}
+.todo-item-title input:focus {
+  border-bottom: 2px solid #fff;
 }
 .item-done .todo-item-title span {
   text-decoration: line-through;
+  color: #999;
+}
+
+.todo-checkbox {
+  display: none;
+}
+.item-current .todo-custom-checkbox:before {
+  content: '\2610';
+}
+.item-done .todo-custom-checkbox:before {
+  content: '\2611';
+  color: #22b14c;
 }
 
 .todo-stop-count:hover {
@@ -65,7 +128,22 @@
 }
 
 .todo-countdown {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  position: relative;
+}
+.todo-date-input,
+.todo-time-input {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transform: translate(0);
+  transition: all .15s ease-in-out;
+}
+.todo-countdown:hover .todo-date-input {
+  transform: translate(-100%, -100%);
+  opacity: 1;
+}
+.todo-countdown:hover .todo-time-input {
+  transform: translate(-100%, 0);
+  opacity: 1;
 }

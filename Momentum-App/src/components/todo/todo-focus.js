@@ -38,7 +38,8 @@ export default class TodoFocus extends React.Component {
 
     return (
       <div className="todo-item-elem todo-item-focus">
-        <button onClick={this.props.onUpdateFocus}>
+        <button onClick={this.props.onUpdateFocus}
+          className="todo-btn">
           { message }
         </button>
       </div>

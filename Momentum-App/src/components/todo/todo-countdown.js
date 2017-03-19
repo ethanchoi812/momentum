@@ -24,15 +24,18 @@ export default class TodoCountdown extends React.Component {
 
     return (
       <div className="todo-item-elem todo-countdown">
-        { !isCountingDown && <button onClick={onStartCountdown}>
+        { !isCountingDown && <button onClick={onStartCountdown}
+            className="todo-btn">
             <i className="fa fa-hourglass-start"></i>
           </button> }
 
         { isCountingDown &&
-          <input type="date" value={dateString} onChange={onChangeDate}/> }
+          <input className="todo-date-input"
+            type="date" value={dateString} onChange={onChangeDate}/> }
         { isCountingDown &&
-          <input type="time" value={timeString} onChange={onChangeTime}/> }
-        { isCountingDown && <button className="todo-stop-count"
+          <input className="todo-time-input"
+            type="time" value={timeString} onChange={onChangeTime}/> }
+        { isCountingDown && <button className="todo-stop-count todo-btn"
           onClick={onStopCountdown}>
           <TodoTimer endTime={dueDate}/>
         </button> }
