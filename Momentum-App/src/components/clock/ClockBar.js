@@ -3,7 +3,7 @@ import React from 'react';
 
 const ClockBar = props => {
     return (
-        <div className="clockBar" onClick={props.handleClick}>{props.time}</div>
+        <h1 className="clockBar" onClick={props.handleClick}>{props.time}</h1>
     );
 };
 

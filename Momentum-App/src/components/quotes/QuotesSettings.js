@@ -6,23 +6,30 @@ import { initialQuoteArray } from './quotes-array.js';
 
 //import './quotes.css';
 
-const mainQuoteArray = JSON.parse(localStorage.getItem('updateQuoteArray')) || initialQuoteArray;
+//const mainQuoteArray = JSON.parse(localStorage.getItem('updateQuoteArray')) || initialQuoteArray;
 
 class QuotesSettings extends Component {
 
 	constructor(props) {    
     super(props);
     this.handleSubmitQuote = this.handleSubmitQuote.bind(this);
-    this.state = {quoteArr:mainQuoteArray};  
+    this.state = {quoteArr:initialQuoteArray};  
 	}
 
+	/*componentWillMount = ()=>{
+        const component = this;
+        window.chrome.storage.sync.get("quoteArr", function(data){
+            component.setState({quoteArr.data:newArray});
+        });
+    }*/
 
 	handleSubmitQuote(newQuote) {
 		event.preventDefault();
 		const newArray = this.state.quoteArr.slice();
     	newArray.unshift(newQuote);
-	    localStorage.setItem('updateQuoteArray', JSON.stringify(newArray));
+	    //localStorage.setItem('updateQuoteArray', JSON.stringify(newArray));
 		this.setState({quoteArr:newArray});
+		//window.chrome.storage.sync.set({'quoteArr': this.state.newArray})
 		}
 
 	render(){

@@ -2,6 +2,7 @@
 @import 'lib/weather-icons/weather-icons';
 
 // Application
-@import 'base/vars',
+@import 'base/reset',
+		'base/vars',
 		'base/base',
         'modules/all';

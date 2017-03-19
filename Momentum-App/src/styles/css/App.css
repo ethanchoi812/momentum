@@ -1884,20 +1884,23 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
+body {
+  font-family: "Helvetica Neue", "Lucida Grande", sans-serif;
+  font-size: 1em;
+  min-height: 100%;
+  overflow: hidden; }
+
 .screen {
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
+  right: 0;
   left: 0;
+  bottom: 0;
   background-image: url("https://drscdn.500px.org/photo/153353409/m%3D2048/8ad3765a3004b1efaa02fe17fc1058b6");
   background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: "Helvetica Neue", "Lucida Grande", sans-serif;
-  padding: 5px; }
+  background-position: center; }
 
 .bgi1 {
   background-image: url("https://drscdn.500px.org/photo/153353409/m%3D2048/8ad3765a3004b1efaa02fe17fc1058b6"); }
@@ -1916,7 +1919,8 @@ table {
   text-align: center;
   width: 100%;
   top: 50%;
-  left: 0; }
+  left: 50%;
+  transform: translate(-50%, -50%); }
 
 .bottom-right {
   position: absolute;
@@ -1940,17 +1944,26 @@ table {
   text-align: center;
   width: 50%;
   bottom: 0;
-  left: 25%; }
+  left: 50%;
+  transform: translate(-50%, 0); }
 
 .clockBar {
-  font-size: 18px;
   color: #FFF;
-  margin-left: 20px; }
+  margin-left: 20px;
+  font-size: 1050%;
+  font-weight: 500; }
 
 .greetingBox {
-  color: #FFF;
-  font-size: 1em;
-  background: rgba(0, 0, 0, 0.8); }
+  color: #fff;
+  font-size: 225%; }
+  .greetingBox input {
+    color: #fff;
+    font-size: 100%;
+    background: none;
+    border: none;
+    border-bottom: 3px solid #fff;
+    cursor: auto;
+    outline: none; }
 
 .weatherBar {
   width: 300px;
@@ -1958,6 +1971,9 @@ table {
   margin-left: auto;
   background: rgba(0, 0, 0, 0.8);
   color: #FFF; }
+
+.hidden {
+  display: none; }
 
 .displayQuoteDiv {
   width: 100%; }

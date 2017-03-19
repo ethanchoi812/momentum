@@ -1,3 +1,6 @@
+
+$base-font: "Helvetica Neue", "Lucida Grande", sans-serif;
+
 @mixin component($width, $top-btm, $val1, $left-right, $val2) {
 	position:absolute;
 	display:block;
@@ -7,4 +10,12 @@
 	#{$left-right}:$val2;
 }
 
-$base-font: "Helvetica Neue", "Lucida Grande", sans-serif;
+@mixin greeting-font{
+	color: #fff;
+    font-size: 225%;
+}
+
+@mixin greeting-edit-font{
+	color:#fff;
+	font-size: 100%;
+}

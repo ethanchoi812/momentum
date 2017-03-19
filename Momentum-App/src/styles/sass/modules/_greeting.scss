@@ -1,8 +1,16 @@
 .greetingBox{
-    color: #FFF;
-    font-size: 1em;
+	@include greeting-font;
     //width: 500px;
     //height: 100px;
     //margin-left: auto;
-    background: rgba(0,0,0, .8);
+    //background: rgba(0,0,0, .8);
+
+    input{
+    	@include greeting-edit-font;
+    	background:none;
+    	border:none;
+    	border-bottom: 3px solid #fff;
+    	cursor:auto;
+    	outline:none;
+    }
 }
