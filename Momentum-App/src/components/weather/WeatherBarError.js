@@ -3,7 +3,7 @@ import React from 'react';
 
 const WeatherBarError = props => {
     return (
-        <div className={props.hide ? "hidden" : "weatherBar"}>
+        <div className={props.hide ? "hidden" : "weatherBar"} >
                 {props.msg}
             </div>
     );
