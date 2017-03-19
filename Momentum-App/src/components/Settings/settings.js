@@ -19,8 +19,9 @@ export default class Settings extends Component {
       {'general': {
         'Weather': true,
         'Clock': true,
-        'Focus': true,
-        'ToDo': true
+        'Greeting': true,
+        'ToDo': true,
+        'Quote': true
         }
       };
 
