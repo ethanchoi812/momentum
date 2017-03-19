@@ -20,7 +20,7 @@ export default class Settings extends Component {
         'Weather': true,
         'Clock': true,
         'Greeting': true,
-        'Todo': true,
+        'ToDo': true,
         'Quote': true
         }
       };
