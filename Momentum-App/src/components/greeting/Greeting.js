@@ -14,7 +14,7 @@ const Greeting = props => {
         greeting = `Good evening, ${props.username}.`
     }
     return (
-        <div className="greetingBox">
+        <div className="greetingBox" onDoubleClick={props.onDoubleClick} >
          {greeting}
         </div>
     );

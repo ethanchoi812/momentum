@@ -222,7 +222,7 @@ export default class Todo extends Component {
 
   render() {
     if(this.state.loading) return <TodoLoader />;
-
+    console.log(this.state);
     return (
       <div className="todo">
         <h3>TODO LIST</h3>
