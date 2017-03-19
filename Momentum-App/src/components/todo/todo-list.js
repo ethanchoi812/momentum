@@ -56,8 +56,7 @@ export default class TodoList extends React.Component {
           </div> }
 
         { numDisplayedItems > 0 &&
-          <h4>Total: {numDisplayedItems} {currentList} item{
-          numDisplayedItems !== 1 && 's'}</h4> }
+          <h4 className="todo-summary">Total: {numDisplayedItems} {currentList} item{ numDisplayedItems !== 1 && 's'}</h4> }
       </div>
     );
   }

@@ -226,8 +226,6 @@ export default class Todo extends Component {
     console.log(this.state);
     return (
       <div className="todo">
-        <h3 className="todo-list-title">TODO LIST</h3>
-
         <TodoFilterControl
           filter={this.state.filter}
           onChangeFilter={this.changeFilter}
