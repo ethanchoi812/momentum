@@ -26,8 +26,7 @@ export default class TodoTimer extends React.Component {
 
     return (
       <span>
-        { remainingTime >= 1000 && `Remaining: ${msToHumanString(remainingTime)}` }
-        { remainingTime < 1000 && 'No more time left!' }
+        {msToHumanString(remainingTime)}
       </span>
     );
   }

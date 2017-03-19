@@ -6,19 +6,34 @@ export default class TodoFocus extends React.Component {
     let message;
     switch(this.props.focusLevel) {
       case focusLevels.LOW:
-        message = '#3';
+        message = (
+          <span>
+            <i className="fa fa-star"></i>
+          </span>
+        );
         break;
 
       case focusLevels.MID:
-        message = '#2';
+        message = (
+          <span>
+            <i className="fa fa-star"></i>
+            <i className="fa fa-star"></i>
+          </span>
+        );
         break;
 
       case focusLevels.HIGH:
-        message = '#1';
+        message = (
+          <span>
+            <i className="fa fa-star"></i>
+            <i className="fa fa-star"></i>
+            <i className="fa fa-star"></i>
+          </span>
+        );
         break;
 
       default:
-        message = <i className="fa fa-star"></i>;
+        message = <i className="fa fa-star-o"></i>;
     }
 
     return (

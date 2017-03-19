@@ -11,6 +11,7 @@
 }
 .todo button {
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .todo-filter-control {
@@ -54,4 +55,17 @@
 .todo-item-title input {
   display: block;
   width: 100%;
+}
+.item-done .todo-item-title span {
+  text-decoration: line-through;
+}
+
+.todo-stop-count:hover {
+  text-decoration: line-through;
+}
+
+.todo-countdown {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
