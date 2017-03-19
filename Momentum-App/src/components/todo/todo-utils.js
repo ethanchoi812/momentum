@@ -65,8 +65,8 @@ export function msToHumanString(ms) {
 
 export function checkForChrome() {
   return new Promise(function(resolve, reject) {
-    if(!window.chrome) {
-      reject(new Error('Cannot access Chrome API'));
+    if(!window.chrome || !window.chrome.storage) {
+      reject(new Error('Cannot access Chrome Storage API'));
       return;
     }
 

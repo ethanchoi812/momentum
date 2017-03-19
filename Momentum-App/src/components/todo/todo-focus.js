@@ -6,23 +6,23 @@ export default class TodoFocus extends React.Component {
     let message;
     switch(this.props.focusLevel) {
       case focusLevels.LOW:
-        message = 'Focus #3';
+        message = '#3';
         break;
 
       case focusLevels.MID:
-        message = 'Focus #2';
+        message = '#2';
         break;
 
       case focusLevels.HIGH:
-        message = 'Focus #1';
+        message = '#1';
         break;
 
       default:
-        message = 'Set as focus';
+        message = <i className="fa fa-star"></i>;
     }
 
     return (
-      <div className="todo-item-focus">
+      <div className="todo-item-elem todo-item-focus">
         <button onClick={this.props.onUpdateFocus}>
           { message }
         </button>

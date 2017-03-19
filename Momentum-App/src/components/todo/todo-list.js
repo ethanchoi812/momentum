@@ -47,7 +47,9 @@ export default class TodoList extends React.Component {
         { numDisplayedItems === 0 && <h4>No {currentList} items</h4> }
 
         { this.props.filter !== filters.DONE &&
-          <button onClick={this.props.addNewItem}>Add a new item</button> }
+          <button onClick={this.props.addNewItem}>
+            <i className="fa fa-3x fa-plus"></i>
+          </button> }
 
         { numDisplayedItems > 0 &&
           <h4>Total: {numDisplayedItems} {currentList} item{

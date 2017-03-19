@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-//import './todo.css';
+import './todo.css';
+import 'font-awesome/css/font-awesome.css';
 import TodoList from './todo-list';
 import TodoFilterControl from './todo-filter-control';
 import TodoLoader from './todo-loader';
@@ -225,7 +226,7 @@ export default class Todo extends Component {
     console.log(this.state);
     return (
       <div className="todo">
-        <h3>TODO LIST</h3>
+        <h3 className="todo-list-title">TODO LIST</h3>
 
         <TodoFilterControl
           onChangeFilter={this.changeFilter}
@@ -244,3 +245,4 @@ export default class Todo extends Component {
     );
   }
 }
+

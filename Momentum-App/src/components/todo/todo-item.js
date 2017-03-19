@@ -138,6 +138,7 @@ export default class TodoItem extends React.Component {
         <input
           onChange={this.handleToggleDone}
           checked={done}
+          className="todo-item-elem"
           type="checkbox" />
 
         <TodoItemTitle
@@ -158,7 +159,11 @@ export default class TodoItem extends React.Component {
           isCountingDown={isCountingDown}
           dueDate={dueDate} />
 
-        <button onClick={this.handleRemove}>Remove</button>
+        <button
+          className="todo-item-elem"
+          onClick={this.handleRemove}>
+          <i className="fa fa-times"></i>
+        </button>
       </li>
     );
   }
