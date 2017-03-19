@@ -71,16 +71,21 @@ export function checkForChrome() {
   });
 }
 
+let saveTimer;
+const saveDelay = 1000;
 export function saveTodo(todoList) {
   return checkForChrome().then(function() {
     return new Promise(function(resolve, reject) {
-      window.chrome.storage.sync.set({ todo: todoList }, function() {
-        if(window.chrome.runtime.lastError) {
-          reject(new Error(window.chrome.runtime.lastError.message));
-        }
-
-        resolve(todoList);
-      });
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(function() {
+        window.chrome.storage.sync.set({ todo: todoList }, function() {
+          if(window.chrome.runtime.lastError) {
+            reject(new Error(window.chrome.runtime.lastError.message));
+          }
+          resolve(todoList);
+        });
+      }, saveDelay);
+      setTimeout(resolve, saveDelay + 5000);
     });
   }, function(e) {
     throw e;
