@@ -5,7 +5,7 @@ import GreetingContainer from './components/greeting/GreetingContainer';
 import Settings from './components/Settings/settings.js';
 import WeatherContainer from './components/weather/WeatherContainer';
 import Todo from './components/todo/todo.js';
-import Quotes from './components/quotes/quotes.js';
+import QuotesContainer from './components/quotes/QuotesContainer.js';
 
 
 class App extends Component {
@@ -19,7 +19,7 @@ constructor(){
     renderQuote: true
   }
 }
-  componentWillMount = () => {
+ componentWillMount = () => {
     const component = this;
     window.chrome.storage.sync.get(["clock", "weather", "todo", "greeting", "quote"], function(data){
       console.log(data);
@@ -73,16 +73,26 @@ constructor(){
   render() {
     return (
       <div className="screen">
-        {this.state.renderClock ? <ClockContainer /> : null}
-        {this.state.renderWeather ? <WeatherContainer /> : <WeatherContainer hide={true} />}
-        {this.state.renderTodo ? <Todo /> : null}
-        {this.state.renderGreeting ? <GreetingContainer /> : null}
-        <Settings weatherSwitcher={this.weatherSwitcher}
-                  clockSwitcher={this.clockSwitcher}
-                  todoSwitcher={this.todoSwitcher}
-                  greetingSwitcher={this.greetingSwitcher}
-                  quoteSwitcher={this.quoteSwitcher} />
-        {this.state.renderQuote ? <Quotes /> : null}
+        <div className="top-right">
+          {this.state.renderWeather ? <WeatherContainer /> : <WeatherContainer hide={true} />}
+        </div>
+        <div className="center">
+          {this.state.renderClock ? <ClockContainer /> : null}
+          {this.state.renderGreeting ? <GreetingContainer /> : null}
+        </div>
+         <div className="bottom">
+          {this.state.renderQuote ? <QuotesContainer /> : null}
+        </div>
+        <div className="bottom-right">
+          {this.state.renderTodo ? <Todo /> : null}
+        </div>
+        <div className="bottom-left">
+          <Settings weatherSwitcher={this.weatherSwitcher}
+                    clockSwitcher={this.clockSwitcher}
+                    todoSwitcher={this.todoSwitcher}
+                    greetingSwitcher={this.greetingSwitcher}
+                    quoteSwitcher={this.quoteSwitcher} />
+        </div>
       </div>
     );
   }

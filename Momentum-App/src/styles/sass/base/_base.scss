@@ -57,9 +57,33 @@ table {
     background-image: url("https://drscdn.500px.org/photo/153353409/m%3D2048/8ad3765a3004b1efaa02fe17fc1058b6");
     background-size: cover;
     background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family:$base-font;
+    padding:5px;
 }
 
 .bgi1{
     background-image: url("https://drscdn.500px.org/photo/153353409/m%3D2048/8ad3765a3004b1efaa02fe17fc1058b6");
+}
+
+.top-right{
+   @include component(50%, "top", 0, "right", 0);
+}
+
+.center{
+  @include component(100%, "top", 50%, "left", 0);
+}
+.bottom-right{
+   @include component(50%, "bottom", 0, "right", 0);
+}
+
+.bottom-left{
+   @include component(10%, "bottom", 0, "left", 0);
+}
+
+.bottom{
+  @include component(50%, "bottom", 0, "left", 25%);
 }
 

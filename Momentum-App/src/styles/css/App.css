@@ -1892,10 +1892,55 @@ table {
   left: 0;
   background-image: url("https://drscdn.500px.org/photo/153353409/m%3D2048/8ad3765a3004b1efaa02fe17fc1058b6");
   background-size: cover;
-  background-position: center; }
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Helvetica Neue", "Lucida Grande", sans-serif;
+  padding: 5px; }
 
 .bgi1 {
   background-image: url("https://drscdn.500px.org/photo/153353409/m%3D2048/8ad3765a3004b1efaa02fe17fc1058b6"); }
+
+.top-right {
+  position: absolute;
+  display: block;
+  text-align: center;
+  width: 50%;
+  top: 0;
+  right: 0; }
+
+.center {
+  position: absolute;
+  display: block;
+  text-align: center;
+  width: 100%;
+  top: 50%;
+  left: 0; }
+
+.bottom-right {
+  position: absolute;
+  display: block;
+  text-align: center;
+  width: 50%;
+  bottom: 0;
+  right: 0; }
+
+.bottom-left {
+  position: absolute;
+  display: block;
+  text-align: center;
+  width: 10%;
+  bottom: 0;
+  left: 0; }
+
+.bottom {
+  position: absolute;
+  display: block;
+  text-align: center;
+  width: 50%;
+  bottom: 0;
+  left: 25%; }
 
 .clockBar {
   font-size: 18px;
@@ -1904,10 +1949,7 @@ table {
 
 .greetingBox {
   color: #FFF;
-  font-size: 20px;
-  width: 500px;
-  height: 100px;
-  margin-left: auto;
+  font-size: 1em;
   background: rgba(0, 0, 0, 0.8); }
 
 .weatherBar {
@@ -1918,8 +1960,7 @@ table {
   color: #FFF; }
 
 .displayQuoteDiv {
-  bottom: 10%;
-  text-align: center; }
+  width: 100%; }
 
 .quoteSentence {
   font-size: 18px;

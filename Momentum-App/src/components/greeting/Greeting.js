@@ -2,7 +2,7 @@ import React from 'react';
 //import '../../styles/greeting.css'
 
 const Greeting = props => {
-    let time = parseInt(new Date().toLocaleTimeString(undefined, {hour12: false}));
+    let time = parseInt(new Date().toLocaleTimeString(undefined, {hour12: false}), 10);
     let greeting;
     if (time < 4) {
         greeting = `Not in your bed yet, ${props.username}?`
