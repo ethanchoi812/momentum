@@ -43,7 +43,6 @@ class GreetingContainer extends Component {
         event.preventDefault();
     }
     resetUsername = ()=>{
-        console.log("you just clicked some shit!");
         this.setState({username: "", formValue: ""});
     }
 

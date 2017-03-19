@@ -55,7 +55,6 @@ constructor(){
   }
 
   greetingSwitcher = () => {
-    console.log(this);
     window.chrome.storage.sync.set({"greeting": !this.state.renderGreeting})
     this.setState({
       renderGreeting: !this.state.renderGreeting
