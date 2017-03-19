@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/greeting.css'
+//import '../../styles/greeting.css'
 
 const Greeting = props => {
     let time = parseInt(new Date().toLocaleTimeString(undefined, {hour12: false}));

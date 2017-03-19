@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import './styles/css/App.css';
 import ClockContainer from './components/clock/ClockContainer';
 import GreetingContainer from './components/greeting/GreetingContainer';
 import Settings from './components/Settings/settings.js';

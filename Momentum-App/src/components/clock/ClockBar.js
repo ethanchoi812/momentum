@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/clockBar.css'
+//import '../../styles/clockBar.css'
 
 const ClockBar = props => {
     return (
