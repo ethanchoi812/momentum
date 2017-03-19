@@ -10,29 +10,12 @@ class GreetingContainer extends Component {
             username: ""
         }
     }
-
     componentWillMount = ()=>{
-        let component = this;
-        (async function(){
-            let username = await component.fetchUsername();
-            component.updateState(username);
-        })();
-    }
-
-    fetchUsername = ()=>{
-        return new Promise(function(resolve, reject){
-            let username;
-            window.chrome.storage.sync.get("username", function(data){
-                username = data.username;
-            resolve(username);
-            });
+        const component = this;
+        window.chrome.storage.sync.get("username", function(data){
+            component.setState({username: data.username});
         });
     }
-
-    updateState = (name)=>{
-        this.setState({username: name})
-    }
-
     handleChange = (event)=>{
         this.setState({formValue: event.target.value});
     }
