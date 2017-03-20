@@ -5,6 +5,7 @@ import TodoList from './todo-list';
 import TodoFilterControl from './todo-filter-control';
 import TodoLoader from './todo-loader';
 import TodoError from './todo-error';
+import TodoWindowControl from './todo-window-control';
 import { filters, focusLevels, saveTodo, loadTodo } from './todo-utils';
 
 export default class Todo extends Component {
@@ -16,7 +17,8 @@ export default class Todo extends Component {
       filter: filters.ALL,
       maxDoneItems: 20,
       loading: true,
-      error: null
+      error: null,
+      isLarge: false
     };
 
     const keys = Object.getOwnPropertyNames(Object.getPrototypeOf(this));
@@ -44,6 +46,12 @@ export default class Todo extends Component {
         loading: false,
         error: `Fail to load todo list: ${errorMessage}`
       });
+    });
+  }
+
+  toggleLarge(evt) {
+    this.setState((prevState) => {
+      return { isLarge: !prevState.isLarge };
     });
   }
 
@@ -226,24 +234,37 @@ export default class Todo extends Component {
   }
 
   render() {
-    if(this.state.loading) return <TodoLoader />;
+    if(this.state.loading) return (
+      <div className="todo">
+        <TodoLoader />
+      </div>
+    );
 
     return (
-      <div className="todo">
-        <TodoFilterControl
-          filter={this.state.filter}
-          onChangeFilter={this.changeFilter}
-          doneDrop={this.doneDrop} />
+      <div className={'todo' + (this.state.isLarge ? ' todo-large' : '')}
+        onClick={evt => evt.target.classList.contains('todo-large') &&
+          this.toggleLarge()}
+      >
+        <div className="todo-inner-container">
+          <TodoWindowControl
+            isLarge={this.state.isLarge}
+            toggleLarge={this.toggleLarge} />
 
-        <TodoList
-          items={this.state.items.slice()}
-          filter={this.state.filter}
-          addNewItem={this.addNewItem}
-          modifyItem={this.modifyItem}
-          saveDragged={this.saveDragged}
-          moveDragged={this.moveDragged} />
+          <TodoFilterControl
+            filter={this.state.filter}
+            onChangeFilter={this.changeFilter}
+            doneDrop={this.doneDrop} />
 
-        <TodoError error={this.state.error} dismiss={this.dismissError} />
+          <TodoList
+            items={this.state.items.slice()}
+            filter={this.state.filter}
+            addNewItem={this.addNewItem}
+            modifyItem={this.modifyItem}
+            saveDragged={this.saveDragged}
+            moveDragged={this.moveDragged} />
+
+          <TodoError error={this.state.error} dismiss={this.dismissError} />
+        </div>
       </div>
     );
   }

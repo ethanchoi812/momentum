@@ -50,7 +50,7 @@ export default class TodoList extends React.Component {
           <div className="todo-list-add-area">
             <button onClick={this.props.addNewItem}
               className="todo-add-btn todo-btn">
-              <i className="fa fa-3x fa-plus"></i>
+              <i className="fa fa-5x fa-plus"></i>
             </button>
           </div> }
 
