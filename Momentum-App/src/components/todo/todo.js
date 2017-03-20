@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-//import './todo.css';
+import './todo.css';
+import 'font-awesome/css/font-awesome.css';
 import TodoList from './todo-list';
 import TodoFilterControl from './todo-filter-control';
 import TodoLoader from './todo-loader';
 import TodoError from './todo-error';
+import TodoWindowControl from './todo-window-control';
 import { filters, focusLevels, saveTodo, loadTodo } from './todo-utils';
 
 export default class Todo extends Component {
@@ -15,7 +17,8 @@ export default class Todo extends Component {
       filter: filters.ALL,
       maxDoneItems: 20,
       loading: true,
-      error: null
+      error: null,
+      isLarge: false
     };
 
     const keys = Object.getOwnPropertyNames(Object.getPrototypeOf(this));
@@ -33,7 +36,7 @@ export default class Todo extends Component {
       this.setState((prevState) => ({
         items: todoList || prevState.items,
         loading: false,
-        error: null
+        error: prevState.error
       }));
     }, (err) => {
       const errorMessage = (err && err.message) ||
@@ -43,6 +46,12 @@ export default class Todo extends Component {
         loading: false,
         error: `Fail to load todo list: ${errorMessage}`
       });
+    });
+  }
+
+  toggleLarge(evt) {
+    this.setState((prevState) => {
+      return { isLarge: !prevState.isLarge };
     });
   }
 
@@ -66,7 +75,11 @@ export default class Todo extends Component {
         }
       }
 
-      return { items };
+      const error = itemsToBeRemoved.length > 0
+        ? `Only the last ${max} done items are stored`
+        : prevState.error;
+
+      return { items, error };
     });
   }
 
@@ -157,6 +170,10 @@ export default class Todo extends Component {
   }
 
   saveDragged(idx, evt) {
+    if(this.state.items[idx].isEditing) {
+      evt.preventDefault();
+      return;
+    }
     this.dragging = idx;
   }
 
@@ -201,15 +218,15 @@ export default class Todo extends Component {
     if(isEditing) return;
 
     saveTodo(this.state.items).then(() => {
-      this.setState({
-        error: null
-      });
+      this.setState((prevState) => ({
+        error: prevState.error
+      }));
     }, (err) => {
       const errorMessage = (err && err.message) ||
         (err && err.toString()) || 'Unknown Error';
 
       this.setState({
-        error: `Fail to store todo-list: ${errorMessage}`
+        error: `Fail to save todo list: ${errorMessage}`
       });
     });
   }
@@ -221,26 +238,39 @@ export default class Todo extends Component {
   }
 
   render() {
-    if(this.state.loading) return <TodoLoader />;
-    console.log(this.state);
-    return (
+    if(this.state.loading) return (
       <div className="todo">
-        <h3>TODO LIST</h3>
+        <TodoLoader />
+      </div>
+    );
 
-        <TodoFilterControl
-          onChangeFilter={this.changeFilter}
-          doneDrop={this.doneDrop} />
+    return (
+      <div className={'todo' + (this.state.isLarge ? ' todo-large' : '')}
+        onClick={evt => evt.target.classList.contains('todo-large') &&
+          this.toggleLarge()}
+      >
+        <div className="todo-inner-container">
+          <TodoWindowControl
+            isLarge={this.state.isLarge}
+            toggleLarge={this.toggleLarge} />
 
-        <TodoList
-          items={this.state.items.slice()}
-          filter={this.state.filter}
-          addNewItem={this.addNewItem}
-          modifyItem={this.modifyItem}
-          saveDragged={this.saveDragged}
-          moveDragged={this.moveDragged} />
+          <TodoFilterControl
+            filter={this.state.filter}
+            onChangeFilter={this.changeFilter}
+            doneDrop={this.doneDrop} />
 
-        <TodoError error={this.state.error} dismiss={this.dismissError} />
+          <TodoList
+            items={this.state.items.slice()}
+            filter={this.state.filter}
+            addNewItem={this.addNewItem}
+            modifyItem={this.modifyItem}
+            saveDragged={this.saveDragged}
+            moveDragged={this.moveDragged} />
+
+          <TodoError error={this.state.error} dismiss={this.dismissError} />
+        </div>
       </div>
     );
   }
 }
+
