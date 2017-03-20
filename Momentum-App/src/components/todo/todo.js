@@ -36,7 +36,7 @@ export default class Todo extends Component {
       this.setState((prevState) => ({
         items: todoList || prevState.items,
         loading: false,
-        error: null
+        error: prevState.error
       }));
     }, (err) => {
       const errorMessage = (err && err.message) ||
@@ -75,7 +75,11 @@ export default class Todo extends Component {
         }
       }
 
-      return { items };
+      const error = itemsToBeRemoved.length > 0
+        ? `Only the last ${max} done items are stored`
+        : prevState.error;
+
+      return { items, error };
     });
   }
 
@@ -214,15 +218,15 @@ export default class Todo extends Component {
     if(isEditing) return;
 
     saveTodo(this.state.items).then(() => {
-      this.setState({
-        error: null
-      });
+      this.setState((prevState) => ({
+        error: prevState.error
+      }));
     }, (err) => {
       const errorMessage = (err && err.message) ||
         (err && err.toString()) || 'Unknown Error';
 
       this.setState({
-        error: `Fail to store todo-list: ${errorMessage}`
+        error: `Fail to save todo list: ${errorMessage}`
       });
     });
   }
