@@ -246,10 +246,17 @@
   color: #d50000;
   align-items: center;
   text-align: center;
+  margin-top: 5px;
+}
+.todo-error:hover {
+  text-decoration: line-through;
+  color: #999;
+  cursor: pointer;
 }
 
 .todo-summary {
   text-decoration: underline;
+  margin-top: 5px;
 }
 
 .todo-high-focus {

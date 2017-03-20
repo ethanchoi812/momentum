@@ -6,9 +6,7 @@ export default class TodoError extends React.Component {
 
     return (
       <div className="todo-error">
-        <h4>{this.props.error}</h4>
-        <button className="todo-btn"
-          onClick={this.props.dismiss}>Dismiss</button>
+        <h4 onClick={this.props.dismiss}>{this.props.error}</h4>
       </div>
     );
   }
