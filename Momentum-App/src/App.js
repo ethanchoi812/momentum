@@ -68,10 +68,21 @@ constructor(){
     })
   }
 
+  openSettings() {
+    console.log("You just clicked shit!")
+    const settingsPanel = document.getElementById('settingsPanel');
+    settingsPanel.classList.toggle("show");
+  }
+  
+  closeSettings() {
+    const settingsPanel = document.getElementById('settingsPanel');
+    console.log(Array.from(settingsPanel.classList)); 
+  }
+
 
   render() {
     return (
-      <div className="screen">
+      <div className="screen" onClick={this.closeSettings}>
         {this.state.renderClock ? <ClockContainer /> : null}
         {this.state.renderWeather ? <WeatherContainer /> : <WeatherContainer hide={true} />}
         {this.state.renderTodo ? <Todo /> : null}
@@ -80,7 +91,13 @@ constructor(){
                   clockSwitcher={this.clockSwitcher}
                   todoSwitcher={this.todoSwitcher}
                   greetingSwitcher={this.greetingSwitcher}
-                  quoteSwitcher={this.quoteSwitcher} />
+                  quoteSwitcher={this.quoteSwitcher}
+                  weatherON={this.state.renderWeather}
+                  clockON={this.state.renderClock}
+                  quoteON={this.state.renderQuote}
+                  todoON={this.state.renderTodo}
+                  greetingON={this.state.renderGreeting}
+                  opener={this.openSettings} />
         {this.state.renderQuote ? <Quotes /> : null}
       </div>
     );
