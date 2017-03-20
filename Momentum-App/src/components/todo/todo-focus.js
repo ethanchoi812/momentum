@@ -7,7 +7,7 @@ export default class TodoFocus extends React.Component {
     switch(this.props.focusLevel) {
       case focusLevels.LOW:
         message = (
-          <span>
+          <span className="todo-low-focus">
             <i className="fa fa-star"></i>
           </span>
         );
@@ -15,7 +15,7 @@ export default class TodoFocus extends React.Component {
 
       case focusLevels.MID:
         message = (
-          <span>
+          <span className="todo-mid-focus">
             <i className="fa fa-star"></i>
             <i className="fa fa-star"></i>
           </span>
@@ -24,7 +24,7 @@ export default class TodoFocus extends React.Component {
 
       case focusLevels.HIGH:
         message = (
-          <span>
+          <span className="todo-high-focus">
             <i className="fa fa-star"></i>
             <i className="fa fa-star"></i>
             <i className="fa fa-star"></i>

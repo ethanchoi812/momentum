@@ -45,7 +45,6 @@ export default class TodoList extends React.Component {
     return (
       <div className="todo-list">
         { numDisplayedItems > 0 && <ul>{items}</ul> }
-        { numDisplayedItems === 0 && <h4>No {currentList} items</h4> }
 
         { this.props.filter !== filters.DONE &&
           <div className="todo-list-add-area">
@@ -55,6 +54,8 @@ export default class TodoList extends React.Component {
             </button>
           </div> }
 
+        { numDisplayedItems === 0 &&
+          <h4 className="todo-summary">No {currentList} items</h4> }
         { numDisplayedItems > 0 &&
           <h4 className="todo-summary">Total: {numDisplayedItems} {currentList} item{ numDisplayedItems !== 1 && 's'}</h4> }
       </div>

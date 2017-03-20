@@ -196,6 +196,12 @@
   width: 100%;
   border: none;
   outline: none;
+  background-color: #9e9e9e;
+  color: #212121;
+  padding: 0 5px;
+}
+.todo-date-input {
+  border-bottom: 1px solid #212121;
 }
 .todo-date-input {
   border-radius: 10px 10px 0 0;
@@ -219,4 +225,14 @@
 
 .todo-summary {
   text-decoration: underline;
+}
+
+.todo-high-focus {
+  color: #fb8c00;
+}
+.todo-mid-focus {
+  color: #ffb300;
+}
+.todo-low-focus {
+  color: #fdd835;
 }
