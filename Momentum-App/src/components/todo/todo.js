@@ -158,6 +158,10 @@ export default class Todo extends Component {
   }
 
   saveDragged(idx, evt) {
+    if(this.state.items[idx].isEditing) {
+      evt.preventDefault();
+      return;
+    }
     this.dragging = idx;
   }
 
@@ -223,7 +227,7 @@ export default class Todo extends Component {
 
   render() {
     if(this.state.loading) return <TodoLoader />;
-    console.log(this.state);
+
     return (
       <div className="todo">
         <TodoFilterControl
