@@ -73,16 +73,10 @@ constructor(){
     const settingsPanel = document.getElementById('settingsPanel');
     settingsPanel.classList.toggle("show");
   }
-  
-  closeSettings() {
-    const settingsPanel = document.getElementById('settingsPanel');
-    console.log(Array.from(settingsPanel.classList)); 
-  }
-
 
   render() {
     return (
-      <div className="screen" onClick={this.closeSettings}>
+      <div className="screen">
         {this.state.renderClock ? <ClockContainer /> : null}
         {this.state.renderWeather ? <WeatherContainer /> : <WeatherContainer hide={true} />}
         {this.state.renderTodo ? <Todo /> : null}
