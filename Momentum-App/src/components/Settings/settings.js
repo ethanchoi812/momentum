@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 //import './settings.css';
-import User from './user';
 import Switch from './switch';     
 
 
