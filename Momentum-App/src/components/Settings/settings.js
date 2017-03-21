@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 //import './settings.css';
 import User from './user';
 import Switch from './switch';     
@@ -7,7 +6,7 @@ import Switch from './switch';
 
 
 
-const componentName = props => {
+const Settings = props => {
   return (
     <div className="settingsBox">
       <div className="iconBox" onClick={props.opener}>
@@ -15,18 +14,18 @@ const componentName = props => {
       </div>
         <div className="settingsPanel" id="settingsPanel">
             <h1 className="panelTitle">Settings</h1>
-            <Switch item={'Weather'} switcher={props.weatherSwitcher} />
-            <Switch item={"Clock"} switcher={props.clockSwitcher} />
-            <Switch item={"Greeting"} switcher={props.greetingSwitcher} />
-            <Switch item={"Todo"} switcher={props.todoSwitcher} />
-            <Switch item={"Quote"} switcher={props.quoteSwitcher} />
+            <Switch item={'Weather'} switcher={props.weatherSwitcher} isON={props.weatherON} />
+            <Switch item={"Clock"} switcher={props.clockSwitcher} isON={props.clockON} />
+            <Switch item={"Greeting"} switcher={props.greetingSwitcher} isON={props.greetingON} />
+            <Switch item={"Todo"} switcher={props.todoSwitcher} isON={props.todoON} />
+            <Switch item={"Quote"} switcher={props.quoteSwitcher} isON={props.quoteON} />
         </div>
     </div>
     );
   }
 
 
-componentName.propTypes = {
+Settings.propTypes = {
   weatherON: React.PropTypes.bool,
   clockON: React.PropTypes.bool,
   todoON: React.PropTypes.bool,
@@ -40,4 +39,4 @@ componentName.propTypes = {
   opener: React.PropTypes.func
 };
 
-export default componentName;
+export default Settings;

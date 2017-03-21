@@ -1969,46 +1969,42 @@ table {
   justify-content: space-around;
   align-items: center; }
 
-.switch {
-  position: relative;
-  width: 100%;
-  height: 32px;
-  top: 0;
+.settingsItem {
+  width: 150px;
+  height: 40px;
+  color: white;
+  border-bottom: 1px solid white;
   display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around; }
+
+.switcherContainer {
+  width: 50px;
+  height: 40px;
+  display: flex;
+  justify-content: flex-end;
   align-items: center; }
 
-.lineUnder {
-  position: absolute;
-  width: 100%;
-  height: 1px;
-  bottom: 0;
-  background: #c8c8c8;
-  background: rgba(200, 200, 200, 0.8); }
+.itemSwitcher {
+  width: 25px;
+  height: 17px;
+  background-color: grey;
+  border-radius: 7px; }
 
-.toggleBody {
-  position: absolute;
-  width: 48px;
-  height: 24px;
-  right: 12px;
-  background: rgba(200, 200, 200, 0.8);
-  border-radius: 12px; }
+.itemName {
+  width: 100px;
+  height: 40px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center; }
 
-.toggleBit {
-  position: absolute;
-  width: 32px;
-  height: 24px;
-  border-radius: 12px;
-  background: rgba(100, 100, 100, 0.8);
-  left: 0;
-  transition: left 0.2s; }
-
-.bitOff {
-  left: 16px; }
+.switchON {
+  background-color: #3de5dd; }
 
 .iconBox {
   position: fixed;
-  top: 90vh;
-  left: 2vw;
+  top: 93vh;
+  left: 1vw;
   width: 50px;
   height: 50px; }
 
@@ -2020,7 +2016,7 @@ table {
   background-color: black;
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 5px;
-  width: 300px;
+  width: 170px;
   height: 300px;
   position: fixed;
   top: 53vh;
@@ -2041,8 +2037,11 @@ table {
 
 .panelTitle {
   text-align: center;
-  font-size: 2em;
-  font-weight: 700; }
+  font-size: 18px;
+  font-weight: 700;
+  font-family: sans-serif;
+  letter-spacing: .3em;
+  text-transform: uppercase; }
 
 .toggleBody {
   position: absolute;
