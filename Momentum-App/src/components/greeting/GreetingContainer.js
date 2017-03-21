@@ -26,6 +26,7 @@ class GreetingContainer extends Component {
         event.preventDefault();
     }
     resetUsername = ()=>{
+        console.log(this.state);
         this.setState({username: "", formValue: ""});
     }
 
