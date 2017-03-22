@@ -127,18 +127,24 @@ export default class TodoItem extends React.Component {
     } = this.props.item;
 
     const isEditing = this.props.item.isEditing;
+    const classes = `todo-item ${done ? 'item-done' : 'item-current'}`;
+    const checkboxID = `todo-checkbox-${this.props.idx}`;
 
     return (
-      <li className="todo-item"
+      <li className={classes}
           draggable={true}
           onDragStart={this.props.saveDragged}
           onDragOver={this.props.moveDragged}
           onDrop={this.handleDrop}>
 
-        <input
-          onChange={this.handleToggleDone}
-          checked={done}
-          type="checkbox" />
+        <label className="todo-custom-checkbox">
+          <input
+            onChange={this.handleToggleDone}
+            checked={done}
+            id={checkboxID}
+            className="todo-item-elem todo-checkbox"
+            type="checkbox" />
+        </label>
 
         <TodoItemTitle
           title={title}
@@ -146,19 +152,23 @@ export default class TodoItem extends React.Component {
           onChangeTitle={this.handleChangeTitle}
           onToggleEdit={this.handleToggleEdit} />
 
-        <TodoFocus
+        { !done && <TodoFocus
           focusLevel={focusLevel}
-          onUpdateFocus={this.handleUpdateFocus} />
+          onUpdateFocus={this.handleUpdateFocus} /> }
 
-        <TodoCountdown
+        { !done && <TodoCountdown
           onChangeDate={this.handleChangeDate}
           onChangeTime={this.handleChangeTime}
           onStartCountdown={this.handleStartCountdown}
           onStopCountdown={this.handleStopCountdown}
           isCountingDown={isCountingDown}
-          dueDate={dueDate} />
+          dueDate={dueDate} /> }
 
-        <button onClick={this.handleRemove}>Remove</button>
+        <button
+          className="todo-item-elem todo-btn"
+          onClick={this.handleRemove}>
+          <i className="fa fa-times"></i>
+        </button>
       </li>
     );
   }

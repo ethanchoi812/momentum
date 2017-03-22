@@ -17,6 +17,7 @@ export default class TodoList extends React.Component {
         return (
           <TodoItem
             key={item.createDate}
+            idx={idx}
             item={itemCopy}
             modifyItem={(updates) => this.props.modifyItem(idx, updates)}
             saveDragged={(evt) => this.props.saveDragged(idx, evt)}
@@ -44,14 +45,19 @@ export default class TodoList extends React.Component {
     return (
       <div className="todo-list">
         { numDisplayedItems > 0 && <ul>{items}</ul> }
-        { numDisplayedItems === 0 && <h4>No {currentList} items</h4> }
 
         { this.props.filter !== filters.DONE &&
-          <button onClick={this.props.addNewItem}>Add a new item</button> }
+          <div className="todo-list-add-area">
+            <button onClick={this.props.addNewItem}
+              className="todo-add-btn todo-btn">
+              <i className="fa fa-5x fa-plus"></i>
+            </button>
+          </div> }
 
+        { numDisplayedItems === 0 &&
+          <h4 className="todo-summary">No {currentList} items</h4> }
         { numDisplayedItems > 0 &&
-          <h4>Total: {numDisplayedItems} {currentList} item{
-          numDisplayedItems !== 1 && 's'}</h4> }
+          <h4 className="todo-summary">Total: {numDisplayedItems} {currentList} item{ numDisplayedItems !== 1 && 's'}</h4> }
       </div>
     );
   }

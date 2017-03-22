@@ -24,11 +24,11 @@ constructor(){
     window.chrome.storage.sync.get(["clockON", "weatherON", "todoON", "greetingON", "quoteON"], function(data){
       console.log(data);
       component.setState({
-        renderClock: data.clock === undefined ? true : data.clock,
-        renderWeather: data.weather === undefined ? true : data.weather,
-        renderTodo: data.todo=== undefined ? true : data.todo,
-        renderGreeting: data.greeting === undefined ? true : data.greeting,
-        renderQuote: data.quote === undefined ? true : data.quote
+        renderClock: data.clockON === undefined ? true : data.clockON,
+        renderWeather: data.weatherON === undefined ? true : data.weatherON,
+        renderTodo: data.todoON === undefined ? true : data.todoON,
+        renderGreeting: data.greetingON === undefined ? true : data.greetingON,
+        renderQuote: data.quoteON === undefined ? true : data.quoteON
       })
     })
   }*/

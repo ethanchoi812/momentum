@@ -15,6 +15,7 @@ export default class TodoItemTitle extends React.Component {
           onChange={onChangeTitle}
           onBlur={onToggleEdit}
           onKeyPress={onToggleEdit}
+          placeholder="Todo..."
           autoFocus={true} /> }
       </div>
     );
