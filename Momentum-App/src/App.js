@@ -68,6 +68,11 @@ constructor(){
     })
   }
 
+  openSettings() {
+    console.log("You just clicked shit!")
+    const settingsPanel = document.getElementById('settingsPanel');
+    settingsPanel.classList.toggle("show");
+  }
 
   render() {
     return (
@@ -91,7 +96,13 @@ constructor(){
                       clockSwitcher={this.clockSwitcher}
                       todoSwitcher={this.todoSwitcher}
                       greetingSwitcher={this.greetingSwitcher}
-                      quoteSwitcher={this.quoteSwitcher} />
+                      quoteSwitcher={this.quoteSwitcher}
+                      weatherON={this.state.renderWeather}
+                      clockON={this.state.renderClock}
+                      quoteON={this.state.renderQuote}
+                      todoON={this.state.renderTodo}
+                      greetingON={this.state.renderGreeting}
+                      opener={this.openSettings} />
           </div>
         </div>
       </div>

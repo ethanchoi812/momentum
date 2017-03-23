@@ -10,8 +10,10 @@ const Greeting = props => {
         greeting = `Good morning, ${props.username}. Have a great day!`
     }else if (time < 19){
         greeting = `Good afternoon, ${props.username}. How is your day?`
-    }else if (time < 23) {
+    }else if (time < 22) {
         greeting = `Good evening, ${props.username}.`
+    }else if (time <= 24){
+        greeting = `Staying late, ${props.username}?`
     }
     return (
         <div className="greetingBox" onDoubleClick={props.onDoubleClick} >

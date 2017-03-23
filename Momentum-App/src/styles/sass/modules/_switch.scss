@@ -1,34 +1,32 @@
-.switch {
-    position: relative;
-    width: 100%;
-    height: 32px;
-    top: 0;
+.settingsItem{
+    width: 150px;
+    height: 40px;
+    color: white;
+    border-bottom: 1px solid white;
     display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+}
+.switcherContainer{
+    width: 50px;
+    height: 40px;
+    display: flex;
+    justify-content: flex-end;
     align-items: center;
 }
-.lineUnder {
-    position: absolute;
-    width: 100%;
-    height: 1px;
-    bottom: 0;
-    background: rgb(200, 200, 200);
-    background: rgba(200, 200, 200, 0.8);
+.itemSwitcher{
+    width: 25px;
+    height: 17px;
+    background-color: grey;
+    border-radius: 7px;
 }
-.toggleBody{
-    position: absolute;
-    width: 48px;
-    height: 24px;
-    right: 12px;
-    background: rgba(200, 200, 200, 0.8);
-    border-radius: 12px;
+.itemName{
+    width: 100px;
+    height: 40px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
-.toggleBit{
-    position: absolute;
-    width: 32px;
-    height: 24px;
-    border-radius: 12px;
-    background: rgba(100, 100, 100, 0.8);
-    left: 0;
-    transition: left 0.2s;
+.switchON{
+    background-color: #3de5dd;
 }
-.bitOff{left: 16px;}
