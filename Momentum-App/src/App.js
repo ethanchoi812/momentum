@@ -19,7 +19,7 @@ constructor(){
     renderQuote: true
   }
 }
- /*componentWillMount = () => {
+/*  componentWillMount = () => {
     const component = this;
     window.chrome.storage.sync.get(["clockON", "weatherON", "todoON", "greetingON", "quoteON"], function(data){
       console.log(data);

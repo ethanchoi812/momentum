@@ -8,11 +8,11 @@ class QuotesContainer extends Component {
 
 	constructor(props) {    
     super(props);
-    this.props.state = {quoteArr:mainQuoteArray};  
+    this.state = {quoteArr:mainQuoteArray};  
 	}
 
 	render(){
-	const quoteArray = this.props.state.quoteArr;
+	const quoteArray = this.state.quoteArr;
 	const i = quoteArray.length;
 	const d = new Date();
 	const n = (d.getDate())%i;

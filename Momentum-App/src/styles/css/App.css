@@ -4283,6 +4283,7 @@ body {
   .greetingBox input {
     color: #fff;
     font-size: 100%;
+    max-width: 20%;
     background: none;
     border: none;
     border-bottom: 3px solid #fff;
@@ -4332,6 +4333,15 @@ body {
   list-style: none;
   border-bottom: 1px solid #ccc;
   padding-bottom: 5px; }
+
+.quoteIcons {
+  color: #fff; }
+  .quoteIcons li {
+    display: inline-block;
+    margin: 5px; }
+
+a:visited .fa-twitter {
+  color: #fff; }
 
 .circle {
   border-radius: 50%;

@@ -39,3 +39,17 @@
 	border-bottom: 1px solid #ccc;
 	padding-bottom: 5px;
 }
+
+.quoteIcons{
+	color:#fff;
+	li{
+		display:inline-block;
+		margin:5px;
+	}
+}
+
+.fa-twitter{
+	a:visited &{
+		color:#fff;
+	}
+}
