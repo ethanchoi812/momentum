@@ -1,84 +1,41 @@
-import React, { Component } from 'react';
+import React, { PropTypes } from 'react';
 //import './settings.css';
-import User from './user';
-import Switch from './switch';
+import Switch from './switch';     
 
 
 
-export default class Settings extends Component {
 
-  toggleSettings(){
-    var settingsClass = document.querySelector(".settings").classList;
-    settingsClass.toggle('hideSettings');
-  }
-
-
-
-  componentDidMount(){
-    var settings = JSON.parse(localStorage.getItem('settings')) ||
-      {'general': {
-        'Weather': true,
-        'Clock': true,
-        'Greeting': true,
-        'Todo': true,
-        'Quote': true
-        }
-      };
-
-    for (var key in settings.general){
-        if (!settings.general[key]){
-            document.getElementById(key).classList.add('bitOff');
-        }
-    }
-
-    console.log(localStorage.getItem('settings'));
-    console.log(settings)
-
-
-    document.querySelector('.setGeneral').addEventListener('click', function(e){
-      if(~e.target.className.indexOf('toggleBit')){ // if a toggle is clicked
-        document.getElementById(e.target.id).classList.toggle('bitOff');
-        settings.general[e.target.id] = !settings.general[e.target.id];
-        console.log(settings.general[e.target.id]);
-        console.log(JSON.stringify(settings));
-        localStorage.setItem('settings', JSON.stringify(settings));
-      }
-    });
-  }
-
-  render() {
-    return (
-      <div>
-        <div id="settingscog" onClick={this.toggleSettings.bind(this)} >
-          <img id="cog" alt="settings" src="http://icons.iconarchive.com/icons/dtafalonso/android-lollipop/512/Settings-icon.png" />
-        </div>
-        <div className="settings hideSettings">
-          <div className="settingGroups">
-            <div>General</div>
-            <div>ToDo</div>
-            <div>Background</div>
-            <div>Quotes</div>
-          </div>
-          <div className="setGeneral shown">
-            <User />
-            <div className="onOff" onClick={this.toggleField}>
-              <div className="miniTitle"><strong>Widgets</strong></div>
-              <div className="underline" />
-              <Switch item={'Weather'} switcher={this.props.weatherSwitcher} />
-              <Switch item={"Clock"} switcher={this.props.clockSwitcher} />
-              <Switch item={"Greeting"} switcher={this.props.greetingSwitcher} />
-              <Switch item={"Todo"} switcher={this.props.todoSwitcher} />
-              <Switch item={"Quote"} switcher={this.props.quoteSwitcher} />
-            </div>
-          </div>
-          <div className="setTodo hidden">
-          </div>
-          <div className="setBackground hidden">
-          </div>
-          <div className="setQuotes hidden">
-          </div>
-        </div>
+const Settings = props => {
+  return (
+    <div className="settingsBox">
+      <div className="iconBox" onClick={props.opener}>
+        <img src="https://cdn3.iconfinder.com/data/icons/fez/512/FEZ-04-512.png" alt="settings icon" className="settingsIcon" />
       </div>
+        <div className="settingsPanel" id="settingsPanel">
+            <h1 className="panelTitle">Settings</h1>
+            <Switch item={'Weather'} switcher={props.weatherSwitcher} isON={props.weatherON} />
+            <Switch item={"Clock"} switcher={props.clockSwitcher} isON={props.clockON} />
+            <Switch item={"Greeting"} switcher={props.greetingSwitcher} isON={props.greetingON} />
+            <Switch item={"Todo"} switcher={props.todoSwitcher} isON={props.todoON} />
+            <Switch item={"Quote"} switcher={props.quoteSwitcher} isON={props.quoteON} />
+        </div>
+    </div>
     );
   }
-}
+
+
+Settings.propTypes = {
+  weatherON: React.PropTypes.bool,
+  clockON: React.PropTypes.bool,
+  todoON: React.PropTypes.bool,
+  greetingON: React.PropTypes.bool,
+  quoteON: React.PropTypes.bool,
+  weatherSwitcher: React.PropTypes.func,
+  clockSwitcher: React.PropTypes.func,
+  todoSwitcher: React.PropTypes.func,
+  greetingSwitcher: React.PropTypes.func,
+  quoteSwitcher: React.PropTypes.func,
+  opener: React.PropTypes.func
+};
+
+export default Settings;
