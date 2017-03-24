@@ -1,17 +1,21 @@
-import React, { Component } from 'react';
 //import './switch.css';
+import React, { PropTypes } from 'react';
 
-export default class Switch extends Component {
-  
-  render() {
-    return (
-      <div className="switch">
-        <div>{this.props.item}</div>
-        <div className="toggleBody">
-          <div className="toggleBit" id={this.props.item} onClick={this.props.switcher} />
-        </div>
-        <div className="lineUnder" />
+const Switch = props => {
+  return (
+    <div className="settingsItem">
+      <div className="itemName">{props.item}</div>
+      <div className="switcherContainer">
+        <div className={props.isON ? "itemSwitcher switchON" : "itemSwitcher"} onClick={props.switcher}></div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+Switch.propTypes = {
+  isON: React.PropTypes.bool,
+  item: React.PropTypes.string,
+  switcher: React.PropTypes.func
+};
+
+export default Switch;
