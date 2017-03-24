@@ -7,7 +7,7 @@ class QuoteRow extends Component {
 		const author = this.props.quote.author;
 
 	return(
-			<li className="quoteListItem">
+			<li className="quoteListItem" key={text}>
 	      		<span className="sentenceItem">{text}</span>
 	      		&nbsp;
 	      		<span className="authorItem">{author}</span>

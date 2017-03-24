@@ -10,7 +10,7 @@ class GreetingContainer extends Component {
             username: ""
         }
     }
-    /*componentWillMount = ()=>{
+   /* componentWillMount = ()=>{
         const component = this;
         window.chrome.storage.sync.get("username", function(data){
             component.setState({username: data.username});

@@ -1,19 +1,31 @@
 import React, { Component } from 'react';
 
 class QuoteTweet extends Component{
-	 /*constructor(props) {
+	 constructor(props) {
 	    super(props);
-	    this.props.state = {
-	    	text:"",
+	    this.state = {
+	    	tweet:"",
+	    	quote:"",
 	    	author:"",
-	    	quote:text + author,
 	    };
-	}*/
+
+	    this.handleClick = this.handleClick.bind(this);
+	}
+
+	handleClick(event){
+		event.preventDefault();
+		this.setState({
+			quote: this.props.quoteArr.text,
+			author: "-" + this.props.quoteArr.author ? this.props.quoteArr.author : "Unknown", 
+			tweet:"https://twitter.com/intent/tweet?text=",
+		});
+	}
+
 
 	render(){
 		return(
 				<li>
-					<a className="twitter-share-button" href="https://twitter.com/intent/tweet?text={quote}">
+					<a className="twitter-share-button" href={this.state.tweet} onClick={this.handleClick} target="_blank">
   						<i className="fa fa-twitter"></i>
   					</a>
 				</li>
