@@ -10,7 +10,7 @@ body {
     @include fullpage(fixed, 2);
     background-image: url("../overlay.png");
     background-size: 100% 100%;
-    opacity: 0.7;
+    opacity: 0.4;
 }
 
 .screen {
@@ -20,18 +20,18 @@ body {
     height: 100%;
     margin:0;
     padding:0;
-    background-image: url("https://drscdn.500px.org/photo/153353409/m%3D2048/8ad3765a3004b1efaa02fe17fc1058b6");
+    background-image: url("https://unsplash.it/1920/1080/?random");
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;    
 }
 
-.bgi1{
-    //background-image: url("https://drscdn.500px.org/photo/153353409/m%3D2048/8ad3765a3004b1efaa02fe17fc1058b6");
-}
-
 .widgets{
   @include fullpage(absolute, 10);
+    top: 0;
+    left: 0;
+    background-size: cover;
+    background-position: center;
 }
 
 .top-right{

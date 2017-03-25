@@ -19,7 +19,7 @@ constructor(){
     renderQuote: true
   }
 }
-  /*componentWillMount = () => {
+  componentWillMount = () => {
     const component = this;
     window.chrome.storage.sync.get(["clockON", "weatherON", "todoON", "greetingON", "quoteON"], function(data){
       console.log(data);
@@ -31,38 +31,38 @@ constructor(){
         renderQuote: data.quoteON === undefined ? true : data.quoteON
       })
     })
-  }*/
+  }
 
   weatherSwitcher = () => {
-    //window.chrome.storage.sync.set({"weatherON": !this.state.renderWeather})
+    window.chrome.storage.sync.set({"weatherON": !this.state.renderWeather})
     this.setState({
       renderWeather: !this.state.renderWeather
     });
   }
 
   clockSwitcher = () => {
-    //window.chrome.storage.sync.set({"clockON": !this.state.renderClock})
+    window.chrome.storage.sync.set({"clockON": !this.state.renderClock})
     this.setState({
       renderClock: !this.state.renderClock
     })
   }
 
   todoSwitcher = () => {
-    //window.chrome.storage.sync.set({"todoON": !this.state.renderTodo})
+    window.chrome.storage.sync.set({"todoON": !this.state.renderTodo})
     this.setState({
       renderTodo: !this.state.renderTodo
     })
   }
 
   greetingSwitcher = () => {
-    //window.chrome.storage.sync.set({"greetingON": !this.state.renderGreeting})
+    window.chrome.storage.sync.set({"greetingON": !this.state.renderGreeting})
     this.setState({
       renderGreeting: !this.state.renderGreeting
     })
   }
 
   quoteSwitcher = () => {
-    //window.chrome.storage.sync.set({"quoteON": !this.state.renderQuote})
+    window.chrome.storage.sync.set({"quoteON": !this.state.renderQuote})
     this.setState({
       renderQuote: !this.state.renderQuote
     })
