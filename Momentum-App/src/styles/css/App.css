@@ -4214,10 +4214,41 @@ body {
   min-height: 100%;
   overflow: hidden; }
 
+.overlay {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  z-index: 2;
+  background-image: url("../overlay.png");
+  background-size: 100% 100%;
+  opacity: 0.4; }
+
 .screen {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   position: absolute;
+  z-index: 1;
+  background-color: transparent;
   width: 100%;
   height: 100%;
+  margin: 0;
+  padding: 0;
+  background-image: url("https://unsplash.it/1920/1080/?random");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat; }
+
+.widgets {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  z-index: 10;
   top: 0;
   left: 0;
   background-image: url("../backgroundImages/download(1).jpg");
@@ -4248,7 +4279,8 @@ body {
   text-align: center;
   width: 50%;
   top: 0;
-  right: 0; }
+  right: 0;
+  z-index: 11; }
 
 .center {
   position: absolute;
@@ -4257,6 +4289,7 @@ body {
   width: 100%;
   top: 50%;
   left: 50%;
+  z-index: 11;
   transform: translate(-50%, -50%); }
 
 .bottom-right {
@@ -4265,7 +4298,8 @@ body {
   text-align: center;
   width: 50%;
   bottom: 0;
-  right: 0; }
+  right: 0;
+  z-index: 11; }
 
 .bottom-left {
   position: absolute;
@@ -4273,7 +4307,8 @@ body {
   text-align: center;
   width: 10%;
   bottom: 0;
-  left: 0; }
+  left: 0;
+  z-index: 11; }
 
 .bottom {
   position: absolute;
@@ -4282,6 +4317,7 @@ body {
   width: 50%;
   bottom: 0;
   left: 50%;
+  z-index: 11;
   transform: translate(-50%, 0); }
 
 .clockBar {
@@ -4406,11 +4442,9 @@ a:visited .fa-twitter {
   background-color: #3de5dd; }
 
 .iconBox {
-  position: fixed;
-  top: 93vh;
-  left: 1vw;
   width: 50px;
-  height: 50px; }
+  height: 50px;
+  padding: 0 15px 15px; }
 
 .settingsIcon {
   width: 100%;
@@ -4423,8 +4457,8 @@ a:visited .fa-twitter {
   width: 170px;
   height: 300px;
   position: fixed;
-  top: 53vh;
-  left: 1vw;
+  bottom: 75px;
+  left: 15px;
   color: #fff;
   padding: 20px 10px;
   display: flex;

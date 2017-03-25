@@ -21,7 +21,7 @@ class QuotesContainer extends Component {
 	<div className="displayQuoteDiv">
   		<p className="quoteSentence">{quoteArray[n].text}</p>
   		<p className="quoteAuthor">{quoteArray[n].author}</p>
-  		<QuoteIcons />
+  		<QuoteIcons quoteArr={quoteArray[n]}/>
   	</div>
 
   		);

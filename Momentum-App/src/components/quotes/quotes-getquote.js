@@ -4,6 +4,7 @@ class GetQuote extends Component {
 	constructor(props) {
     super(props);
     this.state={
+      tweet:''
     	text:'',
     	author:''
     };

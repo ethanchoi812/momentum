@@ -1,9 +1,7 @@
 .iconBox{
-    position: fixed;
-    top: 93vh;
-    left: 1vw;
     width: 50px;
     height: 50px;
+    padding: 0 15px 15px;
 }
 .settingsIcon{
     width: 100%;
@@ -16,8 +14,8 @@
     width: 170px;
     height: 300px;
     position: fixed;
-    top: 53vh;
-    left: 1vw;
+    bottom: 75px;
+    left: 15px;
     color: #fff;
     padding: 20px 10px;
     display: flex;

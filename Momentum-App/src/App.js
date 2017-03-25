@@ -80,36 +80,38 @@ constructor(){
 
   render() {
     return (
-      <div className="screen">
-        <div className="widgets">
-          <div className="top-right">
-            {this.state.renderWeather ? <WeatherContainer /> : <WeatherContainer hide={true} />}
+      <div>
+        <div className="overlay"></div>
+          <div className="screen"></div>
+            <div className="widgets">
+                <div className="top-right">
+                  {this.state.renderWeather ? <WeatherContainer /> : <WeatherContainer hide={true} />}
+                </div>
+                <div className="center">
+                  {this.state.renderClock ? <ClockContainer /> : null}
+                  {this.state.renderGreeting ? <GreetingContainer /> : null}
+                </div>
+                 <div className="bottom">
+                  {this.state.renderQuote ? <QuotesContainer /> : null}
+                </div>
+                <div className="bottom-right">
+                  {this.state.renderTodo ? <Todo /> : null}
+                </div>
+                <div className="bottom-left">
+                  <Settings weatherSwitcher={this.weatherSwitcher}
+                            clockSwitcher={this.clockSwitcher}
+                            todoSwitcher={this.todoSwitcher}
+                            greetingSwitcher={this.greetingSwitcher}
+                            quoteSwitcher={this.quoteSwitcher}
+                            weatherON={this.state.renderWeather}
+                            clockON={this.state.renderClock}
+                            quoteON={this.state.renderQuote}
+                            todoON={this.state.renderTodo}
+                            greetingON={this.state.renderGreeting}
+                            opener={this.openSettings} />
+              </div>
+            </div>
           </div>
-          <div className="center">
-            {this.state.renderClock ? <ClockContainer /> : null}
-            {this.state.renderGreeting ? <GreetingContainer /> : null}
-          </div>
-           <div className="bottom">
-            {this.state.renderQuote ? <QuotesContainer /> : null}
-          </div>
-          <div className="bottom-right">
-            {this.state.renderTodo ? <Todo /> : null}
-          </div>
-          <div className="bottom-left">
-            <Settings weatherSwitcher={this.weatherSwitcher}
-                      clockSwitcher={this.clockSwitcher}
-                      todoSwitcher={this.todoSwitcher}
-                      greetingSwitcher={this.greetingSwitcher}
-                      quoteSwitcher={this.quoteSwitcher}
-                      weatherON={this.state.renderWeather}
-                      clockON={this.state.renderClock}
-                      quoteON={this.state.renderQuote}
-                      todoON={this.state.renderTodo}
-                      greetingON={this.state.renderGreeting}
-                      opener={this.openSettings} />
-          </div>
-        </div>
-      </div>
     );
   }
 }
