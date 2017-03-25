@@ -17,7 +17,7 @@ constructor(){
     renderTodo: true,
     renderGreeting: true,
     renderQuote: true
-  }
+  };
 }
   componentWillMount = () => {
     const component = this;
@@ -29,12 +29,16 @@ constructor(){
         renderTodo: data.todoON === undefined ? true : data.todoON,
         renderGreeting: data.greetingON === undefined ? true : data.greetingON,
         renderQuote: data.quoteON === undefined ? true : data.quoteON
-      })
-    })
+      });
+    });
+  }
+  componentDidMount = () => {
+    //selecting a random image class and adding it to the screen
+    document.querySelector('.screen').classList.add(`pic${Math.ceil(Math.random)*7}`);
   }
 
   weatherSwitcher = () => {
-    window.chrome.storage.sync.set({"weatherON": !this.state.renderWeather})
+    window.chrome.storage.sync.set({"weatherON": !this.state.renderWeather});
     this.setState({
       renderWeather: !this.state.renderWeather
     });
