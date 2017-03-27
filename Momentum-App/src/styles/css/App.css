@@ -4330,9 +4330,53 @@ body {
 .hidden {
   display: none; }
 
-.displayQuoteDiv {
-  width: 100%; }
+.quoteContainerDiv {
+  width: 100%;
+  margin-bottom: 15px; }
 
+.quoteWidgetDiv {
+  text-align: left;
+  display: fixed;
+  max-height: 60vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  margin: 0 auto;
+  padding: 25px;
+  position: fixed;
+  overflow: scroll;
+  bottom: 25vh;
+  z-index: 15; }
+
+.displayQuoteDiv {
+  opacity: 0;
+  /* make things invisible upon start */
+  -webkit-animation: fadeIn ease-in 1;
+  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+  -moz-animation: fadeIn ease-in 1;
+  animation: fadeIn ease-in 1;
+  -webkit-animation-fill-mode: forwards;
+  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+  -moz-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-duration: 0.5s;
+  -moz-animation-duration: 0.5s;
+  animation-duration: 0.5s;
+  display: absolute; }
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+@-moz-keyframes fadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+@keyframes fadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
 .quoteSentence {
   font-size: 18px;
   color: #fff; }
@@ -4341,12 +4385,28 @@ body {
   font-size: 12px;
   color: #ccc; }
 
-.quoteWidgetDiv {
-  background-color: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  width: 66%;
-  margin: 0 auto;
-  padding: 25px; }
+.addQuotes {
+  padding-bottom: 15px;
+  font-family: "Helvetica Neue", "Lucida Grande", sans-serif;
+  font-size: 0.7em; }
+  .addQuotes input {
+    border-radius: 5px;
+    border: none;
+    margin-left: 5px;
+    margin-right: 10px;
+    padding: 5px 8px; }
+  .addQuotes .addQuoteText {
+    width: 40%; }
+  .addQuotes .addQuoteAuthor {
+    width: 20%; }
+  .addQuotes .btnAddQuote {
+    display: inline-block;
+    color: #fff;
+    background: none;
+    border: 1px solid #fff; }
+    .addQuotes .btnAddQuote:hover {
+      color: #000;
+      background-color: #fff; }
 
 .sentenceItem {
   font-size: 12px;
@@ -4365,10 +4425,54 @@ body {
   padding-bottom: 5px; }
 
 .quoteIcons {
-  color: #fff; }
+  color: #ccc;
+  opacity: 0;
+  /* make things invisible upon start */
+  -webkit-animation: fadeIn ease-in 1;
+  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+  -moz-animation: fadeIn ease-in 1;
+  animation: fadeIn ease-in 1;
+  -webkit-animation-fill-mode: forwards;
+  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+  -moz-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-duration: 0.5s;
+  -moz-animation-duration: 0.5s;
+  animation-duration: 0.5s; }
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+@-moz-keyframes fadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+@keyframes fadeIn {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
   .quoteIcons li {
-    display: inline-block;
-    margin: 5px; }
+    margin: 5px;
+    display: inline-block; }
+    .quoteIcons li:hover {
+      color: #fff;
+      cursor: pointer; }
+
+.closeSetting {
+  position: absolute;
+  margin: 5px 5px 0 0;
+  top: 0;
+  right: 0;
+  cursor: pointer; }
+
+.deleteQuote {
+  display: none;
+  opacity: 0.2; }
+  .deleteQuote:hover {
+    opacity: 1; }
 
 a:visited .fa-twitter {
   color: #fff; }

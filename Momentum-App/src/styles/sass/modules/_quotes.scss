@@ -1,6 +1,28 @@
-.displayQuoteDiv {
+.quoteContainerDiv{
 	width:100%;
+	margin-bottom:15px;
 }
+
+.quoteWidgetDiv {
+	text-align:left;
+	display:fixed;
+	max-height:60vh;
+	background-color: rgba(0, 0, 0, 0.8);
+	color: #fff;
+	margin: 0 auto;
+	padding: 25px;
+	position: fixed;
+	overflow: scroll;
+	bottom: 25vh;
+	z-index:15;
+}
+
+.displayQuoteDiv {
+	@include fade-in;
+	display: absolute;
+
+}
+
 
 .quoteSentence {
 	font-size: 18px;
@@ -12,12 +34,38 @@
 	color: #ccc;
 }
 
-.quoteWidgetDiv {
-	background-color: rgba(0, 0, 0, 0.8);
-	color: #fff;
-	width: 66%;
-	margin: 0 auto;
-	padding: 25px;
+.addQuotes{
+	padding-bottom:15px;
+	font-family: $base-font;
+	font-size:0.7em;
+
+	input{
+		border-radius:5px;
+		border:none;
+		margin-left: 5px;
+		margin-right: 10px;
+		padding:5px 8px;
+	}
+
+	.addQuoteText{
+		width:40%;
+	}
+
+	.addQuoteAuthor{
+		width:20%;
+	}
+
+	.btnAddQuote{
+		display:inline-block;
+		color:#fff;
+		background: none;
+		border: 1px solid #fff;
+
+	&:hover{
+		color: #000;
+		background-color:#fff;
+		}
+	}
 }
 
 .sentenceItem{
@@ -41,11 +89,33 @@
 }
 
 .quoteIcons{
-	color:#fff;
+	color:$icon-color;	
+	@include fade-in;
+
 	li{
-		display:inline-block;
 		margin:5px;
+		display:inline-block;
+
+		&:hover{
+			color: $icon-hover-color;
+			cursor: pointer;
+		}
 	}
+}
+
+.closeSetting{
+	position:absolute;
+	margin:5px 5px 0 0;
+	top:0;
+	right:0;
+	cursor: pointer;
+}
+
+.deleteQuote{
+	display:none;
+	opacity:0.2;
+
+	&:hover{opacity:1;}
 }
 
 .fa-twitter{

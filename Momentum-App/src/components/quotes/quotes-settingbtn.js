@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
+import React, { PropTypes } from 'react';
 
-class QuoteSettingBtn extends Component{
-
-	render(){
+const QuoteSettingBtn = props => {
 		return(
-				<li><i className="fa fa-pencil" onClick={this.handleClickSetting}></i></li>
+				<li><i className="fa fa-lg fa-pencil" onClick={props.isClicked}></i></li>
 		);
 	}
-}
+
+QuoteSettingBtn.propTypes = {
+	isClicked: React.PropTypes.func
+};
 
 export default QuoteSettingBtn;

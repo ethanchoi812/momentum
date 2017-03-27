@@ -6,7 +6,7 @@ class QuoteList extends Component {
 	render(){
 		const rows=[];
 		this.props.quoteArray.forEach(function(quote){
-			rows.push(<QuoteRow quote={quote}/>);
+			rows.push(<QuoteRow key={quote.text} quote={quote}/>);
 		});
 
 	return(
