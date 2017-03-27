@@ -11,12 +11,13 @@ class GreetingContainer extends Component {
         }
     }
 
-    componentWillMount = ()=>{
+  componentWillMount = ()=>{
         const component = this;
         window.chrome.storage.sync.get("username", function(data){
             component.setState({username: data.username});
         });
     }
+    
     handleChange = (event)=>{
         this.setState({formValue: event.target.value});
     }

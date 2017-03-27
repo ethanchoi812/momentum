@@ -4,7 +4,6 @@ class GetQuote extends Component {
 	constructor(props) {
     super(props);
     this.state={
-      tweet:''
     	text:'',
     	author:''
     };
@@ -47,23 +46,17 @@ class GetQuote extends Component {
 		this.props.onSubmitNewQuote(newQuote);
 		}
 
-//	this.reset();
-
 	}
   
 	render(){
 		
 	return (
       <form className="addQuotes" onSubmit={this.handleSubmit}>
-      <label>
-      	Quote:
-        <input type="text" name="quoteText" value={this.state.text} placeholder="Quote here" onChange={this.handleTextChange}/>
-        </label>
-      <label>
-        Author:
-        <input type="text" name="quoteAuthor" value={this.state.author} placeholder="Author name" onChange={this.handleAuthorChange}/>
-        </label>
-          <input type="submit" value="Submit"/>
+      <label>Quote:</label>
+        <input className="addQuoteText" type="text" name="quoteText" value={this.state.text} placeholder="Quote here" onChange={this.handleTextChange}/>
+      <label>Author:</label>
+        <input className="addQuoteAuthor" type="text" name="quoteAuthor" value={this.state.author} placeholder="Author name" onChange={this.handleAuthorChange}/>
+          <input className="btnAddQuote" type="submit" value="Add Quote"/>
       </form>
 	    );
 	}
