@@ -28,9 +28,9 @@ export default class WeatherContainer extends Component {
     return new Promise(function(resolve, reject){
       navigator.geolocation.getCurrentPosition(
         function(position){
-          let coords = position.coords.latitude.toFixed(2) + "," + position.coords.longitude.toFixed(2);
-          const key =/*"e984c7d121044a32a18221132170402"*/"lalala";
-          let url = "https://api.apixu.com/v1/current.json?key=" + key + "&q=" + coords;
+          let lat = position.coords.latitude,
+              lon = position.coords.longitude,
+              url = `https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.places%20WHERE%20text%3D%22(${lat}%2C${lon})%22)&format=json&diagnostics=true&callback=`
           resolve(url);
         },
         function(){
@@ -59,19 +59,21 @@ export default class WeatherContainer extends Component {
   }
   //Process all the data and update the state
   insertWeatherData = (data)=>{
-    let countriesUsingF = ["United States of America", "Cayman Islands", "Bahamas", "Belize"];
-    let country = data.location.country;
+    const countriesUsingF = ["United States of America", "Cayman Islands", "Bahamas", "Belize"],
+          country = data.query.results.channel.location.country;
+   
     this.setState({
-      temp_c: data.current.temp_c.toFixed(0) + "*C",
-      temp_f: data.current.temp_f.toFixed(0) + "*F",
-      sky: data.current.condition.text,
-      location: data.location.name + ", " + data.location.country
-      }, ()=>{this.setState((prevState) =>{
+      temp_f: data.query.results.channel.item.condition.temp + "*F",
+      temp_c: ((Number(data.query.results.channel.item.condition.temp) - 32) / 1.8).toFixed(0) + "*C",
+      location: `${data.query.results.channel.location.city}, ${country}`,
+      sky: data.query.results.channel.item.condition.code
+    }, ()=>{this.setState((prevState) =>{
         let properTemp = countriesUsingF.includes(country) ? {temp_used: prevState.temp_f} : {temp_used: prevState.temp_c};
         return properTemp;
       });
     }
     );
+    console.log(this.state.sky);
   }
   handleError = (msg)=>{
     this.setState({
