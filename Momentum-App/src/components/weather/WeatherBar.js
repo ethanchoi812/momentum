@@ -59,7 +59,6 @@ const WeatherBar = props => {
             </div>
             <div className="locationBar">
                 <span>{props.location}</span>
-                {icons[props.sky]}
             </div>
         </div>
     );
