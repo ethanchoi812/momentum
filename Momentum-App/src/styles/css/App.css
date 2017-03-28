@@ -4345,7 +4345,7 @@ body {
   position: fixed;
   overflow: scroll;
   bottom: 25vh;
-  z-index: 15; }
+  z-index: 20; }
 
 .displayQuoteDiv {
   opacity: 0;
@@ -4403,7 +4403,8 @@ body {
     display: inline-block;
     color: #fff;
     background: none;
-    border: 1px solid #fff; }
+    border: 1px solid #fff;
+    margin-top: 10px; }
     .addQuotes .btnAddQuote:hover {
       color: #000;
       background-color: #fff; }
@@ -4463,7 +4464,7 @@ body {
 
 .closeSetting {
   position: absolute;
-  margin: 5px 5px 0 0;
+  margin: 5px 10px 0 0;
   top: 0;
   right: 0;
   cursor: pointer; }

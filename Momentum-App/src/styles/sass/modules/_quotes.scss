@@ -14,7 +14,7 @@
 	position: fixed;
 	overflow: scroll;
 	bottom: 25vh;
-	z-index:15;
+	z-index:20;
 }
 
 .displayQuoteDiv {
@@ -60,6 +60,7 @@
 		color:#fff;
 		background: none;
 		border: 1px solid #fff;
+		margin-top: 10px;
 
 	&:hover{
 		color: #000;
@@ -105,7 +106,7 @@
 
 .closeSetting{
 	position:absolute;
-	margin:5px 5px 0 0;
+	margin:5px 10px 0 0;
 	top:0;
 	right:0;
 	cursor: pointer;

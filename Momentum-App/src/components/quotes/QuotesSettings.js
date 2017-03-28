@@ -16,11 +16,12 @@ class QuotesSettings extends Component {
     this.closeQuoteSettings = this.closeQuoteSettings.bind(this);
 	}
 
-	componentWillMount(){
+	componentDidMount(){
         const component = this;
         window.chrome.storage.sync.get("quoteArr", function(data){
-        	console.log(data.quoteArr);
-       	component.setState({quoteArr:data.quoteArr});
+        //console.log(data.quoteArr);
+       	component.setState({
+       		quoteArr:data.quoteArr  === undefined ? initialQuoteArray : data.quoteArr});
         });
     }
 
@@ -29,7 +30,7 @@ class QuotesSettings extends Component {
 		const newArray = this.state.quoteArr.slice();
     	newArray.unshift(newQuote);
 		this.setState({quoteArr:newArray});
-		window.chrome.storage.sync.set({'quoteArr': newArray})
+		window.chrome.storage.sync.set({"quoteArr": newArray})
 	}
 
 	closeQuoteSettings(event){

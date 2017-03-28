@@ -12,6 +12,8 @@ class QuotesContainer extends Component {
     	quoteArr:initialQuoteArray,
     	showIcons:false,
     	showQuoteSetting:false,
+    	quoteToday:"",
+    	authorToday:"",
     	};  
 
     this.handleHover = this.handleHover.bind(this);
@@ -20,12 +22,23 @@ class QuotesContainer extends Component {
     this.tweetQuote = this.tweetQuote.bind(this);
 	}
 
-	componentWillMount(){
+	componentDidMount(){
         const component = this;
         window.chrome.storage.sync.get("quoteArr", function(data){
-        	console.log(data);
-            component.setState({quoteArr: data.quoteArr});
+        	//console.log(data);
+            component.setState({
+            	quoteArr: data.quoteArr === undefined ? initialQuoteArray : data.quoteArr });
         });
+
+        const quoteArray = this.state.quoteArr;
+		const i = quoteArray.length;
+		const d = new Date();
+		const n = (d.getDate())%i;
+
+		this.setState({
+			quoteToday: quoteArray[n].text,
+			authorToday: quoteArray[n].author
+		});
     }
 
 	handleHover(event){
@@ -35,14 +48,10 @@ class QuotesContainer extends Component {
 	}
 
 	tweetQuote(event){
-		const quoteArray = this.state.quoteArr;
-		const i = quoteArray.length;
-		const d = new Date();
-		const n = (d.getDate())%i;
 
 		const tweet = {
-	    	text:quoteArray[n].text,
-	    	author:quoteArray[n].author
+	    	text:this.state.quoteToday,
+	    	author:this.state.authorToday
 	    }
 
 	    const tweetUrl ="https://twitter.com/intent/tweet?text=%22" + tweet.text + "%22%20" + tweet.author;
@@ -65,22 +74,21 @@ class QuotesContainer extends Component {
 	}
 	
 	render(){
-		const quoteArray = this.state.quoteArr;
-		const i = quoteArray.length;
-		const d = new Date();
-		const n = (d.getDate())%i;
+		const quoteArr = this.state.quoteArr;
+		const quoteToday = this.state.quoteToday;
+		const authorToday = this.state.authorToday;
 		const showIcons = this.state.showIcons;
 		const showQuoteSetting = this.state.showQuoteSetting;
 		const closeQuoteSettings = this.state.closeQuoteSettings;
 
 		return(
 		<div className="quoteContainerDiv">
-			{showQuoteSetting ? <QuoteSettings quoteArray={quoteArray} closeQuoteSettings={this.closeQuoteSettings} /> : null }
+			{showQuoteSetting ? <QuoteSettings quoteArray={quoteArr} closeQuoteSettings={this.closeQuoteSettings} /> : null }
 			<div className="displayQuoteDiv" onMouseEnter={this.handleHover} onMouseLeave={this.handleHover}>
-		  		<p className="quoteSentence">{quoteArray[n].text}</p>
-		  		<p className="quoteAuthor">{quoteArray[n].author}</p>
+		  		<p className="quoteSentence">{quoteToday}</p>
+		  		<p className="quoteAuthor">{authorToday}</p>
 		  	{showIcons ? 
-		  			<QuoteIcons quoteArr={quoteArray} showIcons={showIcons} tweetQuote={this.tweetQuote} toggleQuoteSettings={this.toggleQuoteSettings} />
+		  			<QuoteIcons showIcons={showIcons} tweetQuote={this.tweetQuote} toggleQuoteSettings={this.toggleQuoteSettings} />
 		  			:  null }
 		  	</div>
 	  	</div>
