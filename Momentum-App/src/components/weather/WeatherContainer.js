@@ -74,6 +74,7 @@ export default class WeatherContainer extends Component {
     }
     );
     console.log(this.state.sky);
+    console.log(typeof this.state.sky)
   }
   handleError = (msg)=>{
     this.setState({
