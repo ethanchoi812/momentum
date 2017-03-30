@@ -55,7 +55,7 @@ const WeatherBar = props => {
     return (
         <div className={props.hide ? "hidden" : "weatherBar"}>
             <div className="conditionsBar">
-                <span><i className={icons[props.sky]} /></span><span onClick={props.onClick}>{props.temp}</span>
+                <div class><i className={icons[props.sky]} /></div><div className="tempBox" onClick={props.onClick}>{props.temp}</div>
             </div>
             <div className="locationBar">
                 <span>{props.location}</span>

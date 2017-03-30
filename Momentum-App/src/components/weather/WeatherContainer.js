@@ -63,8 +63,8 @@ export default class WeatherContainer extends Component {
           country = data.query.results.channel.location.country;
    
     this.setState({
-      temp_f: data.query.results.channel.item.condition.temp + "*F",
-      temp_c: ((Number(data.query.results.channel.item.condition.temp) - 32) / 1.8).toFixed(0) + "*C",
+      temp_f: data.query.results.channel.item.condition.temp + " ⁰F",
+      temp_c: ((Number(data.query.results.channel.item.condition.temp) - 32) / 1.8).toFixed(0) + " ⁰C",
       location: `${data.query.results.channel.location.city}, ${country}`,
       sky: data.query.results.channel.item.condition.code
     }, ()=>{this.setState((prevState) =>{
