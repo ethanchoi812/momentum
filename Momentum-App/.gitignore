@@ -9,12 +9,18 @@
 # production
 /build
 
+# generated css
+src/styles/css/
+
 # misc
 .DS_Store
 .env
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.sass-cache/
+*.map
 
 #Visual Studio Code config
 .vscode/*
+

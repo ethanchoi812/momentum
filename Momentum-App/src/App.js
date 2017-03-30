@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import 'font-awesome/css/font-awesome.css';
 import './styles/css/App.css';
 import ClockContainer from './components/clock/ClockContainer';
 import GreetingContainer from './components/greeting/GreetingContainer';
