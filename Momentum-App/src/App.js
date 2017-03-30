@@ -13,11 +13,11 @@ class App extends Component {
 constructor(){
   super();
   this.state = {
-    renderClock: true,
-    renderWeather: true,
-    renderTodo: true,
-    renderGreeting: true,
-    renderQuote: true
+    renderClock: false,
+    renderWeather: false,
+    renderTodo: false,
+    renderGreeting: false,
+    renderQuote: false
   }
 }
 
