@@ -140,6 +140,7 @@
 
 .todo-item-title {
   flex: 1;
+  text-align: left;
 }
 .todo-item-title,
 .todo-item-title * {
@@ -150,6 +151,7 @@
   display: inline-block;
   max-width: 100%;
   cursor: text;
+  text-align: left;
 }
 .todo-item-title input {
   display: block;
