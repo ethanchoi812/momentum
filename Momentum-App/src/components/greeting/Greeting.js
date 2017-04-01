@@ -16,8 +16,8 @@ const Greeting = props => {
         greeting = `Staying late, ${props.username}?`
     }
     return (
-        <div className="greetingBox" onDoubleClick={props.onDoubleClick} >
-         {greeting}
+        <div className="greetingBox">
+         <span className="greetingText"  onDoubleClick={props.onDoubleClick}>{greeting}</span>
         </div>
     );
 };

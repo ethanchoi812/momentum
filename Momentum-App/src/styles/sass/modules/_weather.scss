@@ -1,11 +1,26 @@
 .weatherBar{
-    width: 300px;
-    height: 100px;
+    width: 200px;
+    height: 70px;
     margin-left: auto;
-    background: rgba(0,0,0, .8);
     color: #FFF;
+    font-size: 40px;
+    user-select: none;
 }
 
 .hidden{
     display: none;
+}
+
+.locationBar {
+    font-size: 14px;
+    margin-top: 7px;
+}
+.conditionsBar {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    align-items: center;
+}
+.tempBox {
+    cursor: pointer;
 }
