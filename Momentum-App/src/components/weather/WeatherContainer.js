@@ -11,10 +11,12 @@ export default class WeatherContainer extends Component {
     this.state = {
       temp_c: "",
       temp_f: "",
-      temp_used: "",
+      useF: false,
+      userFromF: false,
       sky: "",
       location: "",
-      msg: ""
+      msg: "",
+      settingsLoaded: false
     }
   }
   componentDidMount(){
@@ -60,42 +62,42 @@ export default class WeatherContainer extends Component {
   //Process all the data and update the state
   insertWeatherData = (data)=>{
     const countriesUsingF = ["United States of America", "Cayman Islands", "Bahamas", "Belize"],
-          country = data.query.results.channel.location.country;
+          country = data.query.results.channel.location.country,
+          component = this;
    
-    this.setState({
-      temp_f: data.query.results.channel.item.condition.temp + " ⁰F",
-      temp_c: ((Number(data.query.results.channel.item.condition.temp) - 32) / 1.8).toFixed(0) + " ⁰C",
-      location: `${data.query.results.channel.location.city}, ${country}`,
-      sky: data.query.results.channel.item.condition.code
-    }, ()=>{this.setState((prevState) =>{
-        let properTemp = countriesUsingF.includes(country) ? {temp_used: prevState.temp_f} : {temp_used: prevState.temp_c};
-        return properTemp;
+   window.chrome.storage.sync.get("weatherUseF", function(settings){
+      component.setState({
+        temp_f: data.query.results.channel.item.condition.temp + " ⁰F",
+        temp_c: ((Number(data.query.results.channel.item.condition.temp) - 32) / 1.8).toFixed(0) + " ⁰C",
+        location: `${data.query.results.channel.location.city}, ${country}`,
+        sky: data.query.results.channel.item.condition.code,
+        userFromF: countriesUsingF.includes(country),
+        useF: settings.weatherUseF === undefined ? countriesUsingF.includes(country) : settings.weatherUseF
       });
-    }
-    );
-    console.log(this.state.sky);
-    console.log(typeof this.state.sky)
+    }); 
   }
-  handleError = (msg)=>{
+  handleError = (msg) =>{
     this.setState({
       msg: msg
     })
     return Promise.reject(msg);
   }
   //Function for switching between F and C
-  handleClickUnits = ()=> {
-    if(this.state.temp_used === this.state.temp_c){
-      this.setState({temp_used: this.state.temp_f})
-    }else {
-      this.setState({temp_used: this.state.temp_c})
-    }
+  handleClickUnits = () => {
+    window.chrome.storage.sync.set({"weatherUseF": !this.state.useF})
+    this.setState({useF: !this.state.useF})
   }
+
   render() {
     if(this.state.msg){
       return (<WeatherBarError msg={this.state.msg} hide={this.props.hide} />);
     }else {
     return (
-      <WeatherBar temp={this.state.temp_used} sky={this.state.sky} location={this.state.location} onClick={this.handleClickUnits} hide={this.props.hide} />
+      <WeatherBar temp={this.state.useF ? this.state.temp_f : this.state.temp_c} 
+                  sky={this.state.sky} 
+                  location={this.state.location} 
+                  onClick={this.handleClickUnits} 
+                  hide={this.props.hide} />
     );
     }
   }
