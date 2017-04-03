@@ -16,7 +16,6 @@ export default class WeatherContainer extends Component {
       sky: "",
       location: "",
       msg: "",
-      settingsLoaded: false
     }
   }
   componentDidMount(){

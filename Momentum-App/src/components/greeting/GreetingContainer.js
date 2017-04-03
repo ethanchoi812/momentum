@@ -7,14 +7,18 @@ class GreetingContainer extends Component {
         super();
         this.state = {
             formValue: "",
-            username: ""
+            username: "",
+            settingsLoaded: false
         }
     }
 
   componentWillMount = ()=>{
         const component = this;
         window.chrome.storage.sync.get("username", function(data){
-            component.setState({username: data.username});
+            component.setState({
+                username: data.username,
+                settingsLoaded: true
+            });
         });
     }
     
@@ -33,8 +37,12 @@ class GreetingContainer extends Component {
     }
 
     render(){
-        return this.state.username ? (<Greeting username={this.state.username} onDoubleClick={this.resetUsername} />) :
-            (<AskUserName formValue={this.state.formValue} onChange={this.handleChange} onSubmit={this.handleSubmit} />)   
+        if (this.state.settingsLoaded){
+            return this.state.username ? (<Greeting username={this.state.username} onDoubleClick={this.resetUsername} />) :
+                (<AskUserName formValue={this.state.formValue} onChange={this.handleChange} onSubmit={this.handleSubmit} />)  
+        } else {
+            return (null)
+            } 
     }
 }
 
