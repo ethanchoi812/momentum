@@ -17,15 +17,7 @@ body {
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;  
-    //transition: opacity .5s linear;
-    //opacity: 0;
-    //visibility: hidden;
 }
-/*
-.showBackground {
-  visibility: visible;
-  opacity: 1;
-}*/
 
 .widgets{
   @include fullpage(absolute, 10);

@@ -17,7 +17,8 @@ constructor(){
     renderWeather: false,
     renderTodo: false,
     renderGreeting: false,
-    renderQuote: false
+    renderQuote: false,
+    backgroundURL: ""
   }
 }
 
@@ -32,10 +33,8 @@ componentWillMount = () => {
         renderQuote: data.quoteON === undefined ? true : data.quoteON
       })
     })
+    this.setBackground();
   }
-componentDidMount = () => {
-  this.setBackground();
-}
 
   weatherSwitcher = () => {
    window.chrome.storage.sync.set({"weatherON": !this.state.renderWeather})
@@ -83,19 +82,19 @@ componentDidMount = () => {
           height = window.innerHeight,
           time = parseInt(new Date().toLocaleTimeString(undefined, {hour12: false}), 10),
           //Check the time and insert the id of day picture collection or night picture collection into url
-          collection = (time > 18 && time < 5) ? 647731 : 647662, 
+          collection = (time > 18 || time < 5) ? 647731 : 647662, 
           url = `https://source.unsplash.com/collection/${collection}/${width}x${height}/daily`;
-    console.log(url);
-   
-    const screen = document.getElementById("screen");
-    screen.style.backgroundImage = `url(${url})`;
+    this.setState({backgroundURL: url})
     
   }
 
   render() {
+    const style = {
+      backgroundImage: `url(${this.state.backgroundURL})`
+    }
     return (
       <div>
-          <div className="screen" id="screen"></div>
+          <div className="screen" style={style}></div>
             <div className="widgets">
                 <div className="top-right">
                   {this.state.renderWeather ? <WeatherContainer /> : <WeatherContainer hide={true} />}
