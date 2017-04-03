@@ -6,12 +6,6 @@ body {
   overflow: hidden;
 }
 
-.overlay{
-    @include fullpage(fixed, 2);
-    background-image: url("../overlay.png");
-    background-size: 100% 100%;
-    opacity: 0.4;
-}
 
 .screen {
     @include fullpage(absolute, 1);
@@ -20,10 +14,9 @@ body {
     height: 100%;
     margin:0;
     padding:0;
-    background-image: url("https://unsplash.it/1920/1080/?random");
     background-size: cover;
     background-position: center center;
-    background-repeat: no-repeat;    
+    background-repeat: no-repeat;  
 }
 
 .widgets{

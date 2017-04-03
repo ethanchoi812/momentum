@@ -17,14 +17,14 @@ constructor(){
     renderWeather: false,
     renderTodo: false,
     renderGreeting: false,
-    renderQuote: false
+    renderQuote: false,
+    backgroundURL: ""
   }
 }
 
 componentWillMount = () => {
     const component = this;
     window.chrome.storage.sync.get(["clockON", "weatherON", "todoON", "greetingON", "quoteON"], function(data){
-      console.log(data);
       component.setState({
         renderClock: data.clockON === undefined ? true : data.clockON,
         renderWeather: data.weatherON === undefined ? true : data.weatherON,
@@ -33,6 +33,7 @@ componentWillMount = () => {
         renderQuote: data.quoteON === undefined ? true : data.quoteON
       })
     })
+    this.setBackground();
   }
 
   weatherSwitcher = () => {
@@ -76,11 +77,24 @@ componentWillMount = () => {
     settingsPanel.classList.toggle("show");
   }
 
+  setBackground = () => {
+    const width = window.innerWidth,
+          height = window.innerHeight,
+          time = parseInt(new Date().toLocaleTimeString(undefined, {hour12: false}), 10),
+          //Check the time and insert the id of day picture collection or night picture collection into url
+          collection = (time > 18 || time < 5) ? 647731 : 647662, 
+          url = `https://source.unsplash.com/collection/${collection}/${width}x${height}/daily`;
+    this.setState({backgroundURL: url})
+    
+  }
+
   render() {
+    const style = {
+      backgroundImage: `url(${this.state.backgroundURL})`
+    }
     return (
       <div>
-        <div className="overlay"></div>
-          <div className="screen"></div>
+          <div className="screen" style={style}></div>
             <div className="widgets">
                 <div className="top-right">
                   {this.state.renderWeather ? <WeatherContainer /> : <WeatherContainer hide={true} />}
