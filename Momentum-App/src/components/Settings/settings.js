@@ -18,6 +18,7 @@ const Settings = props => {
             <Switch item={"Greeting"} switcher={props.greetingSwitcher} isON={props.greetingON} />
             <Switch item={"Todo"} switcher={props.todoSwitcher} isON={props.todoON} />
             <Switch item={"Quote"} switcher={props.quoteSwitcher} isON={props.quoteON} />
+            <Switch item={"Focus"} switcher={props.focusSwitcher} isON={props.focusON} />
         </div>
     </div>
     );

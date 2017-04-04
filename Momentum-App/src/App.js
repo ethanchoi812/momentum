@@ -18,6 +18,7 @@ constructor(){
     renderTodo: false,
     renderGreeting: false,
     renderQuote: false,
+    renderFocus: false,
     backgroundURL: "",
     todaysFocus: [],
   }
@@ -25,13 +26,14 @@ constructor(){
 
 componentWillMount = () => {
     const component = this;
-    window.chrome.storage.sync.get(["clockON", "weatherON", "todoON", "greetingON", "quoteON"], function(data){
+    window.chrome.storage.sync.get(["clockON", "weatherON", "todoON", "greetingON", "quoteON", "focusON"], function(data){
       component.setState({
         renderClock: data.clockON === undefined ? true : data.clockON,
         renderWeather: data.weatherON === undefined ? true : data.weatherON,
         renderTodo: data.todoON === undefined ? true : data.todoON,
         renderGreeting: data.greetingON === undefined ? true : data.greetingON,
-        renderQuote: data.quoteON === undefined ? true : data.quoteON
+        renderQuote: data.quoteON === undefined ? true : data.quoteON,
+        renderFocus: data.focusON === undefined ? true : data.focusON
       })
     })
     this.setBackground();
@@ -72,6 +74,13 @@ componentWillMount = () => {
     })
   }
 
+  focusSwitcher = () => {
+   window.chrome.storage.sync.set({"focusON": !this.state.renderFocus})
+    this.setState({
+      renderFocus: !this.state.renderFocus
+    })
+  }
+
   openSettings() {
     console.log("You just clicked shit!")
     const settingsPanel = document.getElementById('settingsPanel');
@@ -91,7 +100,6 @@ componentWillMount = () => {
 
   setTodaysFocus(todaysFocus) {
     this.setState({ todaysFocus });
-    console.log('setting', todaysFocus);
   }
 
   render() {
@@ -102,7 +110,13 @@ componentWillMount = () => {
       <div>
           <div className="screen" style={style}></div>
             <div className="widgets">
-                <TodaysFocus todaysFocus={this.state.todaysFocus} />
+              {
+                this.state.renderFocus ?
+                  <TodaysFocus
+                    todaysFocus={this.state.todaysFocus}
+                    toggleOff={this.focusSwitcher}
+                  /> : null
+              }
                 <div className="top-right">
                   {this.state.renderWeather ? <WeatherContainer /> : <WeatherContainer hide={true} />}
                 </div>
@@ -122,11 +136,13 @@ componentWillMount = () => {
                             todoSwitcher={this.todoSwitcher}
                             greetingSwitcher={this.greetingSwitcher}
                             quoteSwitcher={this.quoteSwitcher}
+                            focusSwitcher={this.focusSwitcher}
                             weatherON={this.state.renderWeather}
                             clockON={this.state.renderClock}
                             quoteON={this.state.renderQuote}
                             todoON={this.state.renderTodo}
                             greetingON={this.state.renderGreeting}
+                            focusON={this.state.renderFocus}
                             opener={this.openSettings} />
               </div>
             </div>

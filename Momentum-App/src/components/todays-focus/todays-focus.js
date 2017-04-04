@@ -2,7 +2,8 @@ import React from 'react';
 
 class TodaysFocus extends React.Component {
   static propTypes = {
-    todaysFocus: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
+    todaysFocus: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
+    toggleOff: React.PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -36,9 +37,10 @@ class TodaysFocus extends React.Component {
     const task = this.props.todaysFocus[this.state.current];
 
     return (
-      <h1 className="todays-focus">
-        {task}
-      </h1>
+      <div className="todays-focus">
+        <h1 className="todays-focus-task">{task}</h1>
+        <button type="button" onClick={this.props.toggleOff}>CLOSE</button>
+      </div>
     );
   }
 }
