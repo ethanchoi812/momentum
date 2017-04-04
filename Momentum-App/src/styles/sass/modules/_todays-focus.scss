@@ -1,0 +1,89 @@
+.todays-focus,
+.todays-focus:before,
+.todays-focus:after {
+  box-sizing: border-box;
+}
+
+.todays-focus *,
+.todays-focus *:before,
+.todays-focus *:after {
+  box-sizing: inherit;
+}
+
+.todays-focus {
+  position: fixed;
+  z-index: 12; /* weatherbar has z-index 11 */
+  top: 0;
+  left: 5%;
+  right: calc(5% + 200px); /* weatherbar is 200px wide */
+  height: 15%;
+}
+
+.todays-focus-content {
+  display: flex;
+  position: absolute;
+  width: 70%;
+  bottom: 10%;
+  left: 15%;
+}
+
+.todays-focus-task {
+  flex: 1 1 auto;
+  overflow: hidden;
+  white-space: nowrap;
+  min-width: 0; /* it would not shrink without this line */
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  transition: all .2s ease-in-out;
+  transform: none;
+  opacity: 1;
+}
+.todays-focus-task-title {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  min-width: 0; /* it would not shrink without this line */
+}
+
+.task-entering .todays-focus-task:not(.no-animate) {
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+.task-leaving .todays-focus-task:not(.no-animate) {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.todays-focus-close {
+  background: none;
+  border: 0;
+  outline: 0;
+  border-radius: 10%;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+
+  &:hover {
+    background-color: #000;
+    background-color: rgba(0, 0, 0, .3);
+    color: #f96da3;
+  }
+}
+
+
+.todays-focus-cloud {
+  height: 100%;
+  width: 100%;
+}
+.todays-focus-cloud-path {
+  fill: #fff;
+  fill: rgba(255, 255, 255, .5);
+  stroke: #000;
+  stroke-width: 1;
+  stroke-linejoin: round;
+}
+.todays-focus:hover .todays-focus-cloud-path {
+  fill: #ccdefc;
+  stroke: #9ebff7;
+}

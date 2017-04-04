@@ -1,13 +1,18 @@
 .todo {
-  width: 400px;
-  height: 400px;
+  max-width: 100%;
+  max-height: 100%;
   position: fixed;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
   box-sizing: border-box;
   background: none;
+  transform: translateY(50%);
+  right: 0;
   transition: all .225s ease-in-out;
+}
+
+.todo.todo-normal {
+  width: 533px;
+  height: 533px;
+  bottom: 50%;
 }
 
 .todo *,
@@ -23,8 +28,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  height: 100%;
+  width: 75%;
+  height: 75%;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
   position: absolute;
   box-shadow:
     0 3px 5px 5px rgba(0, 0, 0, .15),
@@ -34,21 +42,42 @@
 .todo.todo-large {
   width: 100%;
   height: 100%;
-  top: 0;
-  transform: translate(0, 0);
+  bottom: 50%;
   background: rgba(0, 0, 0, .5);
 }
 
-.todo-large .todo-inner-container {
-  width: 75%;
-  height: 75%;
+.todo.todo-large .todo-inner-container {
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  right: 50%;
+  transform: translate(50%, -50%);
   box-shadow:
     0 5px 5px 5px rgba(0, 0, 0, .15),
     0 10px 10px 10px rgba(0, 0, 0, .25),
     0 15px 15px 15px rgba(0, 0, 0, .35);
+}
+
+.todo.todo-min {
+  height: 40px;
+  width: 200px;
+  bottom: 20px;
+
+  .todo-inner-container {
+    top: auto;
+    bottom: 0;
+    transform: translate(0);
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow:
+        0 0 10px 10px rgba(255, 255, 255, .09),
+        0 0 20px 20px rgba(255, 255, 255, .15);
+    }
+  }
+
+  .todo-window-control {
+    border: 0;
+    margin: 0;
+  }
 }
 
 .todo-btn {
@@ -279,3 +308,13 @@
   margin-bottom: 5px;
   width: 100%;
 }
+
+.todo-min .todo-window-control:hover {
+  cursor: pointer;
+}
+
+.todo-window-title {
+  flex: 1;
+  text-align: left;
+}
+
