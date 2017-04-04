@@ -14,10 +14,10 @@ class TodaysFocus extends React.Component {
   }
 
   componentDidMount() {
-    const needUpdate = this.props.todaysFocus.length > 1;
-    if(!needUpdate) return;
-
     this.timer = setInterval(() => {
+      const needUpdate = this.props.todaysFocus.length > 0;
+      if(!needUpdate) return;
+
       this.setState((prevState) => ({
         current: (prevState.current + 1) % this.props.todaysFocus.length
       }));
@@ -34,12 +34,15 @@ class TodaysFocus extends React.Component {
       return null;
     }
 
-    const task = this.props.todaysFocus[this.state.current];
+    const task = this.props.todaysFocus[this.state.current] ||
+      this.props.todaysFocus[0];
 
     return (
       <div className="todays-focus">
         <h1 className="todays-focus-task">{task}</h1>
-        <button type="button" onClick={this.props.toggleOff}>CLOSE</button>
+        <button type="button" onClick={this.props.toggleOff}
+          className="todays-focus-close"
+        ><i className="fa fa-times"></i></button>
       </div>
     );
   }
