@@ -13,22 +13,47 @@
 .todays-focus {
   position: fixed;
   z-index: 12; /* weatherbar has z-index 11 */
-  top: 5%;
-  left: 10%;
-  right: calc(10% + 200px); /* weatherbar is 200px wide */
-  background-color: #fff;
-  background-color: rgba(255, 255, 255, .6);
+  top: 0;
+  left: 5%;
+  right: calc(5% + 200px); /* weatherbar is 200px wide */
+  height: 15%;
+}
+
+.todays-focus-content {
   display: flex;
-  padding: 10px;
-  min-height: 10%;
+  position: absolute;
+  width: 70%;
+  bottom: 10%;
+  left: 15%;
 }
 
 .todays-focus-task {
   flex: 1 1 auto;
   overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
   min-width: 0; /* it would not shrink without this line */
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  transition: all .2s ease-in-out;
+  transform: none;
+  opacity: 1;
+}
+.todays-focus-task-title {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  min-width: 0; /* it would not shrink without this line */
+}
+
+.task-entering .todays-focus-task:not(.no-animate) {
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+.task-leaving .todays-focus-task:not(.no-animate) {
+  transform: translateY(-100%);
+  opacity: 0;
 }
 
 .todays-focus-close {
@@ -42,7 +67,23 @@
   &:hover {
     background-color: #000;
     background-color: rgba(0, 0, 0, .3);
-    color: #fff;
+    color: #f96da3;
   }
 }
 
+
+.todays-focus-cloud {
+  height: 100%;
+  width: 100%;
+}
+.todays-focus-cloud-path {
+  fill: #fff;
+  fill: rgba(255, 255, 255, .5);
+  stroke: #000;
+  stroke-width: 1;
+  stroke-linejoin: round;
+}
+.todays-focus:hover .todays-focus-cloud-path {
+  fill: #ccdefc;
+  stroke: #9ebff7;
+}
