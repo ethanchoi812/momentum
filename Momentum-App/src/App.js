@@ -7,7 +7,7 @@ import Settings from './components/Settings/settings.js';
 import WeatherContainer from './components/weather/WeatherContainer';
 import Todo from './components/todo/todo.js';
 import QuotesContainer from './components/quotes/QuotesContainer.js';
-
+import TodaysFocus from './components/todays-focus/todays-focus.js';
 
 class App extends Component {
 constructor(){
@@ -18,7 +18,8 @@ constructor(){
     renderTodo: false,
     renderGreeting: false,
     renderQuote: false,
-    backgroundURL: ""
+    backgroundURL: "",
+    todaysFocus: [],
   }
 }
 
@@ -88,6 +89,11 @@ componentWillMount = () => {
     
   }
 
+  setTodaysFocus(todaysFocus) {
+    this.setState({ todaysFocus });
+    console.log('setting', todaysFocus);
+  }
+
   render() {
     const style = {
       backgroundImage: `url(${this.state.backgroundURL})`
@@ -96,6 +102,7 @@ componentWillMount = () => {
       <div>
           <div className="screen" style={style}></div>
             <div className="widgets">
+                <TodaysFocus todaysFocus={this.state.todaysFocus} />
                 <div className="top-right">
                   {this.state.renderWeather ? <WeatherContainer /> : <WeatherContainer hide={true} />}
                 </div>
@@ -107,7 +114,7 @@ componentWillMount = () => {
                   {this.state.renderQuote ? <QuotesContainer /> : null}
                 </div>
                 <div className="bottom-right">
-                  {this.state.renderTodo ? <Todo /> : null}
+                  {this.state.renderTodo ? <Todo setTodaysFocus={(tasks) => this.setTodaysFocus(tasks)}/> : null}
                 </div>
                 <div className="bottom-left">
                   <Settings weatherSwitcher={this.weatherSwitcher}

@@ -120,8 +120,8 @@ export default class Todo extends Component {
         items[i].focusLevel = focusLevels.HIGH;
       } else {
         items.forEach(function(item) {
-          item.focusLevel = focusLevels.bubbleUp(
-            item.focusLevel, items[i].focusLevel);
+          item.focusLevel = focusLevels
+            .bubbleUp(item.focusLevel, items[i].focusLevel);
         });
         items[i].focusLevel = focusLevels.NONE;
       }
@@ -232,6 +232,20 @@ export default class Todo extends Component {
       this.setState((prevState) => ({
         error: prevState.error
       }));
+
+      // check focus
+      if(!this.props.setTodaysFocus) return;
+      const focusItems = this.state.items
+        .filter(item => !item.done && item.focusLevel !== focusLevels.NONE)
+        .sort((a, b) => {
+          if(a.focusLevel === focusLevels.HIGH) return -1;
+          if(b.focusLevel === focusLevels.HIGH) return 1;
+          if(a.focusLevel === focusLevels.MID) return -1;
+
+          return 1;
+        })
+        .map(item => item.title);
+      this.props.setTodaysFocus(focusItems);
     }, (err) => {
       const errorMessage = (err && err.message) ||
         (err && err.toString()) || 'Unknown Error';
