@@ -59,10 +59,18 @@
     top: auto;
     bottom: 0;
     transform: translate(0);
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow:
+        0 0 10px 10px rgba(255, 255, 255, .09),
+        0 0 20px 20px rgba(255, 255, 255, .15);
+    }
   }
 
   .todo-window-control {
     border: 0;
+    margin: 0;
   }
 }
 
@@ -294,3 +302,13 @@
   margin-bottom: 5px;
   width: 100%;
 }
+
+.todo-min .todo-window-control:hover {
+  cursor: pointer;
+}
+
+.todo-window-title {
+  flex: 1;
+  text-align: left;
+}
+
