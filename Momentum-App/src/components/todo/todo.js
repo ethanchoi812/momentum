@@ -274,6 +274,8 @@ export default class Todo extends Component {
       topClass.push('todo-large');
     } else if(this.state.isMin) {
       topClass.push('todo-min');
+    } else {
+      topClass.push('todo-normal');
     }
 
     return (
