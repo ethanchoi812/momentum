@@ -51,6 +51,18 @@
     0 15px 15px 15px rgba(0, 0, 0, .35);
 }
 
+.todo.todo-min {
+  height: auto;
+  width: auto;
+  top: auto;
+  bottom: 0;
+  transform: none;
+
+  .todo-inner-container {
+    position: relative;
+  }
+}
+
 .todo-btn {
   cursor: pointer;
   white-space: nowrap;

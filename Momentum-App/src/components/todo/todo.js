@@ -16,7 +16,8 @@ export default class Todo extends Component {
       maxDoneItems: 20,
       loading: true,
       error: null,
-      isLarge: false
+      isLarge: false,
+      isMin: true,
     };
 
     const keys = Object.getOwnPropertyNames(Object.getPrototypeOf(this));
@@ -47,9 +48,21 @@ export default class Todo extends Component {
     });
   }
 
-  toggleLarge(evt) {
+  toggleLarge() {
     this.setState((prevState) => {
-      return { isLarge: !prevState.isLarge };
+      return {
+        isLarge: !prevState.isLarge,
+        isMin: false,
+      };
+    });
+  }
+
+  toggleMin() {
+    this.setState((prevState) => {
+      return {
+        isLarge: false,
+        isMin: !prevState.isMin,
+      };
     });
   }
 
@@ -242,30 +255,47 @@ export default class Todo extends Component {
       </div>
     );
 
+    const topClass = ['todo'];
+    if(this.state.isLarge) {
+      topClass.push('todo-large');
+    } else if(this.state.isMin) {
+      topClass.push('todo-min');
+    }
+
     return (
-      <div className={'todo' + (this.state.isLarge ? ' todo-large' : '')}
+      <div className={topClass.join(' ')}
         onClick={evt => evt.target.classList.contains('todo-large') &&
           this.toggleLarge()}
       >
         <div className="todo-inner-container">
           <TodoWindowControl
             isLarge={this.state.isLarge}
-            toggleLarge={this.toggleLarge} />
+            isMin={this.state.isMin}
+            toggleLarge={this.toggleLarge}
+            toggleMin={this.toggleMin} />
 
-          <TodoFilterControl
-            filter={this.state.filter}
-            onChangeFilter={this.changeFilter}
-            doneDrop={this.doneDrop} />
+          {!this.state.isMin &&
+            <TodoFilterControl
+              filter={this.state.filter}
+              onChangeFilter={this.changeFilter}
+              doneDrop={this.doneDrop} />
+          }
 
-          <TodoList
-            items={this.state.items.slice()}
-            filter={this.state.filter}
-            addNewItem={this.addNewItem}
-            modifyItem={this.modifyItem}
-            saveDragged={this.saveDragged}
-            moveDragged={this.moveDragged} />
+          {!this.state.isMin &&
+            <TodoList
+              items={this.state.items.slice()}
+              filter={this.state.filter}
+              addNewItem={this.addNewItem}
+              modifyItem={this.modifyItem}
+              saveDragged={this.saveDragged}
+              moveDragged={this.moveDragged} />
+          }
 
-          <TodoError error={this.state.error} dismiss={this.dismissError} />
+          {!this.state.isMin &&
+            <TodoError
+              error={this.state.error}
+              dismiss={this.dismissError} />
+          }
         </div>
       </div>
     );
