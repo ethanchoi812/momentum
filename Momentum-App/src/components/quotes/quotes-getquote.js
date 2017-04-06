@@ -5,7 +5,7 @@ class GetQuote extends Component {
     super(props);
     this.state={
     	text:'',
-    	author:''
+    	author:'',
     };
 
 
@@ -35,12 +35,12 @@ class GetQuote extends Component {
 
 		const newQuote = {
 	    	text:this.state.text,
-	    	author:this.state.author
+	    	author:this.state.author,
     	}
 
 	    this.state={
 	    	text:"",
-	    	author:""
+	    	author:"",
 	    };
 
 		this.props.onSubmitNewQuote(newQuote);

@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import QuoteRow from './quotes-row.js';
 
+
 class QuoteList extends Component {
 
+
 	render(){
-		const rows=[];
-		this.props.quoteArray.forEach(function(quote){
-			rows.push(<QuoteRow key={quote.text} quote={quote}/>);
-		});
+		const quoteArray = this.props.quoteArray;
+		const quotelistItems = quoteArray.map((quote) =>
+			<QuoteRow quote={quote} key={quote.text} removeQuote={(removeQuote) => this.props.handleRemoveQuote(removeQuote, quote)}/>	
+			)
 
 	return(
 		<div className="quoteWidgetRow">
 			<ul className="quoteList">
-	      		{rows}
+	      		{quotelistItems}	
       		</ul>
       	</div>
 		);
