@@ -4,6 +4,7 @@
 }
 
 .quoteWidgetDiv {
+	width:100%;
 	text-align:left;
 	display:fixed;
 	max-height:60vh;
@@ -112,10 +113,18 @@
 	cursor: pointer;
 }
 
-.deleteQuote{
-	display:none;
-	opacity:0.2;
+.quoteItem{
+	display:inline-block;
+	width:90%;
+}
 
+.deleteQuote{
+	display:inline-block;
+	text-align:right;
+	vertical-align: middle;
+	width:10%;
+	opacity:0.2;
+	cursor:pointer;
 	&:hover{opacity:1;}
 }
 
@@ -123,4 +132,11 @@
 	a:visited &{
 		color:#fff;
 	}
+}
+
+.noQuotesYet{
+	position:relative;
+	display:block;
+	top:50%;
+	text-align:center;
 }
