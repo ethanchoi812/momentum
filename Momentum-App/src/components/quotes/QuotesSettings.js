@@ -13,6 +13,7 @@ class QuotesSettings extends Component {
     	};  
 
     this.handleSubmitQuote = this.handleSubmitQuote.bind(this);
+    this.handleRemoveQuote = this.handleRemoveQuote.bind(this);
     this.closeQuoteSettings = this.closeQuoteSettings.bind(this);
 	}
 
@@ -30,13 +31,25 @@ class QuotesSettings extends Component {
 		const newArray = this.state.quoteArr.slice();
     	newArray.unshift(newQuote);
 		this.setState({quoteArr:newArray});
-		window.chrome.storage.sync.set({"quoteArr": newArray})
+		window.chrome.storage.sync.set({"quoteArr": newArray});
+	}
+
+	handleRemoveQuote(removeQuote, quote){
+		event.preventDefault();
+
+		const exQuote = quote;
+		const newArray = this.state.quoteArr.slice();
+		const idx = newArray.indexOf(exQuote);
+
+		if((removeQuote.hasOwnProperty('removeQuote')) && idx > -1){
+			newArray.splice(idx, 1);
+		}
+
+		this.setState({quoteArr:newArray});
+		window.chrome.storage.sync.set({"quoteArr": newArray});
 	}
 
 	closeQuoteSettings(event){
-		const clickedClose = {
-			closeQuoteSettings:true
-		}
 
 		this.props.closeQuoteSettings();
 	}
@@ -48,7 +61,9 @@ class QuotesSettings extends Component {
 		<div className="quoteWidgetDiv" >
 			<i className="fa fa-lg fa-times closeSetting" onClick={this.closeQuoteSettings}></i>
 	  		<GetQuote onSubmitNewQuote={this.handleSubmitQuote}/>
-	  		<QuoteList quoteArray={quoteArr}/>
+	  		{ quoteArr.length > 0 ?
+	  			<QuoteList quoteArray={quoteArr} handleRemoveQuote={this.handleRemoveQuote}/> :
+	  			<div className="noQuotesYet"><p>No quotes yet! Add your own quote above.</p></div> }
 	  	</div>
   		);
 	}

@@ -1,6 +1,18 @@
 import React, { Component } from 'react';
 
 class QuoteRow extends Component {
+
+	constructor(props){
+		super(props);
+		this.handleRemoveQuote = this.handleRemoveQuote.bind(this);
+	}
+
+	handleRemoveQuote(){
+		this.props.removeQuote({
+			removeQuote:true
+			});
+	}
+
 	render(){
 
 		const text = this.props.quote.text;
@@ -8,14 +20,18 @@ class QuoteRow extends Component {
 
 	return(
 			<li className="quoteListItem">
-	      		<span className="sentenceItem">{text}</span>
-	      		&nbsp;
-	      		<span className="authorItem">{author}</span>
-	      		&nbsp;
-	      		<i className="fa fa-times deleteQuote"></i>
+				<div className="quoteItem">
+		      		<span className="sentenceItem">{text}</span>
+		      		&nbsp;
+		      		<span className="authorItem">{author}</span>
+		      	</div>
+	      		<div className="deleteQuote">
+					<i onClick={this.handleRemoveQuote} className="fa fa-times"></i>
+				</div>
 	      	</li>		
 		);
 	}
 }
+
 
 export default QuoteRow;
