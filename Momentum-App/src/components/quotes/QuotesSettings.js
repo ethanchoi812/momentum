@@ -29,7 +29,11 @@ class QuotesSettings extends Component {
 	handleSubmitQuote(newQuote) {
 		event.preventDefault();
 		const newArray = this.state.quoteArr.slice();
-    	newArray.unshift(newQuote);
+		const i = newArray.length;
+		const d = new Date();
+		const n = (d.getDate())%i - 1;
+
+    	newArray.splice(n, 0, newQuote);
 		this.setState({quoteArr:newArray});
 		window.chrome.storage.sync.set({"quoteArr": newArray});
 	}
