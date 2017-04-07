@@ -13,7 +13,7 @@ class QuotesContainer extends Component {
     	showIcons:false,
     	showQuoteSetting:false,
     	quoteToday:"",
-    	authorToday:"",
+    	authorToday:""
     	};  
 
     this.handleHover = this.handleHover.bind(this);
@@ -25,20 +25,19 @@ class QuotesContainer extends Component {
 	componentDidMount(){
         const component = this;
         window.chrome.storage.sync.get("quoteArr", function(data){
-        	//console.log(data);
             component.setState({
             	quoteArr: data.quoteArr === undefined ? initialQuoteArray : data.quoteArr });
+
+           	const quoteArr = component.state.quoteArr;
+        	const i = quoteArr.length;
+			const d = new Date();
+			const n = (d.getDate())%i;
+            console.log(quoteArr + ", " + i + ", " + n);
+            component.setState({
+				quoteToday: i>0 ? quoteArr[n].text : "",
+				authorToday: i>0 ? quoteArr[n].author: ""
+        	});
         });
-
-        const quoteArray = this.state.quoteArr;
-		const i = quoteArray.length;
-		const d = new Date();
-		const n = (d.getDate())%i;
-
-		this.setState({
-			quoteToday: quoteArray[n].text,
-			authorToday: quoteArray[n].author
-		});
     }
 
 	handleHover(event){
@@ -75,19 +74,19 @@ class QuotesContainer extends Component {
 	
 	render(){
 		const quoteArr = this.state.quoteArr;
-		const quoteToday = this.state.quoteToday;
-		const authorToday = this.state.authorToday;
 		const showIcons = this.state.showIcons;
 		const showQuoteSetting = this.state.showQuoteSetting;
 		const closeQuoteSettings = this.state.closeQuoteSettings;
-
+		const quoteToday = this.state.quoteToday;
+		const authorToday = this.state.authorToday;
+		
 		return(
 		<div className="quoteContainerDiv">
 			{showQuoteSetting ? <QuoteSettings quoteArray={quoteArr} closeQuoteSettings={this.closeQuoteSettings} /> : null }
 			<div className="displayQuoteDiv" onMouseEnter={this.handleHover} onMouseLeave={this.handleHover}>
 		  		<p className="quoteSentence">{quoteToday}</p>
 		  		<p className="quoteAuthor">{authorToday}</p>
-		  	{showIcons ? 
+		  	{showIcons || !quoteToday ? 
 		  			<QuoteIcons showIcons={showIcons} tweetQuote={this.tweetQuote} toggleQuoteSettings={this.toggleQuoteSettings} />
 		  			:  null }
 		  	</div>
