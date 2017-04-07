@@ -82,9 +82,16 @@ componentWillMount = () => {
   }
 
   openSettings() {
-    console.log("You just clicked shit!")
-    const settingsPanel = document.getElementById('settingsPanel');
-    settingsPanel.classList.toggle("show");
+    const settingsPanel = document.getElementById('settingsPanel'),
+          settingsItems = document.querySelectorAll('.settingsItem');
+
+    settingsPanel.classList.toggle('settingsHidden');
+    settingsPanel.classList.toggle('settingsShown');
+    settingsItems.forEach(function(item){
+      console.log(item);
+      item.classList.toggle('settingsItemHidden')
+    })
+
   }
 
   setBackground = () => {

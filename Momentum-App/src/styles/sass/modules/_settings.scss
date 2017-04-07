@@ -9,32 +9,46 @@
 }
 .settingsPanel{
     background-color: black;
-    background-color: rgba(0, 0, 0, 0.8);
-    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.9);
     width: 170px;
-    height: 300px;
+    height: 350px;
     position: fixed;
-    bottom: 75px;
-    left: 15px;
+    bottom: 0;
+    left: 0;
     color: #fff;
     padding: 20px 10px;
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-around;
     align-items: center;
-    visibility: hidden;
-    opacity: 0;
-    transition: opacity .5s linear;
+    transition: all .225s ease-in-out;
+    box-sizing: border-box;
+    box-shadow:
+        0 3px 5px 5px rgba(0, 0, 0, .15),
+        0 6px 10px 5px rgba(0, 0, 0, .2);
+    h1 {
+        width: 100%;
+    }
 }
-.show{
-    visibility: visible;
-    opacity: 1;
+.settingsHidden{
+    padding: 8px;
+    width: 150px;
+    height: 30px;
+}
+.settingsHidden:hover{
+    transform: scale(1.05);
+    box-shadow:
+        0 0 10px 10px rgba(255, 255, 255, .09),
+        0 0 20px 20px rgba(255, 255, 255, .15);
+    }
+.settingsShown{
+    transform: translate(30px, -100px);
 }
 .panelTitle{
-    text-align: center;
-    font-size: 18px;
-    font-weight: 700;
-    font-family: sans-serif;
-    letter-spacing: .3em;
+    font-size: 16px;
+    font-weight: 400;
     text-transform: uppercase;
+    text-align: left;
+    user-select: none;
+    cursor: pointer;
 }

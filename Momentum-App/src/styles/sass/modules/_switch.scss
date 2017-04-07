@@ -7,6 +7,12 @@
     flex-flow: row nowrap;
     justify-content: space-around;
 }
+.settingsItem:first-child {
+    margin-top: 20px;
+}
+.settingsItemHidden{
+    display: none;
+}
 .switcherContainer{
     width: 50px;
     height: 40px;
