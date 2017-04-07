@@ -45,7 +45,7 @@
         0 0 20px 20px rgba(255, 255, 255, .15);
 }
 .settingsShown{
-    //transform: translate(30px, -100px);
+    transform: translate(30px, -100px);
 }
 .panelTitle{
     font-size: 16px;
@@ -54,4 +54,13 @@
     text-align: left;
     user-select: none;
     cursor: pointer;
+}
+.panelControls {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 30px;
+    font-weight: 900;
 }

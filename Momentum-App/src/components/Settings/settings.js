@@ -8,7 +8,10 @@ import Switch from './switch';
 const Settings = props => {
   return (
         <div className="settingsPanel settingsHidden" id="settingsPanel">
+          <div className="panelControls">
             <h1 className="panelTitle" onClick={props.opener}>Settings</h1>
+            <div className="todo-btn"><i className="fa fa-window-minimize"></i></div>
+        </div>  
             <Switch item={'Weather'} switcher={props.weatherSwitcher} isON={props.weatherON} />
             <Switch item={"Clock"} switcher={props.clockSwitcher} isON={props.clockON} />
             <Switch item={"Greeting"} switcher={props.greetingSwitcher} isON={props.greetingON} />
