@@ -21,6 +21,7 @@ constructor(){
     renderFocus: false,
     backgroundURL: "",
     todaysFocus: [],
+    settingsAreMinimized: true
   }
 }
 
@@ -81,30 +82,6 @@ componentWillMount = () => {
     })
   }
 
-  openSettings = () => {
-    const settingsPanel = document.getElementById('settingsPanel'),
-          settingsItems = document.querySelectorAll('.settingsItem');
-
-    settingsPanel.classList.toggle('settingsHidden');
-    settingsPanel.classList.toggle('settingsShown');
-    settingsItems.forEach(function(item){
-      item.classList.toggle('settingsItemHidden')
-    })
-    this.removeSettingsHighlight();
-  }
-
-  highlightSettings() {
-    const settingsPanel = document.getElementById('settingsPanel');
-      if (!settingsPanel.classList.contains('settingsShown')){
-          settingsPanel.classList.add('settingsHighlighted');
-      }
-  }
-
-  removeSettingsHighlight() {
-    const settingsPanel = document.getElementById('settingsPanel');
-          settingsPanel.classList.remove('settingsHighlighted')
-  }
-
   setBackground = () => {
     const width = window.innerWidth,
           height = window.innerHeight,
@@ -118,6 +95,23 @@ componentWillMount = () => {
 
   setTodaysFocus(todaysFocus) {
     this.setState({ todaysFocus });
+  }
+
+  openSettings = () => {
+    this.setState({settingsAreMinimized: !this.state.settingsAreMinimized})
+  }
+  highlightSettings = () => {
+    const settingsPanel = document.querySelector('.settingsPanel');
+    if (this.state.settingsAreMinimized) {
+      settingsPanel.classList.add('highlighted');
+    }
+  }
+
+  removeSettingsHighlight = () => {
+    const settingsPanel = document.querySelector('.settingsPanel');
+    if (this.state.settingsAreMinimized) {
+      settingsPanel.classList.remove('highlighted');
+    }
   }
 
   render() {
@@ -148,7 +142,9 @@ componentWillMount = () => {
                 <div className="bottom-right">
                   {this.state.renderTodo ? <Todo setTodaysFocus={(tasks) => this.setTodaysFocus(tasks)}/> : null}
                 </div>
-                <div className="bottom-left" onMouseEnter={this.highlightSettings} onMouseLeave={this.removeSettingsHighlight}>
+                <div className="bottom-left" 
+                     onMouseEnter={this.highlightSettings}
+                     onMouseLeave={this.removeSettingsHighlight} >
                   <Settings weatherSwitcher={this.weatherSwitcher}
                             clockSwitcher={this.clockSwitcher}
                             todoSwitcher={this.todoSwitcher}
@@ -161,7 +157,9 @@ componentWillMount = () => {
                             todoON={this.state.renderTodo}
                             greetingON={this.state.renderGreeting}
                             focusON={this.state.renderFocus}
-                            opener={this.openSettings} />
+                            opener={this.openSettings}
+                            minimized={this.state.settingsAreMinimized} />
+                            
               </div>
             </div>
           </div>

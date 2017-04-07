@@ -1,66 +1,50 @@
-.iconBox{
-    width: 50px;
-    height: 50px;
-    padding: 0 15px 15px;
-}
-.settingsIcon{
-    width: 100%;
-    height: 100%;
-}
-.settingsPanel{
-    background-color: black;
-    background-color: rgba(0, 0, 0, 0.9);
-    width: 170px;
-    height: 350px;
+.settingsPanel {
+    width: 180px;
+    height: 300px;
+    background: rgba(0, 0, 0, .9);
     position: fixed;
     bottom: 0;
     left: 0;
-    color: #fff;
-    padding-top: 5px;
-    padding-bottom: 15px;
-    padding-left: 10px;
-    padding-right: 10px;
     display: flex;
     flex-flow: column nowrap;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
+    color: #fff;
     transition: all .225s ease-in-out;
-    box-sizing: border-box;
-    box-shadow:
-        0 3px 5px 5px rgba(0, 0, 0, .15),
-        0 6px 10px 5px rgba(0, 0, 0, .2);
-    h1 {
-        width: 100%;
-    }
 }
-.settingsHidden{
-    padding: 5px;
-    width: 150px;
-    height: 30px;
-}
-.settingsHighlighted {
-    transform: scale(1.05);
-    box-shadow:
-        0 0 10px 10px rgba(255, 255, 255, .09),
-        0 0 20px 20px rgba(255, 255, 255, .15);
-}
-.settingsShown{
-    transform: translate(30px, -100px);
-}
-.panelTitle{
-    font-size: 16px;
-    font-weight: 400;
+.settingsControls {
     text-transform: uppercase;
-    text-align: left;
-    user-select: none;
-    cursor: pointer;
-}
-.panelControls {
+    font-size: 15;
+    font-weight: 400;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
+    padding: 20px 10px 0 10px;
     width: 100%;
     height: 30px;
-    font-weight: 900;
+    box-sizing: border-box;
+}
+.settingsItemList {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+}
+.settingsHidden{
+    width: 180px;
+    height: 30px;
+    .settingsControls {
+        padding: 8px;
+    }
+    .settingsItemList{
+        display: none;
+    }
+}
+.highlighted {
+    transform: scale(1.05);
+    box-shadow:
+        0 0 10px 10px rgba(255, 255, 255, .09),
+        0 0 20px 20px rgba(255, 255, 255, .15);
 }
