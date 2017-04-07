@@ -81,17 +81,28 @@ componentWillMount = () => {
     })
   }
 
-  openSettings() {
+  openSettings = () => {
     const settingsPanel = document.getElementById('settingsPanel'),
           settingsItems = document.querySelectorAll('.settingsItem');
 
     settingsPanel.classList.toggle('settingsHidden');
     settingsPanel.classList.toggle('settingsShown');
     settingsItems.forEach(function(item){
-      console.log(item);
       item.classList.toggle('settingsItemHidden')
     })
+    this.removeSettingsHighlight();
+  }
 
+  highlightSettings() {
+    const settingsPanel = document.getElementById('settingsPanel');
+      if (!settingsPanel.classList.contains('settingsShown')){
+          settingsPanel.classList.add('settingsHighlighted');
+      }
+  }
+
+  removeSettingsHighlight() {
+    const settingsPanel = document.getElementById('settingsPanel');
+          settingsPanel.classList.remove('settingsHighlighted')
   }
 
   setBackground = () => {
@@ -137,7 +148,7 @@ componentWillMount = () => {
                 <div className="bottom-right">
                   {this.state.renderTodo ? <Todo setTodaysFocus={(tasks) => this.setTodaysFocus(tasks)}/> : null}
                 </div>
-                <div className="bottom-left">
+                <div className="bottom-left" onMouseEnter={this.highlightSettings} onMouseLeave={this.removeSettingsHighlight}>
                   <Settings weatherSwitcher={this.weatherSwitcher}
                             clockSwitcher={this.clockSwitcher}
                             todoSwitcher={this.todoSwitcher}

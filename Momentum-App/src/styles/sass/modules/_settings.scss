@@ -16,7 +16,10 @@
     bottom: 0;
     left: 0;
     color: #fff;
-    padding: 20px 10px;
+    padding-top: 5px;
+    padding-bottom: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-around;
@@ -31,18 +34,18 @@
     }
 }
 .settingsHidden{
-    padding: 8px;
+    padding: 5px;
     width: 150px;
     height: 30px;
 }
-.settingsHidden:hover{
+.settingsHighlighted {
     transform: scale(1.05);
     box-shadow:
         0 0 10px 10px rgba(255, 255, 255, .09),
         0 0 20px 20px rgba(255, 255, 255, .15);
-    }
+}
 .settingsShown{
-    transform: translate(30px, -100px);
+    //transform: translate(30px, -100px);
 }
 .panelTitle{
     font-size: 16px;
