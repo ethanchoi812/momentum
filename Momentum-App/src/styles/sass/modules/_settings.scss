@@ -24,6 +24,7 @@
     width: 100%;
     height: 30px;
     box-sizing: border-box;
+    user-select: none;
 }
 .settingsItemList {
     display: flex;
@@ -37,6 +38,7 @@
     height: 30px;
     .settingsControls {
         padding: 8px;
+        cursor: pointer;
     }
     .settingsItemList{
         display: none;
