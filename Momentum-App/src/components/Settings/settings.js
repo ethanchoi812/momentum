@@ -7,20 +7,38 @@ import Switch from './switch';
 
 const Settings = props => {
   return (
-    <div className="settingsBox">
-      <div className="iconBox" onClick={props.opener}>
-        <img src="https://cdn3.iconfinder.com/data/icons/fez/512/FEZ-04-512.png" alt="settings icon" className="settingsIcon" />
-      </div>
-        <div className="settingsPanel" id="settingsPanel">
-            <h1 className="panelTitle">Settings</h1>
-            <Switch item={'Weather'} switcher={props.weatherSwitcher} isON={props.weatherON} />
-            <Switch item={"Clock"} switcher={props.clockSwitcher} isON={props.clockON} />
-            <Switch item={"Greeting"} switcher={props.greetingSwitcher} isON={props.greetingON} />
-            <Switch item={"Todo"} switcher={props.todoSwitcher} isON={props.todoON} />
-            <Switch item={"Quote"} switcher={props.quoteSwitcher} isON={props.quoteON} />
-            <Switch item={"Focus"} switcher={props.focusSwitcher} isON={props.focusON} />
+        <div className={props.minimized
+                        ? "settingsPanel settingsHidden"
+                        : "settingsPanel"} >
+
+            <div className="settingsControls" 
+                onClick={props.minimized
+                          ? props.opener
+                          : null}>
+                <div className="settingsTitle">
+                  Settings
+                </div>
+                <div className="iconBox todo-btn" onClick={props.opener}>
+                  <i className={props.minimized
+                                ? "fa fa-window-restore"
+                                : "fa fa-window-minimize"}></i>
+            </div>  
+          </div>   
+          <div className="settingsItemList">
+            <Switch item={'Weather'} switcher={props.weatherSwitcher} 
+            isON={props.weatherON} />
+            <Switch item={"Clock"} switcher={props.clockSwitcher} 
+            isON={props.clockON} />
+            <Switch item={"Greeting"} switcher={props.greetingSwitcher} 
+            isON={props.greetingON} />
+            <Switch item={"Todo"} switcher={props.todoSwitcher} 
+            isON={props.todoON} />
+            <Switch item={"Quote"} switcher={props.quoteSwitcher} 
+            isON={props.quoteON} />
+            <Switch item={"Focus"} switcher={props.focusSwitcher} 
+            isON={props.focusON} />
+          </div>
         </div>
-    </div>
     );
   }
 

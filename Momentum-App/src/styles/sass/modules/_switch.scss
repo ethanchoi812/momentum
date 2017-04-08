@@ -7,6 +7,7 @@
     flex-flow: row nowrap;
     justify-content: space-around;
 }
+
 .switcherContainer{
     width: 50px;
     height: 40px;
@@ -19,6 +20,7 @@
     height: 17px;
     background-color: grey;
     border-radius: 7px;
+    cursor: pointer;
 }
 .itemName{
     width: 100px;

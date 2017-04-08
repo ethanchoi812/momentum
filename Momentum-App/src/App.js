@@ -21,6 +21,7 @@ constructor(){
     renderFocus: false,
     backgroundURL: "",
     todaysFocus: [],
+    settingsAreMinimized: true
   }
 }
 
@@ -81,12 +82,6 @@ componentWillMount = () => {
     })
   }
 
-  openSettings() {
-    console.log("You just clicked shit!")
-    const settingsPanel = document.getElementById('settingsPanel');
-    settingsPanel.classList.toggle("show");
-  }
-
   setBackground = () => {
     const width = window.innerWidth,
           height = window.innerHeight,
@@ -100,6 +95,23 @@ componentWillMount = () => {
 
   setTodaysFocus(todaysFocus) {
     this.setState({ todaysFocus });
+  }
+
+  openSettings = () => {
+    this.setState({settingsAreMinimized: !this.state.settingsAreMinimized})
+  }
+  highlightSettings = () => {
+    const settingsPanel = document.querySelector('.settingsPanel');
+    if (this.state.settingsAreMinimized) {
+      settingsPanel.classList.add('highlighted');
+    }
+  }
+
+  removeSettingsHighlight = () => {
+    const settingsPanel = document.querySelector('.settingsPanel');
+    if (this.state.settingsAreMinimized) {
+      settingsPanel.classList.remove('highlighted');
+    }
   }
 
   render() {
@@ -130,7 +142,9 @@ componentWillMount = () => {
                 <div className="bottom-right">
                   {this.state.renderTodo ? <Todo setTodaysFocus={(tasks) => this.setTodaysFocus(tasks)}/> : null}
                 </div>
-                <div className="bottom-left">
+                <div className="bottom-left" 
+                     onMouseEnter={this.highlightSettings}
+                     onMouseLeave={this.removeSettingsHighlight} >
                   <Settings weatherSwitcher={this.weatherSwitcher}
                             clockSwitcher={this.clockSwitcher}
                             todoSwitcher={this.todoSwitcher}
@@ -143,7 +157,9 @@ componentWillMount = () => {
                             todoON={this.state.renderTodo}
                             greetingON={this.state.renderGreeting}
                             focusON={this.state.renderFocus}
-                            opener={this.openSettings} />
+                            opener={this.openSettings}
+                            minimized={this.state.settingsAreMinimized} />
+                            
               </div>
             </div>
           </div>

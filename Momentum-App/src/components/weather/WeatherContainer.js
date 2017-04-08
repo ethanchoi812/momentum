@@ -74,6 +74,7 @@ export default class WeatherContainer extends Component {
         useF: settings.weatherUseF === undefined ? countriesUsingF.includes(country) : settings.weatherUseF
       });
     }); 
+    console.log(this.state.sky);
   }
   handleError = (msg) =>{
     this.setState({
