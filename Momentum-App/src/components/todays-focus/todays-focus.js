@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import cloud from './cloud-data.json';
+import sun from './sun-data.json';
+import stars from './stars-data.json';
+
 class TodaysFocus extends React.Component {
   static propTypes = {
     todaysFocus: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
@@ -59,60 +63,39 @@ class TodaysFocus extends React.Component {
     const idx = task && this.state.current || 0;
     task = task || this.props.todaysFocus[0];
 
-    let stars;
-    switch(idx) {
-      case 0:
-        stars = (
-          <span className="todo-high-focus">
-            <i className="fa fa-star"></i>
-            <i className="fa fa-star"></i>
-            <i className="fa fa-star"></i>
-          </span>
-        );
-        break;
-      case 1:
-        stars = (
-          <span className="todo-mid-focus">
-            <i className="fa fa-star"></i>
-            <i className="fa fa-star"></i>
-          </span>
-        );
-        break;
-      case 2:
-      default:
-        stars = (
-          <span className="todo-low-focus">
-            <i className="fa fa-star"></i>
-          </span>
-        );
-    }
-
+    const starPaths = stars[idx].map((star, i) => (
+      <path
+        className="todays-focus-star-path todays-focus-path"
+        transform={star.transform}
+        d={star.d}
+        key={i}
+      />
+    ));
     const onlyOne = this.props.todaysFocus.length === 1;
+    const mainClasses = `todays-focus todays-focus-${idx}`;
 
     return (
-      <div className="todays-focus">
-        <svg className="todays-focus-cloud"
-          viewBox="0 0 105 85"
-          preserveAspectRatio="none"
+      <div className={mainClasses}>
+        <svg className="todays-focus-svg"
+          viewBox={cloud.viewBox}
         >
-          <path className="todays-focus-cloud-path"
-            d="M 25,40 
-              a 20,20 1 0,0 0,40 
-              h 50 
-              a 20,20 1 0,0 0,-40 
-              a 10,10 1 0,0 -15,-10 
-              a 15,15 1 0,0 -35,10  
-              z" />
+          {starPaths}
+          <path className="todays-focus-sun-path todays-focus-path"
+            onClick={this.props.toggleOff}
+            d={sun.d}
+          />
+          <ellipse cx={sun.cx} cy={sun.cy} rx={sun.rx} ry={sun.ry}
+            className="todays-focus-sun-ellipse-path todays-focus-path"
+            onClick={this.props.toggleOff}
+          />
+          <path className="todays-focus-cloud-path todays-focus-path"
+            d={cloud.d}
+          />
         </svg>
         <div className="todays-focus-content">
           <h1 className={"todays-focus-task" + (onlyOne ? ' no-animate' : '')}>
-            {stars}
             <span className="todays-focus-task-title">{task}</span>
-            {stars}
           </h1>
-          <button type="button" onClick={this.props.toggleOff}
-            className="todays-focus-close"
-          ><i className="fa fa-sun-o"></i></button>
         </div>
       </div>
     );

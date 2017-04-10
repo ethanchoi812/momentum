@@ -12,6 +12,11 @@
 # generated css
 src/styles/css/
 
+# generated json data
+cloud-data.json
+sun-data.json
+stars-data.json
+
 # misc
 .DS_Store
 .env

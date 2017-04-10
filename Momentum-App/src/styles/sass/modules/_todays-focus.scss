@@ -13,18 +13,17 @@
 .todays-focus {
   position: fixed;
   z-index: 12; /* weatherbar has z-index 11 */
-  top: 0;
-  left: 5%;
-  right: calc(5% + 200px); /* weatherbar is 200px wide */
-  height: 15%;
+  width: 900px;
+  height: 250px;
 }
 
 .todays-focus-content {
   display: flex;
   position: absolute;
-  width: 70%;
-  bottom: 10%;
-  left: 15%;
+  right: 21%;
+  left: 21%;
+  top: 60%;
+  transform: translateY(-50%);
 }
 
 .todays-focus-task {
@@ -44,6 +43,8 @@
   overflow: hidden;
   white-space: nowrap;
   min-width: 0; /* it would not shrink without this line */
+  font-size: 1.5em;
+  line-height: 1.5em;
 }
 
 .task-entering .todays-focus-task:not(.no-animate) {
@@ -56,34 +57,62 @@
   opacity: 0;
 }
 
-.todays-focus-close {
-  background: none;
-  border: 0;
-  outline: 0;
-  border-radius: 10%;
-  cursor: pointer;
-  transition: all .2s ease-in-out;
-
-  &:hover {
-    background-color: #000;
-    background-color: rgba(0, 0, 0, .3);
-    color: #f96da3;
-  }
-}
-
-
-.todays-focus-cloud {
+.todays-focus-svg {
   height: 100%;
   width: 100%;
+}
+.todays-focus-path {
+  stroke: #333;
+  stroke-width: 3;
+  stroke-linejoin: round;
 }
 .todays-focus-cloud-path {
   fill: #fff;
   fill: rgba(255, 255, 255, .5);
-  stroke: #000;
-  stroke-width: 1;
-  stroke-linejoin: round;
 }
-.todays-focus:hover .todays-focus-cloud-path {
-  fill: #ccdefc;
-  stroke: #9ebff7;
+.todays-focus-sun-ellipse-path {
+  stroke: #fc7f11;
+  fill: #efa667;
+  opacity: 0;
+  cursor: pointer;
 }
+.todays-focus-sun-path {
+  stroke: #efd421;
+  fill: #efd150;
+  opacity: 0;
+  cursor: pointer;
+}
+.todays-focus-0 .todays-focus-star-path {
+  fill: #fb8c00;
+  opacity: .5;
+}
+.todays-focus-1 .todays-focus-star-path {
+  fill: #ffb300;
+  opacity: .5;
+}
+.todays-focus-2 .todays-focus-star-path {
+  fill: #fdd835;
+  opacity: .5;
+}
+.todays-focus:hover {
+  .todays-focus-cloud-path {
+    stroke: #6e9fef;
+    fill: #ccdefc;
+  }
+  .todays-focus-sun-path,
+  .todays-focus-sun-ellipse-path,
+  .todays-focus-star-path {
+    opacity: 1;
+  }
+
+  &.todays-focus-0 .todays-focus-star-path {
+    stroke: #fa7000;
+  }
+  &.todays-focus-1 .todays-focus-star-path {
+    stroke: #ffa500;
+  }
+  &.todays-focus-2 .todays-focus-star-path {
+    stroke: #f7ce18;
+  }
+}
+
