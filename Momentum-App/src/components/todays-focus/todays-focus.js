@@ -66,7 +66,6 @@ class TodaysFocus extends React.Component {
     const starPaths = stars[idx].map((star, i) => (
       <path
         className="todays-focus-star-path todays-focus-path"
-        transform={star.transform}
         d={star.d}
         key={i}
       />

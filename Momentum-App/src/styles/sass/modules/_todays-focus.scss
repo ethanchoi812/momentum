@@ -68,43 +68,54 @@
 }
 .todays-focus-cloud-path {
   fill: #fff;
-  fill: rgba(255, 255, 255, .5);
+  fill: rgba(255, 255, 255, .7);
+  transform-origin: 50% 50%;
+}
+.todays-focus-sun-ellipse-path,
+.todays-focus-sun-path {
+  opacity: 0;
+  cursor: pointer;
+  transform-origin: 50% 50%;
 }
 .todays-focus-sun-ellipse-path {
   stroke: #fc7f11;
   fill: #efa667;
-  opacity: 0;
-  cursor: pointer;
 }
 .todays-focus-sun-path {
   stroke: #efd421;
   fill: #efd150;
-  opacity: 0;
-  cursor: pointer;
+}
+.todays-focus-star-path {
+  transform-origin: 40% 40%;
+  opacity: .7;
 }
 .todays-focus-0 .todays-focus-star-path {
   fill: #fb8c00;
-  opacity: .5;
 }
 .todays-focus-1 .todays-focus-star-path {
   fill: #ffb300;
-  opacity: .5;
 }
 .todays-focus-2 .todays-focus-star-path {
   fill: #fdd835;
-  opacity: .5;
 }
-.todays-focus:hover {
+.todays-focus:hover,
+.todays-focus:active {
+  .todays-focus-path {
+    opacity: 1;
+  }
   .todays-focus-cloud-path {
     stroke: #6e9fef;
     fill: #ccdefc;
+    animation: move 10s infinite alternate;
   }
-  .todays-focus-sun-path,
   .todays-focus-sun-ellipse-path,
-  .todays-focus-star-path {
-    opacity: 1;
+  .todays-focus-sun-path {
+    animation: spin-360 72s linear infinite alternate;
   }
 
+  .todays-focus-star-path {
+    animation: spin-10 4s infinite alternate;
+  }
   &.todays-focus-0 .todays-focus-star-path {
     stroke: #fa7000;
   }
@@ -114,5 +125,18 @@
   &.todays-focus-2 .todays-focus-star-path {
     stroke: #f7ce18;
   }
+}
+
+@keyframes spin-10 {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(10deg); }
+}
+@keyframes spin-360 {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes move {
+  0% { transform: scale(1, 1); }
+  100% { transform: scale(.98, .97); }
 }
 

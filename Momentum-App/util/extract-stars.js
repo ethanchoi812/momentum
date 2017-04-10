@@ -21,7 +21,7 @@ const stars = xmls
   .map($ => $('path').toArray())
   .map(els => els
     .map(el => cheerio(el))
-    .map(el => ({ transform: el.attr('transform'), d: el.attr('d') }))
+    .map(el => ({ d: el.attr('d') }))
   );
 
 const OUTPUT = path.join(
