@@ -1,3 +1,11 @@
+@mixin quoteBtn{
+	display:inline-block;
+	color:#fff;
+	background: none;
+	border: 1px solid #fff;
+	margin-top: 10px;
+}
+
 .quoteContainerDiv{
 	width:100%;
 	margin-bottom:15px;
@@ -115,14 +123,14 @@
 
 .quoteItem{
 	display:inline-block;
-	width:90%;
+	width:95%;
 }
 
 .deleteQuote{
 	display:inline-block;
 	text-align:right;
 	vertical-align: middle;
-	width:10%;
+	width:5%;
 	opacity:0.2;
 	cursor:pointer;
 	&:hover{opacity:1;}
@@ -139,4 +147,10 @@
 	display:block;
 	top:50%;
 	text-align:center;
+	line-height:1.2;
+}
+
+.addRandom{
+	text-decoration:underline;
+	cursor:pointer;
 }

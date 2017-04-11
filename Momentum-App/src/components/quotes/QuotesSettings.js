@@ -14,13 +14,13 @@ class QuotesSettings extends Component {
 
     this.handleSubmitQuote = this.handleSubmitQuote.bind(this);
     this.handleRemoveQuote = this.handleRemoveQuote.bind(this);
+    this.addRandomQuote = this.addRandomQuote.bind(this);
     this.closeQuoteSettings = this.closeQuoteSettings.bind(this);
 	}
 
 	componentDidMount(){
         const component = this;
         window.chrome.storage.sync.get("quoteArr", function(data){
-        //console.log(data.quoteArr);
        	component.setState({
        		quoteArr:data.quoteArr  === undefined ? initialQuoteArray : data.quoteArr});
         });
@@ -29,11 +29,8 @@ class QuotesSettings extends Component {
 	handleSubmitQuote(newQuote) {
 		event.preventDefault();
 		const newArray = this.state.quoteArr.slice();
-		const i = newArray.length;
-		const d = new Date();
-		const n = (d.getDate())%i - 1;
-
-    	newArray.splice(n, 0, newQuote);
+		
+    	newArray.unshift(newQuote);
 		this.setState({quoteArr:newArray});
 		window.chrome.storage.sync.set({"quoteArr": newArray});
 	}
@@ -53,6 +50,13 @@ class QuotesSettings extends Component {
 		window.chrome.storage.sync.set({"quoteArr": newArray});
 	}
 
+	addRandomQuote(event){
+		event.preventDefault();
+		const randomQuoteArr = initialQuoteArray.slice();
+		this.setState({quoteArr:randomQuoteArr});
+		window.chrome.storage.sync.set({"quoteArr": randomQuoteArr});
+	}
+
 	closeQuoteSettings(event){
 
 		this.props.closeQuoteSettings();
@@ -67,7 +71,8 @@ class QuotesSettings extends Component {
 	  		<GetQuote onSubmitNewQuote={this.handleSubmitQuote}/>
 	  		{ quoteArr.length > 0 ?
 	  			<QuoteList quoteArray={quoteArr} handleRemoveQuote={this.handleRemoveQuote}/> :
-	  			<div className="noQuotesYet"><p>No quotes yet! Add your own quote above.</p></div> }
+	  			<div className="noQuotesYet"><p>No quotes yet! Add your own quote above.</p>
+	  			<p>Or <a className="addRandom" onClick={this.addRandomQuote}>add random quotes</a>.</p></div> }
 	  	</div>
   		);
 	}

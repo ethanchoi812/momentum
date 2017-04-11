@@ -20,7 +20,6 @@ constructor(){
     renderQuote: false,
     renderFocus: false,
     backgroundURL: "",
-    todaysFocus: [],
     settingsAreMinimized: true
   }
 }
@@ -93,10 +92,6 @@ componentWillMount = () => {
     
   }
 
-  setTodaysFocus(todaysFocus) {
-    this.setState({ todaysFocus });
-  }
-
   openSettings = () => {
     this.setState({settingsAreMinimized: !this.state.settingsAreMinimized})
   }
@@ -124,10 +119,8 @@ componentWillMount = () => {
             <div className="widgets">
               {
                 this.state.renderFocus ?
-                  <TodaysFocus
-                    todaysFocus={this.state.todaysFocus}
-                    toggleOff={this.focusSwitcher}
-                  /> : null
+                  <TodaysFocus toggleOff={this.focusSwitcher} /> :
+                  null
               }
                 <div className="top-right">
                   {this.state.renderWeather ? <WeatherContainer /> : <WeatherContainer hide={true} />}
@@ -140,8 +133,8 @@ componentWillMount = () => {
                   {this.state.renderQuote ? <QuotesContainer /> : null}
                 </div>
                 <div className="bottom-right">
-                  {this.state.renderTodo ? <Todo setTodaysFocus={(tasks) => this.setTodaysFocus(tasks)}/> : null}
                 </div>
+                {this.state.renderTodo ? <Todo /> : null}
                 <div className="bottom-left" 
                      onMouseEnter={this.highlightSettings}
                      onMouseLeave={this.removeSettingsHighlight} >
