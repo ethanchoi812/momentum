@@ -17,8 +17,30 @@ class TodaysFocus extends React.Component {
       current: 0,
       isClosing: false
     };
-
     this.handleClose = this.handleClose.bind(this);
+    this.handleWheel = this.handleWheel.bind(this);
+  }
+
+  getScale() {
+    return new Promise((resolve, reject) => {
+      if (window.chrome && window.chrome.storage) {
+        window.chrome.storage.sync.get('focusScale', data => {
+          const err = window.chrome.runtime.lastError;
+          if (err) return reject(err);
+
+          const scale = parseFloat(data && data.focusScale);
+          if (!scale) return reject(scale);
+
+          return resolve(scale);
+        });
+      }
+    });
+  }
+
+  saveScale(scale) {
+    if (window.chrome && window.chrome.storage) {
+      window.chrome.storage.sync.set({ focusScale: scale });
+    }
   }
 
   handleClose() {
@@ -26,6 +48,34 @@ class TodaysFocus extends React.Component {
 
     this.setState({ isClosing: true });
     setTimeout(() => this.props.toggleOff(), 1500);
+  }
+
+  handleWheel(evt, scale) {
+    const el = ReactDOM.findDOMNode(this);
+    if (scale && !el) {
+      return window.requestAnimationFrame(
+        () => this.handleWheel(evt, scale)
+      );
+    }
+    if (!el) return;
+
+    const currentScale = parseFloat(
+      window.getComputedStyle(el).getPropertyValue('--scale').trim(),
+    );
+    if (!currentScale) return;
+
+    let nextScale;
+    if (evt) {
+      const sign = evt.deltaY > 0 ? 1 : -1;
+      const step = sign * 0.05;
+      nextScale = currentScale + step;
+      if (nextScale > 1.6 || nextScale < 0.4) return;
+    } else {
+      nextScale = scale;
+    }
+
+    el.style.setProperty('--scale', nextScale);
+    this.saveScale(nextScale);
   }
 
   componentDidMount() {
@@ -37,6 +87,13 @@ class TodaysFocus extends React.Component {
         current: (prevState.current + 1) % this.props.todaysFocus.length
       }));
     }, 10000);
+
+    if (!this.initialized) {
+      this.initialized = true;
+      this.getScale()
+        .then(scale => this.handleWheel(null, scale))
+        .catch(() => this.saveScale(1.00));
+    }
   }
 
   componentWillUnmount() {
@@ -56,7 +113,7 @@ class TodaysFocus extends React.Component {
   }
   componentDidUpdate() {
     const el = ReactDOM.findDOMNode(this);
-    if(!el) return;
+    if (!el) return;
 
     el.classList.add('task-entering');
     setTimeout(() => el.classList.remove('task-leaving'), 0);
@@ -70,7 +127,7 @@ class TodaysFocus extends React.Component {
     }
 
     let task = this.props.todaysFocus[this.state.current];
-    const idx = task && this.state.current || 0;
+    const idx = (task && this.state.current) || 0;
     task = task || this.props.todaysFocus[0];
 
     const starPaths = stars[idx].map((star, i) => (
@@ -87,7 +144,11 @@ class TodaysFocus extends React.Component {
     }
 
     return (
-      <div className={mainClasses.join(' ')}>
+      <div
+        className={mainClasses.join(' ')}
+        onWheel={this.handleWheel}
+        title="Resize with mousewheel"
+      >
         <svg className="todays-focus-svg"
           viewBox={cloud.viewBox}
         >

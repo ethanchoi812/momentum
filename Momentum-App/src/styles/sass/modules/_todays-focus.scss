@@ -11,10 +11,12 @@
 }
 
 .todays-focus {
+  --scale: 1;
   position: fixed;
   z-index: 12; /* weatherbar has z-index 11 */
-  width: 900px;
-  height: 250px;
+  width: calc(900px * var(--scale, 1));
+  height: calc(250px * var(--scale, 1));
+  cursor: ns-resize;
 }
 
 .todays-focus-content {
@@ -43,8 +45,8 @@
   overflow: hidden;
   white-space: nowrap;
   min-width: 0; /* it would not shrink without this line */
-  font-size: 1.5em;
-  line-height: 1.5em;
+  font-size: calc(32px * var(--scale, 1));
+  line-height: calc(48px * var(--scale, 1));
 }
 
 .task-entering .todays-focus-task:not(.no-animate) {
@@ -63,7 +65,7 @@
 }
 .todays-focus-path {
   stroke: #333;
-  stroke-width: 3;
+  stroke-width: calc(3 * var(--scale, 1));
   stroke-linejoin: round;
   transition: all .15s ease-in-out;
 }
@@ -177,6 +179,6 @@
 }
 @keyframes shift-left {
   0% { transform: translateX(0); opacity: .7; }
-  100% { transform: translateX(-200px); opacity: 1; }
+  100% { transform: translateX(calc(-200px * var(--scale,1))); opacity: 1; }
 }
 
