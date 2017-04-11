@@ -14,8 +14,18 @@ class TodaysFocus extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      current: 0
+      current: 0,
+      isClosing: false
     };
+
+    this.handleClose = this.handleClose.bind(this);
+  }
+
+  handleClose() {
+    if (this.state.isClosing) return;
+
+    this.setState({ isClosing: true });
+    setTimeout(() => this.props.toggleOff(), 1500);
   }
 
   componentDidMount() {
@@ -71,31 +81,35 @@ class TodaysFocus extends React.Component {
       />
     ));
     const onlyOne = this.props.todaysFocus.length === 1;
-    const mainClasses = `todays-focus todays-focus-${idx}`;
+    const mainClasses = ['todays-focus', `todays-focus-${idx}`];
+    if (this.state.isClosing) {
+      mainClasses.push('todays-focus-closing');
+    }
 
     return (
-      <div className={mainClasses}>
+      <div className={mainClasses.join(' ')}>
         <svg className="todays-focus-svg"
           viewBox={cloud.viewBox}
         >
           {starPaths}
           <path className="todays-focus-sun-path todays-focus-path"
-            onClick={this.props.toggleOff}
+            onClick={this.handleClose}
             d={sun.d}
           />
           <ellipse cx={sun.cx} cy={sun.cy} rx={sun.rx} ry={sun.ry}
             className="todays-focus-sun-ellipse-path todays-focus-path"
-            onClick={this.props.toggleOff}
+            onClick={this.handleClose}
           />
           <path className="todays-focus-cloud-path todays-focus-path"
             d={cloud.d}
           />
         </svg>
-        <div className="todays-focus-content">
-          <h1 className={"todays-focus-task" + (onlyOne ? ' no-animate' : '')}>
-            <span className="todays-focus-task-title">{task}</span>
-          </h1>
-        </div>
+        { !this.state.isClosing && <div className="todays-focus-content">
+            <h1 className={"todays-focus-task" + (onlyOne ? ' no-animate' : '')}>
+              <span className="todays-focus-task-title">{task}</span>
+            </h1>
+          </div>
+        }
       </div>
     );
   }
