@@ -32,7 +32,7 @@ class QuotesContainer extends Component {
         	const i = quoteArr.length;
 			const d = new Date();
 			const n = (d.getDate())%i;
-            console.log(quoteArr + ", " + i + ", " + n);
+
             component.setState({
 				quoteToday: i>0 ? quoteArr[n].text : "",
 				authorToday: i>0 ? quoteArr[n].author: ""
