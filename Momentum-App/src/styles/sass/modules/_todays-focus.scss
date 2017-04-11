@@ -11,20 +11,21 @@
 }
 
 .todays-focus {
+  --scale: 1;
   position: fixed;
   z-index: 12; /* weatherbar has z-index 11 */
-  top: 0;
-  left: 5%;
-  right: calc(5% + 200px); /* weatherbar is 200px wide */
-  height: 15%;
+  width: calc(900px * var(--scale, 1));
+  height: calc(250px * var(--scale, 1));
+  cursor: ns-resize;
 }
 
 .todays-focus-content {
   display: flex;
   position: absolute;
-  width: 70%;
-  bottom: 10%;
-  left: 15%;
+  right: 21%;
+  left: 21%;
+  top: 60%;
+  transform: translateY(-50%);
 }
 
 .todays-focus-task {
@@ -44,6 +45,8 @@
   overflow: hidden;
   white-space: nowrap;
   min-width: 0; /* it would not shrink without this line */
+  font-size: calc(32px * var(--scale, 1));
+  line-height: calc(48px * var(--scale, 1));
 }
 
 .task-entering .todays-focus-task:not(.no-animate) {
@@ -56,34 +59,126 @@
   opacity: 0;
 }
 
-.todays-focus-close {
-  background: none;
-  border: 0;
-  outline: 0;
-  border-radius: 10%;
-  cursor: pointer;
-  transition: all .2s ease-in-out;
-
-  &:hover {
-    background-color: #000;
-    background-color: rgba(0, 0, 0, .3);
-    color: #f96da3;
-  }
-}
-
-
-.todays-focus-cloud {
+.todays-focus-svg {
   height: 100%;
   width: 100%;
 }
+.todays-focus-path {
+  stroke: #333;
+  stroke-width: calc(3 * var(--scale, 1));
+  stroke-linejoin: round;
+  transition: all .15s ease-in-out;
+}
 .todays-focus-cloud-path {
   fill: #fff;
-  fill: rgba(255, 255, 255, .5);
-  stroke: #000;
-  stroke-width: 1;
-  stroke-linejoin: round;
+  fill: rgba(255, 255, 255, .7);
+  transform-origin: 50% 50%;
 }
-.todays-focus:hover .todays-focus-cloud-path {
-  fill: #ccdefc;
-  stroke: #9ebff7;
+.todays-focus-sun-ellipse-path,
+.todays-focus-sun-path {
+  opacity: 0;
+  cursor: pointer;
+  transform-origin: 50% 50%;
 }
+.todays-focus-sun-ellipse-path {
+  stroke: #fc7f11;
+  fill: #efa667;
+}
+.todays-focus-sun-path {
+  stroke: #efd421;
+  fill: #efd150;
+}
+.todays-focus-star-path {
+  transform-origin: 40% 40%;
+  opacity: .7;
+}
+.todays-focus-0 .todays-focus-star-path {
+  fill: #fb8c00;
+}
+.todays-focus-1 .todays-focus-star-path {
+  fill: #ffb300;
+}
+.todays-focus-2 .todays-focus-star-path {
+  fill: #fdd835;
+}
+.todays-focus:hover,
+.todays-focus:active {
+  .todays-focus-path {
+    opacity: 1;
+  }
+  .todays-focus-cloud-path {
+    stroke: #6e9fef;
+    fill: #ccdefc;
+    animation: move 10s infinite alternate;
+  }
+  .todays-focus-sun-ellipse-path,
+  .todays-focus-sun-path {
+    animation: spin-360 72s linear infinite alternate;
+  }
+
+  .todays-focus-star-path {
+    animation: spin-10 4s infinite alternate;
+  }
+  &.todays-focus-0 .todays-focus-star-path {
+    stroke: #fa7000;
+  }
+  &.todays-focus-1 .todays-focus-star-path {
+    stroke: #ffa500;
+  }
+  &.todays-focus-2 .todays-focus-star-path {
+    stroke: #f7ce18;
+  }
+}
+
+.todays-focus-sun-path:hover,
+.todays-focus-sun-ellipse-path:hover {
+  & + .todays-focus-cloud-path {
+    animation: shake 1s infinite;
+  }
+}
+
+.todays-focus-closing {
+  .todays-focus-path {
+    &.todays-focus-cloud-path {
+      animation: leave 1.5s ease-in;
+    }
+    &.todays-focus-star-path {
+      animation: shift-right 1.5s ease-in;
+    }
+    &.todays-focus-sun-path,
+    &.todays-focus-sun-ellipse-path {
+      animation: shift-left 1.5s ease-in;
+    }
+  }
+}
+
+@keyframes spin-10 {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(10deg); }
+}
+@keyframes spin-360 {
+  0% { transform: rotate(0); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes move {
+  0% { transform: scale(1, 1); }
+  100% { transform: scale(.98, .97); }
+}
+@keyframes shake {
+  0%, 10%, 20%, 30%, 100% { transform: rotate(0) scale(1) translateY(0); }
+  5%, 25% { transform: rotate(2deg) scale(.97) translateY(-3%); }
+  15% { transform: rotate(-2deg) scale(.97) translateY(-3%); }
+}
+@keyframes leave {
+  0% { transform: scale(1, 1); opacity: 1; }
+  75%, 100% { transform: scale(0, .3); opacity: 0; }
+}
+@keyframes shift-right {
+  0% { transform: translateX(0); opacity: .7; }
+  100% { transform: translateX(500%); opacity: 1; }
+}
+@keyframes shift-left {
+  0% { transform: translateX(0); opacity: .7; }
+  100% { transform: translateX(calc(-400px * var(--scale,1))); opacity: 1; }
+}
+

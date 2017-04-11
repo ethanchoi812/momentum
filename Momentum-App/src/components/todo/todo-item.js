@@ -132,6 +132,7 @@ export default class TodoItem extends React.Component {
 
     return (
       <li className={classes}
+          title="Drag to reorder"
           draggable={true}
           onDragStart={this.props.saveDragged}
           onDragOver={this.props.moveDragged}
