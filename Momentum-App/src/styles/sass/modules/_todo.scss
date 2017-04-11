@@ -156,15 +156,13 @@
   align-items: center;
   border-bottom: 1px solid rgba(255, 255, 255, .1);
   margin-bottom: 5px;
+  cursor: grabbing;
 }
 .todo-item:first-child {
   margin-top: 5px;
 }
 .todo-item:last-child {
   border: none;
-}
-.todo-item:active {
-  cursor: grabbing;
 }
 
 .todo-item-title {
