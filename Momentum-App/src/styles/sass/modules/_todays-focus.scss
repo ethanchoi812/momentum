@@ -127,6 +127,13 @@
   }
 }
 
+.todays-focus-sun-path:hover,
+.todays-focus-sun-ellipse-path:hover {
+  & + .todays-focus-cloud-path {
+    animation: shake 1s infinite;
+  }
+}
+
 @keyframes spin-10 {
   0% { transform: rotate(0); }
   100% { transform: rotate(10deg); }
@@ -138,5 +145,14 @@
 @keyframes move {
   0% { transform: scale(1, 1); }
   100% { transform: scale(.98, .97); }
+}
+@keyframes shake {
+  0%, 10%, 20%, 30%, 100% {
+    transform: rotate(0) scale(1) translateY(0);
+  }
+  5%, 25% {
+    transform: rotate(2deg) scale(.97) translateY(-3%);
+  }
+  15% { transform: rotate(-2deg) scale(.97) translateY(-3%); }
 }
 
