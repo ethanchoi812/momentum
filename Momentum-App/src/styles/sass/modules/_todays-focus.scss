@@ -140,14 +140,14 @@
 .todays-focus-closing {
   .todays-focus-path {
     &.todays-focus-cloud-path {
-      animation: leave 1.5s linear;
+      animation: leave 1.5s ease-in;
     }
     &.todays-focus-star-path {
-      animation: shift-right 1.5s linear;
+      animation: shift-right 1.5s ease-in;
     }
     &.todays-focus-sun-path,
     &.todays-focus-sun-ellipse-path {
-      animation: shift-left 1.5s linear;
+      animation: shift-left 1.5s ease-in;
     }
   }
 }
@@ -171,14 +171,14 @@
 }
 @keyframes leave {
   0% { transform: scale(1, 1); opacity: 1; }
-  75%, 100% { transform: scale(0, 0); opacity: 0; }
+  75%, 100% { transform: scale(0, .3); opacity: 0; }
 }
 @keyframes shift-right {
   0% { transform: translateX(0); opacity: .7; }
-  100% { transform: translateX(300%); opacity: 1; }
+  100% { transform: translateX(500%); opacity: 1; }
 }
 @keyframes shift-left {
   0% { transform: translateX(0); opacity: .7; }
-  100% { transform: translateX(calc(-200px * var(--scale,1))); opacity: 1; }
+  100% { transform: translateX(calc(-400px * var(--scale,1))); opacity: 1; }
 }
 
