@@ -13,14 +13,14 @@ $icon-hover-color:#fff;
 	z-index:$zindex;
 }
 
-@mixin component($width, $top-btm, $val1, $left-right, $val2) {
+@mixin component($width, $top-btm, $val1, $left-right, $val2, $z: 11) {
 	position:absolute;
 	display:block;
 	text-align:center;
 	width:$width;
 	#{$top-btm}:$val1;
 	#{$left-right}:$val2;
-	z-index:11;
+	z-index:$z;
 }
 
 @mixin greeting-font{

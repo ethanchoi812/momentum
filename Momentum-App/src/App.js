@@ -133,8 +133,8 @@ componentWillMount = () => {
                   {this.state.renderQuote ? <QuotesContainer /> : null}
                 </div>
                 <div className="bottom-right">
-                  {this.state.renderTodo ? <Todo /> : null}
                 </div>
+                {this.state.renderTodo ? <Todo /> : null}
                 <div className="bottom-left" 
                      onMouseEnter={this.highlightSettings}
                      onMouseLeave={this.removeSettingsHighlight} >
