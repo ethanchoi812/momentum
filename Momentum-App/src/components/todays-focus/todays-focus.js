@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import { focusLevels } from '../todo/todo-utils';
 import cloud from './cloud-data.json';
 import sun from './sun-data.json';
 import stars from './stars-data.json';
 
 class TodaysFocus extends React.Component {
   static propTypes = {
-    todaysFocus: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
     toggleOff: React.PropTypes.func.isRequired
   };
 
@@ -15,10 +15,12 @@ class TodaysFocus extends React.Component {
     super(props);
     this.state = {
       current: 0,
-      isClosing: false
+      isClosing: false,
+      items: []
     };
     this.handleClose = this.handleClose.bind(this);
     this.handleWheel = this.handleWheel.bind(this);
+    this.handleChanges = this.handleChanges.bind(this);
   }
 
   getScale() {
@@ -44,6 +46,26 @@ class TodaysFocus extends React.Component {
         window.chrome.storage.sync.set({ focusScale: scale })
       }, 1000);
     }
+  }
+
+  handleChanges(changes) {
+    if (!changes['todo']) return;
+
+    const todo = changes['todo'].newValue;
+    this.setState({ items: this.extractFocus(todo) });
+  }
+
+  extractFocus(todoItems) {
+    return todoItems
+      .filter(item => !item.done && item.focusLevel !== focusLevels.NONE)
+      .sort((a, b) => {
+        if(a.focusLevel === focusLevels.HIGH) return -1;
+        if(b.focusLevel === focusLevels.HIGH) return 1;
+        if(a.focusLevel === focusLevels.MID) return -1;
+
+        return 1;
+      })
+      .map(item => item.title);
   }
 
   handleClose() {
@@ -83,11 +105,11 @@ class TodaysFocus extends React.Component {
 
   componentDidMount() {
     this.timer = setInterval(() => {
-      const needUpdate = this.props.todaysFocus.length > 0;
+      const needUpdate = this.state.items.length > 0;
       if(!needUpdate) return;
 
       this.setState((prevState) => ({
-        current: (prevState.current + 1) % this.props.todaysFocus.length
+        current: (prevState.current + 1) % this.state.items.length
       }));
     }, 10000);
 
@@ -97,10 +119,23 @@ class TodaysFocus extends React.Component {
         .then(scale => this.handleWheel(null, scale))
         .catch(() => this.saveScale(1.00));
     }
+
+    if (window.chrome && window.chrome.storage) {
+      window.chrome.storage.sync.get('todo', data => {
+        if (data && data['todo']) {
+          const changes = { todo: { newValue: data['todo'] } };
+          this.handleChanges(changes);
+        }
+      });
+      window.chrome.storage.onChanged.addListener(this.handleChanges);
+    }
   }
 
   componentWillUnmount() {
     clearInterval(this.timer);
+    if (window.chrome && window.chrome.storage) {
+      window.chrome.storage.onChanged.removeListener(this.handleChanges);
+    }
   }
 
   // an ugly way to force some animations
@@ -124,14 +159,14 @@ class TodaysFocus extends React.Component {
   }
 
   render() {
-    const haveFocus = this.props.todaysFocus.length > 0;
+    const haveFocus = this.state.items.length > 0;
     if(!haveFocus) {
       return null;
     }
 
-    let task = this.props.todaysFocus[this.state.current];
+    let task = this.state.items[this.state.current];
     const idx = (task && this.state.current) || 0;
-    task = task || this.props.todaysFocus[0];
+    task = task || this.state.items[0];
 
     const starPaths = stars[idx].map((star, i) => (
       <path
@@ -140,7 +175,7 @@ class TodaysFocus extends React.Component {
         key={i}
       />
     ));
-    const onlyOne = this.props.todaysFocus.length === 1;
+    const onlyOne = this.state.items.length === 1;
     const mainClasses = ['todays-focus', `todays-focus-${idx}`];
     if (this.state.isClosing) {
       mainClasses.push('todays-focus-closing');
