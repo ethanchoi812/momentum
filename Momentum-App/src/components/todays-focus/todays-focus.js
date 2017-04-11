@@ -39,7 +39,10 @@ class TodaysFocus extends React.Component {
 
   saveScale(scale) {
     if (window.chrome && window.chrome.storage) {
-      window.chrome.storage.sync.set({ focusScale: scale });
+      clearTimeout(this.saveTimer);
+      this.saveTimer = setTimeout(() => {
+        window.chrome.storage.sync.set({ focusScale: scale })
+      }, 1000);
     }
   }
 
