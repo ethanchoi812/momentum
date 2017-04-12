@@ -72,7 +72,7 @@ class TodaysFocus extends React.Component {
     if (this.state.isClosing) return;
 
     this.setState({ isClosing: true });
-    setTimeout(() => this.props.toggleOff(), 1500);
+    this.closeTimer = setTimeout(() => this.props.toggleOff(), 1500);
   }
 
   handleWheel(evt, scale) {
@@ -133,6 +133,7 @@ class TodaysFocus extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.timer);
+    clearInterval(this.closeTimer);
     if (window.chrome && window.chrome.storage) {
       window.chrome.storage.onChanged.removeListener(this.handleChanges);
     }
