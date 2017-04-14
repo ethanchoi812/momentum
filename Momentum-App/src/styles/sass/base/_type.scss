@@ -1,24 +1,26 @@
 
 	@font-face {
-		font-family: 'Ubuntu';
-		src: url('/Ubuntu/Ubuntu-Regular.tff')
-		format('truetype');
-		font-style: normal;
-		font-weight: normal;
-	}
-
-	@font-face {
-		font-family: 'Ubuntu';
-		src: url('/Ubuntu/Ubuntu-Bold.tff')
-		format('truetype');
-		font-style: normal;
+		font-family: 'Ubuntu-Bold';
+		src: url('./Ubuntu/Ubuntu-B.ttf') format('truetype');
 		font-weight: 700;
+		font-style: normal;
 	}
 
 	@font-face {
-		font-family: 'Ubuntu';
-		src: url('/Ubuntu/Ubuntu-Italic.tff')
-		format('truetype');
-		font-style: italic;
-		font-weight: normal;
+		font-family: 'Ubuntu-Regular';
+		src: url('./Ubuntu/Ubuntu-R.ttf') format('truetype');
+		font-weight: 400;
+		font-style: normal;
+	}
+
+	@mixin ubuntuBold {
+		font-family: 'Ubuntu-Bold', Arial, Helvetica, sans-serif;
+   		font-weight: 700;
+   		font-style: normal;
+	}
+
+	@mixin ubuntuRegular {
+		font-family: 'UbuntuRegular', arial, sans-serif;
+   		font-weight: 400;
+   		font-style: normal;
 	}

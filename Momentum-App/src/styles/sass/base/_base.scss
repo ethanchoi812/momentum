@@ -1,6 +1,6 @@
 
 body {
-  font-family:$font-family-base;
+  @include ubuntuRegular;
   font-size: 1em;
   min-height: 100%;
   overflow: hidden;
@@ -8,9 +8,8 @@ body {
 
 
 h1 {
-  font-weight: 700;
+  @include ubuntuBold;
 }
-
 
 .screen {
     @include fullpage(absolute, 1);
