@@ -1,9 +1,14 @@
 
 body {
-  font-family:$base-font;
+  font-family:$font-family-base;
   font-size: 1em;
   min-height: 100%;
   overflow: hidden;
+}
+
+
+h1 {
+  font-weight: 700;
 }
 
 

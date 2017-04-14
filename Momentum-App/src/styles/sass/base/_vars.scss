@@ -1,8 +1,8 @@
 
-$base-font: "Helvetica Neue", "Lucida Grande", sans-serif;
-
 $icon-color: #ccc;
 $icon-hover-color:#fff;
+
+$font-family-base: 'Ubuntu', "Helvetica", "Lucida Grande", sans-serif;
 
 @mixin fullpage($pos, $zindex){
 	top:0;
