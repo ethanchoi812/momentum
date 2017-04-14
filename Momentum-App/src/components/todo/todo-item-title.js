@@ -9,7 +9,10 @@ export default class TodoItemTitle extends React.Component {
 
     return (
       <div className="todo-item-title">
-        { !isEditing && <span onClick={onToggleEdit}>{title}</span> }
+        { !isEditing && <span
+            onClick={onToggleEdit}
+            title="Click to edit"
+          >{title}</span> }
 
         { isEditing && <input value={title}
           onChange={onChangeTitle}

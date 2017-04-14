@@ -138,7 +138,7 @@ export default class TodoItem extends React.Component {
           onDragOver={this.props.moveDragged}
           onDrop={this.handleDrop}>
 
-        <label className="todo-custom-checkbox">
+        <label className="todo-custom-checkbox" title="Toggle done">
           <input
             onChange={this.handleToggleDone}
             checked={done}
@@ -167,6 +167,7 @@ export default class TodoItem extends React.Component {
 
         <button
           className="todo-item-elem todo-btn"
+          title="Remove"
           onClick={this.handleRemove}>
           <i className="fa fa-times"></i>
         </button>
