@@ -22,8 +22,8 @@
 .todays-focus-content {
   display: flex;
   position: absolute;
-  right: 21%;
-  left: 21%;
+  right: 32%;
+  left: 16%;
   top: 60%;
   transform: translateY(-50%);
 }
@@ -47,6 +47,8 @@
   min-width: 0; /* it would not shrink without this line */
   font-size: calc(32px * var(--scale, 1));
   line-height: calc(48px * var(--scale, 1));
+  color: #fff;
+  cursor: text;
 }
 
 .task-entering .todays-focus-task:not(.no-animate) {
@@ -64,14 +66,13 @@
   width: 100%;
 }
 .todays-focus-path {
-  stroke: #333;
-  stroke-width: calc(3 * var(--scale, 1));
+  stroke: #fff;
+  stroke-width: calc(9 * var(--scale, 1));
   stroke-linejoin: round;
+  fill: rgba(255, 255, 255, 0);
   transition: all .15s ease-in-out;
 }
 .todays-focus-cloud-path {
-  fill: #fff;
-  fill: rgba(255, 255, 255, .7);
   transform-origin: 50% 50%;
 }
 .todays-focus-sun-ellipse-path,
@@ -80,35 +81,16 @@
   cursor: pointer;
   transform-origin: 50% 50%;
 }
-.todays-focus-sun-ellipse-path {
-  stroke: #fc7f11;
-  fill: #efa667;
-}
-.todays-focus-sun-path {
-  stroke: #efd421;
-  fill: #efd150;
-}
 .todays-focus-star-path {
   transform-origin: 40% 40%;
-  opacity: .7;
-}
-.todays-focus-0 .todays-focus-star-path {
-  fill: #fb8c00;
-}
-.todays-focus-1 .todays-focus-star-path {
-  fill: #ffb300;
-}
-.todays-focus-2 .todays-focus-star-path {
-  fill: #fdd835;
 }
 .todays-focus:hover,
 .todays-focus:active {
   .todays-focus-path {
     opacity: 1;
+    stroke-width: calc(12 * var(--scale, 1));
   }
   .todays-focus-cloud-path {
-    stroke: #6e9fef;
-    fill: #ccdefc;
     animation: move 10s infinite alternate;
   }
   .todays-focus-sun-ellipse-path,
@@ -119,14 +101,8 @@
   .todays-focus-star-path {
     animation: spin-10 4s infinite alternate;
   }
-  &.todays-focus-0 .todays-focus-star-path {
-    stroke: #fa7000;
-  }
-  &.todays-focus-1 .todays-focus-star-path {
-    stroke: #ffa500;
-  }
-  &.todays-focus-2 .todays-focus-star-path {
-    stroke: #f7ce18;
+  .todays-focus-task-title {
+    font-weight: bold;
   }
 }
 

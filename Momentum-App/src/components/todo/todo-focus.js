@@ -39,6 +39,8 @@ export default class TodoFocus extends React.Component {
     return (
       <div className="todo-item-elem todo-item-focus">
         <button onClick={this.props.onUpdateFocus}
+          title={this.props.focusLevel === focusLevels.NONE ?
+            "Add focus" : "Remove focus"}
           className="todo-btn">
           { message }
         </button>

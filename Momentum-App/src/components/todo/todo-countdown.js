@@ -25,6 +25,7 @@ export default class TodoCountdown extends React.Component {
     return (
       <div className="todo-item-elem todo-countdown">
         { !isCountingDown && <button onClick={onStartCountdown}
+            title="Start countdown"
             className="todo-btn">
             <i className="fa fa-hourglass-start"></i>
           </button> }
@@ -36,6 +37,7 @@ export default class TodoCountdown extends React.Component {
               type="time" value={timeString} onChange={onChangeTime}/>
           </div> }
         { isCountingDown && <button className="todo-stop-count todo-btn"
+          title="Stop countdown"
           onClick={onStopCountdown}>
           <TodoTimer endTime={dueDate}/>
         </button> }
