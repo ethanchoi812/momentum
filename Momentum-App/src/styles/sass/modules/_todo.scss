@@ -7,6 +7,7 @@
   transform: translateY(50%);
   right: 0;
   transition: all .225s ease-in-out;
+  z-index: 13;
 }
 
 .todo.todo-normal {
@@ -44,6 +45,7 @@
   height: 100%;
   bottom: 50%;
   background: rgba(0, 0, 0, .5);
+  z-index: 1000;
 }
 
 .todo.todo-large .todo-inner-container {
