@@ -1,0 +1,26 @@
+
+	@font-face {
+		font-family: 'Ubuntu-Bold';
+		src: url('../font/Ubuntu/Ubuntu-B.ttf') format('truetype');
+		font-weight: 700;
+		font-style: normal;
+	}
+
+	@font-face {
+		font-family: 'Ubuntu-Regular';
+		src: url('../font/Ubuntu/Ubuntu-R.ttf') format('truetype');
+		font-weight: 400;
+		font-style: normal;
+	}
+
+	@mixin ubuntuBold {
+		font-family: 'Ubuntu-Bold', Arial, Helvetica, sans-serif;
+   		font-weight: 700;
+   		font-style: normal;
+	}
+
+	@mixin ubuntuRegular {
+		font-family: 'Ubuntu-Regular', arial, sans-serif;
+   		font-weight: 400;
+   		font-style: normal;
+	}

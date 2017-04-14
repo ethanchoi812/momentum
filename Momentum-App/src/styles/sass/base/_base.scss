@@ -1,11 +1,15 @@
 
 body {
-  font-family:$base-font;
+  @include ubuntuRegular;
   font-size: 1em;
   min-height: 100%;
   overflow: hidden;
 }
 
+
+h1 {
+  @include ubuntuBold;
+}
 
 .screen {
     @include fullpage(absolute, 1);

@@ -72,7 +72,7 @@ class TodaysFocus extends React.Component {
     if (this.state.isClosing) return;
 
     this.setState({ isClosing: true });
-    setTimeout(() => this.props.toggleOff(), 1500);
+    this.closeTimer = setTimeout(() => this.props.toggleOff(), 1500);
   }
 
   handleWheel(evt, scale) {
@@ -133,6 +133,7 @@ class TodaysFocus extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.timer);
+    clearInterval(this.closeTimer);
     if (window.chrome && window.chrome.storage) {
       window.chrome.storage.onChanged.removeListener(this.handleChanges);
     }
@@ -194,11 +195,15 @@ class TodaysFocus extends React.Component {
           <path className="todays-focus-sun-path todays-focus-path"
             onClick={this.handleClose}
             d={sun.d}
-          />
+          >
+            <title>Click to dismiss</title>
+          </path>
           <ellipse cx={sun.cx} cy={sun.cy} rx={sun.rx} ry={sun.ry}
             className="todays-focus-sun-ellipse-path todays-focus-path"
             onClick={this.handleClose}
-          />
+          >
+            <title>Click to dismiss</title>
+          </ellipse>
           <path className="todays-focus-cloud-path todays-focus-path"
             d={cloud.d}
           />

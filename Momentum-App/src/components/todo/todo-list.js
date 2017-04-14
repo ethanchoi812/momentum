@@ -49,6 +49,7 @@ export default class TodoList extends React.Component {
         { this.props.filter !== filters.DONE &&
           <div className="todo-list-add-area">
             <button onClick={this.props.addNewItem}
+              title="Add item"
               className="todo-add-btn todo-btn">
               <i className="fa fa-5x fa-plus"></i>
             </button>
