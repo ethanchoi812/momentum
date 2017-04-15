@@ -8,8 +8,8 @@ import WeatherContainer from './components/weather/WeatherContainer';
 import Todo from './components/todo/todo.js';
 import QuotesContainer from './components/quotes/QuotesContainer.js';
 import TodaysFocus from './components/todays-focus/todays-focus.js';
-import dayImages from './images/dayImgPaths.js';
-import nightImages from './images/nightImgPaths.js'
+import dayImages from './components/imageLoader/dayImages.js';
+import nightImages from './components/imageLoader/nightImages.js'
 
 class App extends Component {
 constructor(){
