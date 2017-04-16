@@ -55,6 +55,12 @@ componentWillMount = () => {
     })
   }
 
+  componentDidUpdate = () => {
+    if(this.state.savedTimestamp){
+      this.hideOverlay();
+    }
+  }
+
   weatherSwitcher = () => {
    window.chrome.storage.sync.set({"weatherON": !this.state.renderWeather})
     this.setState({
@@ -120,10 +126,15 @@ componentWillMount = () => {
           if(currentTimestamp - this.state.savedTimestamp > 80000000
             || !this.state.savedTimestamp){
             updateImage();
-          }
-          
+          }         
+  }
 
-              
+  hideOverlay = () => {
+    const overlay = document.querySelector('.overlay');
+    overlay.classList.add('hideOverlay');
+    overlay.addEventListener('transitionend', () => {
+      overlay.classList.add('removeOverlay');
+    })
   }
 
   openSettings = () => {
@@ -152,6 +163,7 @@ componentWillMount = () => {
     }
     return (
       <div>
+          <div className="overlay"></div>
           <div className="screen" style={style}></div>
             <div className="widgets">
               {
