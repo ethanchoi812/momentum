@@ -9,7 +9,7 @@ class QuotesSettings extends Component {
 	constructor(props) {    
     super(props);
     this.state = {
-    	quoteArr:initialQuoteArray,
+    	quoteArr:[],
     	};  
 
     this.handleSubmitQuote = this.handleSubmitQuote.bind(this);
