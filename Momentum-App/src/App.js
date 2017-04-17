@@ -8,6 +8,8 @@ import WeatherContainer from './components/weather/WeatherContainer';
 import Todo from './components/todo/todo.js';
 import QuotesContainer from './components/quotes/QuotesContainer.js';
 import TodaysFocus from './components/todays-focus/todays-focus.js';
+import dayImages from './components/imageLoader/dayImages.js';
+import nightImages from './components/imageLoader/nightImages.js'
 
 class App extends Component {
 constructor(){
@@ -19,24 +21,44 @@ constructor(){
     renderGreeting: false,
     renderQuote: false,
     renderFocus: false,
-    backgroundURL: "",
-    settingsAreMinimized: true
+    settingsAreMinimized: true,
+    savedTimestamp: undefined,
+    currentDayImage: undefined,
+    currentNightImage: undefined,
+    dayBgImages: dayImages,
+    nightBgImages: nightImages
   }
 }
 
 componentWillMount = () => {
     const component = this;
-    window.chrome.storage.sync.get(["clockON", "weatherON", "todoON", "greetingON", "quoteON", "focusON"], function(data){
+    window.chrome.storage.sync.get(["clockON", "weatherON", "todoON", "greetingON", "quoteON", "focusON", "savedTimestamp", "currentDayImage", "currentNightImage"], function(data){
       component.setState({
         renderClock: data.clockON === undefined ? true : data.clockON,
         renderWeather: data.weatherON === undefined ? true : data.weatherON,
         renderTodo: data.todoON === undefined ? true : data.todoON,
         renderGreeting: data.greetingON === undefined ? true : data.greetingON,
         renderQuote: data.quoteON === undefined ? true : data.quoteON,
-        renderFocus: data.focusON === undefined ? true : data.focusON
+        renderFocus: data.focusON === undefined ? true : data.focusON,
+        savedTimestamp: data.savedTimestamp === undefined 
+                                                ? undefined 
+                                                : data.savedTimestamp,
+        currentDayImage: data.currentDayImage === undefined
+                                                ? undefined
+                                                : data.currentDayImage,
+        currentNightImage: data.currentNightImage === undefined
+                                                      ? undefined
+                                                      : data.currentNightImage
       })
+      component.setBackground();
+      console.log(component.state);
     })
-    this.setBackground();
+  }
+
+  componentDidUpdate = () => {
+    if(this.state.savedTimestamp){
+      this.hideOverlay();
+    }
   }
 
   weatherSwitcher = () => {
@@ -82,14 +104,37 @@ componentWillMount = () => {
   }
 
   setBackground = () => {
-    const width = window.innerWidth,
-          height = window.innerHeight,
-          time = parseInt(new Date().toLocaleTimeString(undefined, {hour12: false}), 10),
-          //Check the time and insert the id of day picture collection or night picture collection into url
-          collection = (time > 18 || time < 5) ? 647731 : 647662, 
-          url = `https://source.unsplash.com/collection/${collection}/${width}x${height}/daily`;
-    this.setState({backgroundURL: url})
-    
+
+          const currentTimestamp = new Date().getTime();
+          const random = () => Math.floor(Math.random()*10)
+
+          const updateImage = () => {
+            console.log("updating images...");
+            this.setState({
+              savedTimestamp: currentTimestamp,
+              currentDayImage: this.state.dayBgImages[random()],
+              currentNightImage: this.state.nightBgImages[random()]
+            });
+            window.chrome.storage.sync.set({
+              "savedTimestamp": currentTimestamp,
+              "currentDayImage": this.state.currentDayImage,
+              "currentNightImage": this.state.currentNightImage
+            });
+          }
+
+          //Update bg image if it was a day(+-) since the last update
+          if(currentTimestamp - this.state.savedTimestamp > 80000000
+            || !this.state.savedTimestamp){
+            updateImage();
+          }         
+  }
+
+  hideOverlay = () => {
+    const overlay = document.querySelector('.overlay');
+    overlay.classList.add('hideOverlay');
+    overlay.addEventListener('transitionend', () => {
+      overlay.classList.add('removeOverlay');
+    })
   }
 
   openSettings = () => {
@@ -110,11 +155,15 @@ componentWillMount = () => {
   }
 
   render() {
+    const time = parseInt(new Date().toLocaleTimeString(undefined,            {hour12: false}), 10);
     const style = {
-      backgroundImage: `url(${this.state.backgroundURL})`
+      backgroundImage: time > 19 || time < 5
+                       ? `url(${this.state.currentNightImage})`
+                       : `url(${this.state.currentDayImage})`
     }
     return (
       <div>
+          <div className="overlay"></div>
           <div className="screen" style={style}></div>
             <div className="widgets">
               {

@@ -53,6 +53,7 @@ export default class WeatherContainer extends Component {
   //Transform the response into json
   processResponse(response){
     if(response && response.ok){
+      console.log(response);
       return response.json();
     }else {
       return Promise.reject("Invalid response from a weather service")
@@ -60,20 +61,25 @@ export default class WeatherContainer extends Component {
   }
   //Process all the data and update the state
   insertWeatherData = (data)=>{
-    const countriesUsingF = ["United States of America", "Cayman Islands", "Bahamas", "Belize"],
-          country = data.query.results.channel.location.country,
-          component = this;
-   
-   window.chrome.storage.sync.get("weatherUseF", function(settings){
-      component.setState({
-        temp_f: data.query.results.channel.item.condition.temp + " ⁰F",
-        temp_c: ((Number(data.query.results.channel.item.condition.temp) - 32) / 1.8).toFixed(0) + " ⁰C",
-        location: `${data.query.results.channel.location.city}, ${country}`,
-        sky: data.query.results.channel.item.condition.code,
-        userFromF: countriesUsingF.includes(country),
-        useF: settings.weatherUseF === undefined ? countriesUsingF.includes(country) : settings.weatherUseF
-      });
-    }); 
+    if(data.query.results){
+      const countriesUsingF = ["United States of America", "Cayman Islands", "Bahamas", "Belize"],
+            country = data.query.results.channel.location.country,
+            component = this;
+    
+    window.chrome.storage.sync.get("weatherUseF", function(settings){
+        component.setState({
+          temp_f: data.query.results.channel.item.condition.temp + " ⁰F",
+          temp_c: ((Number(data.query.results.channel.item.condition.temp) - 32) / 1.8).toFixed(0) + " ⁰C",
+          location: `${data.query.results.channel.location.city}, ${country}`,
+          sky: data.query.results.channel.item.condition.code,
+          userFromF: countriesUsingF.includes(country),
+          useF: settings.weatherUseF === undefined ? countriesUsingF.includes(country) : settings.weatherUseF
+        });
+      }); 
+    }
+    else {
+      return Promise.reject("No weather data available")
+    }
     console.log(this.state.sky);
   }
   handleError = (msg) =>{

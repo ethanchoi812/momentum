@@ -23,6 +23,18 @@ h1 {
     background-repeat: no-repeat;  
 }
 
+.overlay {
+  @include fullpage(absolute, 15);
+  background-color: #fff;
+  transition: all .5s linear;
+}
+.hideOverlay {
+  opacity: 0;
+}
+.removeOverlay {
+  display:none;
+}
+
 .widgets{
   @include fullpage(absolute, 10);
     top: 0;
