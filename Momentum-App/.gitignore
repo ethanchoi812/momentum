@@ -25,7 +25,10 @@ yarn-debug.log*
 yarn-error.log*
 .sass-cache/
 *.map
+*.pem
+*.crx
 
 #Visual Studio Code config
 .vscode/*
+
 
