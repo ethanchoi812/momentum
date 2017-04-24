@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "Fake Momentum App",
-  "description": "This extension changes the default new tab to our app",
+  "name": "Impact",
+  "description": "This extension changes the default new tab to some fancy pictures",
   "version": "2.0",
   "chrome_url_overrides" : {
     "newtab": "index.html"
