@@ -25,6 +25,7 @@ constructor(){
     savedTimestamp: undefined,
     currentDayImage: undefined,
     currentNightImage: undefined,
+    lastImageIndex: undefined,
     dayBgImages: dayImages,
     nightBgImages: nightImages
   }
@@ -32,7 +33,7 @@ constructor(){
 
 componentWillMount = () => {
     const component = this;
-    window.chrome.storage.sync.get(["clockON", "weatherON", "todoON", "greetingON", "quoteON", "focusON", "savedTimestamp", "currentDayImage", "currentNightImage"], function(data){
+    window.chrome.storage.sync.get(["clockON", "weatherON", "todoON", "greetingON", "quoteON", "focusON", "savedTimestamp", "currentDayImage", "currentNightImage", "lastImageIndex"], function(data){
       component.setState({
         renderClock: data.clockON === undefined ? true : data.clockON,
         renderWeather: data.weatherON === undefined ? true : data.weatherON,
@@ -40,6 +41,9 @@ componentWillMount = () => {
         renderGreeting: data.greetingON === undefined ? true : data.greetingON,
         renderQuote: data.quoteON === undefined ? true : data.quoteON,
         renderFocus: data.focusON === undefined ? true : data.focusON,
+        lastImageIndex: data.lastImageIndex === undefined ? 
+                                                  undefined
+                                                  : data.lastImageIndex,
         savedTimestamp: data.savedTimestamp === undefined 
                                                 ? undefined 
                                                 : data.savedTimestamp,
@@ -106,7 +110,12 @@ componentWillMount = () => {
   setBackground = () => {
 
           const currentTimestamp = new Date().getTime();
-          const random = () => Math.floor(Math.random()*10)
+          const random = () => {
+            const num = Math.floor(Math.random()*10);
+            return num !== this.state.lastImageIndex
+                      ? (this.setState({lastImageIndex: num}), num) 
+                      : random()
+          }
 
           const updateImage = () => {
             console.log("updating images...");

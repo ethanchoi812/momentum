@@ -3,7 +3,7 @@
 
   "name": "Fake Momentum App",
   "description": "This extension changes the default new tab to our app",
-  "version": "1.0",
+  "version": "2.0",
   "chrome_url_overrides" : {
     "newtab": "index.html"
   },
