@@ -1,6 +1,6 @@
 {
-  "name": "Momentum-App",
-  "version": "0.1.0",
+  "name": "Impulse",
+  "version": "1.0.0",
   "private": true,
   "devDependencies": {
     "cheerio": "^0.22.0",
