@@ -12,5 +12,8 @@
     "https://ajax.googleapis.com/",
     "storage",
     "geolocation"
-  ]
+  ],
+  "icons": {
+    "128": "128.png"
+  }
 }
